@@ -1,11 +1,6 @@
-import {reduce} from 'underscore';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormGroup} from '@angular/forms';
 
-export function sum(array) {
-  return reduce(array,
-    (acc, cur) => acc + cur || 0, 0);
-}
 
 export function errorHandler(error: any) {
   if (error.name === 'HttpErrorResponse') {

@@ -5,7 +5,7 @@ import {AccountService} from '../services/account.service';
 import {Result} from '../models/result';
 import {User} from '../models/user';
 import {FormBuilder, FormControl, ValidatorFn, Validators} from '@angular/forms';
-import {validateForm} from '../common/util';
+import {validateForm} from '../common/utils';
 
 @Component({
   selector: 'app-change-pwd',
