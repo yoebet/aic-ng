@@ -63,6 +63,10 @@ export class BaseService<M extends Model> {
     return this.pipeDefault(this.http.post<ValueResult<M>>(this.baseUrl, model));
   }
 
+  create2(model: M): Observable<M> {
+    return this.create(model).pipe(map(this.unwrapValueResult));
+  }
+
   remove(model: M | number): Observable<Result> {
     const id = this.modelId(model);
     const url = `${this.baseUrl}/${id}`;
@@ -70,7 +74,7 @@ export class BaseService<M extends Model> {
   }
 
   update(model: M): Observable<Result> {
-    const url = `${this.baseUrl}`;
+    const url = `${this.baseUrl}/${model.id}`;
     return this.pipeDefault(this.http.put<Result>(url, model));
   }
 

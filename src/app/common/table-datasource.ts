@@ -80,6 +80,21 @@ export class TableDatasource<T> extends DataSource<T> {
       return compare(fieldA, fieldB, isAsc);
     });
   }
+
+  append(model: T) {
+    this.data.push(model);
+    this.setData(this.data);
+  }
+
+  remove(model: T) {
+    const index = this.data.indexOf(model);
+    if (index === -1) {
+      return;
+    }
+    this.data.splice(index, 1);
+    this.setData(this.data);
+  }
+
 }
 
 function compare(a: string | number, b: string | number, isAsc: boolean) {

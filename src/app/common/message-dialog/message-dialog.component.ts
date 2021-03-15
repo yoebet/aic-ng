@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 
 @Component({
-  selector: 'message-dialog',
+  selector: 'app-message-dialog',
   templateUrl: './message-dialog.component.html',
   styleUrls: ['./message-dialog.component.css']
 })
@@ -23,7 +23,7 @@ export class MessageDialogComponent {
       MessageDialogComponent, {
         disableClose: true,
         width: '380px',
-        data: data
+        data
       });
   }
 

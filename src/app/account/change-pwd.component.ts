@@ -19,7 +19,7 @@ export class ChangePwdComponent {
     oriPassword: new FormControl(null, [Validators.required, Validators.minLength(4)]),
     newPassword: new FormControl(null, [Validators.required, Validators.minLength(4)]),
     passwordConfirm: new FormControl(null, [Validators.required, Validators.minLength(4),
-      (field) => this._pwdValidator(field)
+      (field) => this.pwdValidator(field)
     ]),
   });
 
@@ -37,7 +37,7 @@ export class ChangePwdComponent {
     this.form.patchValue(data.user);
   }
 
-  private _pwdValidator(pwdConfirmField) {
+  private pwdValidator(pwdConfirmField) {
     if (!this.form) {
       return null;
     }

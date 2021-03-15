@@ -23,6 +23,9 @@ import {AccountService} from './services/account.service';
 import {SessionService} from './services/session.service';
 import {UserDetailComponent} from './user/user-detail.component';
 import {ChangePwdComponent} from './account/change-pwd.component';
+import {UserEditComponent} from './user/user-edit.component';
+import {UserPwdResetComponent} from './user/user-pwd-reset.component';
+import {MessageDialogComponent} from './common/message-dialog/message-dialog.component';
 
 @NgModule({
   imports: [
@@ -39,12 +42,15 @@ import {ChangePwdComponent} from './account/change-pwd.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    UsersComponent,
     LoginDialogComponent,
+    ChangePwdComponent,
+    UsersComponent,
     UserDetailComponent,
-    ChangePwdComponent
+    UserEditComponent,
+    UserPwdResetComponent,
+    MessageDialogComponent
   ],
-  entryComponents: [LoginDialogComponent, UserDetailComponent, ChangePwdComponent],
+  entryComponents: [LoginDialogComponent, ChangePwdComponent, UserDetailComponent, UserPwdResetComponent, MessageDialogComponent],
   providers: [
     UserService,
     SessionService,
