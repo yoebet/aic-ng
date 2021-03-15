@@ -1,0 +1,86 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>产品测试系统</h1>
+  <span class="spacer"></span>
+  <mat-icon class="current-user-icon" aria-hidden="false" aria-label="user icon">account_circle</mat-icon>
+  <div class="current-user-info">
+    <ng-template [ngIf]="currentUser">
+      <button mat-button [matMenuTriggerFor]="currentUserMenu">{{currentUser.realName}}</button>
+      <mat-menu #currentUserMenu="matMenu">
+        <button mat-menu-item (click)="showDetail()">
+          <mat-icon>info</mat-icon>
+          用户信息
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          退出登录
+        </button>
+        <button mat-menu-item (click)="openLoginDialog()">
+          <mat-icon>supervisor_account</mat-icon>
+          切换用户
+        </button>
+      </mat-menu>
+    </ng-template>
+    <a mat-button *ngIf="!currentUser" (click)="openLoginDialog()">（未登录）</a>
+  </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <!--  左侧导航-->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="mobileQuery.matches ? 'dialog' : 'navigation'"
+               [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [opened]="mobileQuery.matches === false" #snav
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
+    <mat-accordion displayMode="flat" [multi]="true">
+      <mat-expansion-panel class="mat-elevation-z1">
+        <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
+          <mat-panel-title>Group A</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/users" class="menu-item"
+             routerLinkActive="active-link">
+            <span>用户管理</span>
+          </a>
+          <a mat-list-item routerLink="/b" class="menu-item"
+             routerLinkActive="active-link">
+            <span>Menu 12</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel class="mat-elevation-z1">
+        <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
+          <mat-panel-title>Group B</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/a" class="menu-item"
+             routerLinkActive="active-link">
+            <span>Menu 21</span>
+          </a>
+          <a mat-list-item routerLink="/b" class="menu-item"
+             routerLinkActive="active-link">
+            <span>Menu 22</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+  </mat-sidenav>
+
+  <!--主体内容-->
+  <mat-sidenav-content>
+    <router-outlet>
+      <!--<app-address-form></p2-app-address-form>-->
+      <!--<app-table-demo></p2-app-table-demo>-->
+      <!--<app-dashboard-demo></p2-app-dashboard-demo>-->
+      <!--<app-tree-demo></p2-app-tree-demo>-->
+      <!--<app-drag-drop></p2-app-drag-drop>-->
+    </router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

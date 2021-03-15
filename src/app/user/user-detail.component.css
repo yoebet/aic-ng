@@ -1,0 +1,33 @@
+.mat-dialog-title {
+  margin-bottom: 10px;
+}
+
+ul.table-columns {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+ul.table-columns li {
+  list-style-type: none;
+  color: rgba(0, 0, 0, .58);
+  padding-top:4px;
+}
+
+.mat-dialog-content {
+  padding-right: 12px;
+  max-height: 75vh;
+}
+
+.mat-dialog-actions {
+  min-height: initial;
+}
+.mat-button2{
+  line-height: 0px;
+  padding: 0 16px;
+  font-size: 10px;
+  color:#225592;
+}
+.mat-button2:hover{
+  color:#225592;
+  text-decoration:underline;
+}

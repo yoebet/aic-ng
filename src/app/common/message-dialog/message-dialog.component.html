@@ -1,0 +1,9 @@
+<h3 mat-dialog-title>
+  {{type==='info'?'提示':'错误信息'}}
+</h3>
+
+<div *ngIf="msg">{{msg}}</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">确定</button>
+</div>

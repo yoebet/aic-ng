@@ -1,0 +1,246 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./styles/material-icons/material-icons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media print {
+  .not-print, .not-print * {
+    display: none;
+  }
+}
+
+.main-content {
+  display: block;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.full-width {
+  width: 100%;
+}
+
+tr.mat-header-row {
+  height: 48px !important;
+}
+
+tr.mat-row, tr.mat-footer-row {
+  height: 40px !important;
+}
+
+.multi-lines-tooltip {
+  white-space: pre-line;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+td.th {
+  /*background: #f9fafb;*/
+  background: rgba(0, 0, 0, .03);
+  color: rgba(0, 0, 0, .8);
+  font-weight: 700;
+}
+
+.primary-color {
+  color: #3f51b5;
+}
+
+.accent-color {
+  color: #ff4081;
+}
+
+.warn-color {
+  color: #f44336;
+}
+
+.secondary-color {
+  color: rgba(0, 0, 0, .58)
+}
+
+.disabled-color {
+  color: rgba(0, 0, 0, .38)
+}
+
+.active-link {
+  color: #ff4081 !important;
+}
+
+.mat-button.secondary, .mat-icon.secondary {
+  color: rgba(0, 0, 0, .58)
+}
+
+.mat-button.secondary:not([disabled]):hover {
+  color: inherit;
+}
+
+.mat-icon, .mat-icon.mat-icon-20 {
+  height: 22px !important;
+  width: 20px !important;
+  font-size: 20px !important;
+  vertical-align: middle !important;
+}
+
+.mat-table .mat-icon, .mat-table .mat-header-row .mat-icon, .mat-icon.mat-icon-16 {
+  height: 18px !important;
+  width: 16px !important;
+  font-size: 16px !important;
+}
+
+.mat-button i.mat-icon.icon {
+  vertical-align: top !important;
+  margin: 0 0;
+}
+
+.mat-table i.mat-icon.icon {
+  height: 14px !important;
+  width: 14px !important;
+  font-size: 14px !important;
+}
+
+
+.sidenav-container .mat-expansion-panel-body {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.sidenav-container .mat-expansion-panel-body .mat-nav-list {
+  padding-top: 0;
+}
+
+.sidenav-container .mat-expansion-panel-body .mat-nav-list .mat-list-item span {
+  padding-left: 24px;
+}
+
+.content-container {
+  padding: 16px;
+  min-width: 640px;
+  display: inline-block;
+}
+
+.mat-expansion-indicator {
+  display: flex;
+}
+
+.selectable {
+  cursor: pointer;
+}
+
+.selectable.unselected {
+  color: rgba(0, 0, 0, .58)
+}
+
+.selectable:hover, .selectable.selected {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.table-columns label.mat-checkbox-layout {
+  width: 100%;
+}
+
+.table-columns label.mat-checkbox-layout .mat-checkbox-inner-container {
+  margin-left: 0;
+}
+
+.table-columns label.mat-checkbox-layout .mat-checkbox-label {
+  width: 100%;
+}
+
+th.mat-header-cell.actions {
+  text-align: center;
+}
+
+td.mat-cell.compact:last-of-type, td.mat-footer-cell.compact:last-of-type, th.mat-header-cell.compact:last-of-type {
+  padding-right: 8px;
+}
+
+.table-filter-form {
+  margin-left: 16px;
+  padding-top: 8px;
+}
+
+.table-filter-form .mat-form-field {
+  margin-right: 0.5em;
+  width: 120px;
+}
+
+.mat-icon.range-icon {
+  margin-right: 0.5em;
+}
+
+.organ_select_level_2 .mat-option-text {
+  padding-left: 1em;
+}
+
+.organ_select_level_3 .mat-option-text {
+  padding-left: 2em;
+}
+
+.organ_select_level_4 .mat-option-text {
+  padding-left: 3em;
+}
+
+.organ_select_level_5 .mat-option-text {
+  padding-left: 4em;
+}
+
+.tree_table_level_2 {
+  padding-left: 2em;
+}
+
+.tree_table_level_3 {
+  padding-left: 4em;
+}
+
+.tree_table_level_4 {
+  padding-left: 6em;
+}
+
+.tree_table_level_5 {
+  padding-left: 8em;
+}
+
+.detail-prop-name {
+  display: inline-block;
+  min-width: 6em;
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(2n-1), table > tr:nth-child(2n-1) {
+  background-color: #fafafa;
+}
+
+.mat-toolbar .title-tip {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-weight: normal;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-paginator {
+  margin-bottom: 2em;
+  background: #fafafa;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding-left: 0.2em;
+}
+
+
+a.menu-item .mat-list-item-content {
+  padding-right: 0 !important;
+}
