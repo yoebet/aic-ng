@@ -35,7 +35,7 @@
                [opened]="mobileQuery.matches === false" #snav
                [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
 
-    <mat-accordion displayMode="flat" [multi]="true">
+    <mat-accordion displayMode="flat" [multi]="true" *ngIf="beenLogin">
       <mat-expansion-panel class="mat-elevation-z1">
         <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
           <mat-panel-title>Group A</mat-panel-title>

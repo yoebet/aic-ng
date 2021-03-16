@@ -84,9 +84,9 @@ td.th {
   color: inherit;
 }
 
-.mat-icon, .mat-icon.mat-icon-20 {
-  height: 22px !important;
-  width: 20px !important;
+button .mat-icon, .mat-icon.mat-icon-20 {
+  /*height: 22px !important;*/
+  /*width: 20px !important;*/
   font-size: 20px !important;
   vertical-align: middle !important;
 }

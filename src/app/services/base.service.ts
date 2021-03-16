@@ -1,11 +1,9 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 
-import {Observable, EMPTY, throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
 
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-import * as moment from 'moment';
 
 import {LoginDialogComponent} from '../account/login-dialog.component';
 import {MessageDialogComponent} from '../common/message-dialog/message-dialog.component';
@@ -88,36 +86,6 @@ export class BaseService<M extends Model> {
     return typeof model === 'number' ? model : model.id;
   }
 
-  protected handleError = (err) => this._handleError(err);
-
-  protected filterCommonFailure = (result: Result) => this._filterCommonFailure(result);
-
-  protected _filterCommonFailure(result: Result) {
-
-    if (!result) {
-      this.showErrorMessage('未返回结果');
-      return false;
-    }
-    if (typeof result.code === 'undefined') {
-      // this.showErrorMessage(result.message);
-      return false;
-    }
-    if (result.code === Result.CODE_NOT_AUTHENTICATED) {
-      this.handleNotAuthenticated();
-      return false;
-    }
-    if (result.code === Result.CODE_NOT_AUTHORIZED) {
-      this.showErrorMessage(result.message || '无操作权限');
-      return false;
-    }
-    if (result.code === Result.CODE_FORBIDDEN) {
-      this.showErrorMessage(result.message || '禁止操作');
-      return false;
-    }
-
-    return true;
-  }
-
 
   protected unwrapValueResult = (result: ValueResult<M>) => this._unwrapValueResult(result);
 
@@ -137,6 +105,32 @@ export class BaseService<M extends Model> {
       return;
     }
     return result.list;
+  }
+
+  protected handleError = (err) => this._handleError(err);
+
+  protected filterCommonFailure = (result: Result) => this._filterCommonFailure(result);
+
+  protected _filterCommonFailure(result: Result) {
+
+    if (!result) {
+      this.showErrorMessage('未返回结果');
+      return false;
+    }
+    if (typeof result.code === 'undefined') {
+      // this.showErrorMessage(result.message);
+      return false;
+    }
+    if (result.code === Result.CODE_NOT_AUTHENTICATED) {
+      this.handleNotAuthenticated();
+      return false;
+    }
+    if (result.code === Result.CODE_NOT_AUTHORIZED) {
+      this.showErrorMessage(result.message || '无权限');
+      return false;
+    }
+
+    return true;
   }
 
   handleNotAuthenticated(): void {
@@ -200,8 +194,8 @@ export class BaseService<M extends Model> {
     if (typeof opr.code === 'undefined') {
       return;
     }
-    // this.showErrorMessage(opr.message);
-    this.showMessage(opr.message);
+    this.showErrorMessage(opr.message);
+    // this.showMessage(opr.message);
   }
 
 

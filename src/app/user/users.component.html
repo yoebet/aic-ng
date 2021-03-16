@@ -28,6 +28,16 @@
       <td mat-cell *matCellDef="let row">{{row.realName}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>电话</th>
+      <td mat-cell *matCellDef="let row">{{row.phoneNumber}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>邮箱</th>
+      <td mat-cell *matCellDef="let row">{{row.email}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell align="right" *matHeaderCellDef class="compact actions">操作</th>
       <td mat-cell *matCellDef="let row" align="end" class="compact actions">
@@ -35,14 +45,20 @@
           <mat-icon>edit</mat-icon>
           编辑
         </button>
-        <button mat-button (click)="resetPwd(row)" class="secondary">
-          <mat-icon>work_outline</mat-icon>
-          密码重置
+
+        <button mat-button [matMenuTriggerFor]="userActions">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-button (click)="remove(row)" class="secondary">
-          <mat-icon>remove_circle_outline</mat-icon>
-          删除
-        </button>
+        <mat-menu #userActions="matMenu">
+          <button mat-menu-item (click)="resetPwd(row)">
+            <mat-icon>lock</mat-icon>
+            重置密码
+          </button>
+          <button mat-menu-item (click)="remove(row)">
+            <mat-icon>remove_circle_outline</mat-icon>
+            删除
+          </button>
+        </mat-menu>
       </td>
     </ng-container>
 

@@ -20,7 +20,8 @@ export class UserEditComponent implements OnInit {
     accountName: new FormControl(null, [Validators.required, Validators.minLength(3)]),
     password: [null],
     realName: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-    // phoneNumber: new FormControl(null, [Validators.required, Validators.pattern(/^1[0-9]{10}$/)]),
+    phoneNumber: new FormControl(null),
+    email: new FormControl(null)
   });
 
   user: User;

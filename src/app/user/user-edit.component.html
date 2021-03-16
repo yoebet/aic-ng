@@ -40,15 +40,13 @@
 
     </mat-form-field>
 
-    <!--<mat-form-field class="full-width">
-      <input matInput placeholder="电话号码" formControlName="phoneNumber">
-      <mat-error *ngIf="form.controls['phoneNumber'].hasError('required')">
-        手机号码不能为<strong>空</strong>
-      </mat-error>
-      <mat-error *ngIf="form.controls['phoneNumber'].hasError('pattern')">
-        手机格式<strong>不正确</strong>
-      </mat-error>
-    </mat-form-field>-->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="电话" formControlName="phoneNumber">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="邮箱" formControlName="email">
+    </mat-form-field>
 
   </form>
 </mat-dialog-content>

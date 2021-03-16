@@ -12,9 +12,8 @@ export class MessageDialogComponent {
   type: 'error' | 'info';
 
   constructor(
-    public dialogRef: MatDialogRef<MessageDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.msg = data.msg;
+    this.msg = data.msg || '出错了';
     this.type = data.type || 'error';
   }
 
@@ -27,8 +26,4 @@ export class MessageDialogComponent {
       });
   }
 
-  cancel(): void {
-    this.dialogRef.close();
-    this.msg = null;
-  }
 }

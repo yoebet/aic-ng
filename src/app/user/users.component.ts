@@ -10,13 +10,15 @@ import {TableDatasource} from '../common/table-datasource';
 import {Result} from '../models/result';
 import {UserEditComponent} from './user-edit.component';
 import {UserPwdResetComponent} from './user-pwd-reset.component';
+import {SessionSupportComponent} from '../common/session-support.component';
+import {SessionService} from '../services/session.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements AfterViewInit, OnInit {
+export class UsersComponent extends SessionSupportComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -24,14 +26,21 @@ export class UsersComponent implements AfterViewInit, OnInit {
 
   dataSource: TableDatasource<User>;
 
-  displayedColumns: string[] = ['index', 'accountName', 'realName', 'actions'];
+  displayedColumns: string[] = ['index', 'accountName', 'realName', 'phoneNumber', 'email', 'actions'];
 
-  constructor(private userService: UserService,
+  constructor(protected sessionService: SessionService,
+              private userService: UserService,
               private dialog: MatDialog) {
+    super(sessionService);
   }
 
-  ngOnInit(): void {
+  protected onInit() {
+    super.onInit();
     this.dataSource = new TableDatasource<User>();
+  }
+
+  protected onReceiveUser(user: User) {
+    super.onReceiveUser(user);
     this.dataSource.setObservable(this.userService.list2());
   }
 

@@ -39,7 +39,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
 
     this.mobileQuery = media.matchMedia('(max-width: 800px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.mobileQuery.addEventListener('a', this.mobileQueryListener);
   }
 
   onInit() {
@@ -76,7 +76,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.mobileQuery.removeListener(this.mobileQueryListener);
+    this.mobileQuery.removeEventListener('a', this.mobileQueryListener);
   }
 
   openLoginDialog() {
