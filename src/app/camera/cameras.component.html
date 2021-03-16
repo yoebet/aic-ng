@@ -1,0 +1,62 @@
+<div class="mat-elevation-z1">
+  <mat-toolbar>
+    AI摄像头
+    <span class="spacer"></span>
+    <button mat-stroked-button color="primary" (click)="editNew()">
+      <mat-icon>add_circle_outline</mat-icon>
+      新增
+    </button>
+  </mat-toolbar>
+
+  <table mat-table class="full-width" matSort>
+
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let row; let index=index">
+        {{index + 1 + (paginator ? paginator.pageIndex * paginator.pageSize : 0)}}
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="apiBase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>api</th>
+      <td mat-cell *matCellDef="let row">{{row.apiBase}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="deviceNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>序列号</th>
+      <td mat-cell *matCellDef="let row">{{row.deviceNo}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell align="right" *matHeaderCellDef class="compact actions">操作</th>
+      <td mat-cell *matCellDef="let row" align="end" class="compact actions">
+        <button mat-button (click)="edit(row)" class="secondary">
+          <mat-icon>edit</mat-icon>
+          编辑
+        </button>
+
+        <button mat-button [matMenuTriggerFor]="userActions">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #userActions="matMenu">
+          <button mat-menu-item (click)="remove(row)">
+            <mat-icon>remove_circle_outline</mat-icon>
+            删除
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+                 [length]="dataSource?.data.length"
+                 [pageIndex]="0"
+                 [pageSize]="20"
+                 [pageSizeOptions]="[10, 20, 50, 100]">
+  </mat-paginator>
+
+</div>

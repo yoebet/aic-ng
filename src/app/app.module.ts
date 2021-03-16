@@ -26,6 +26,8 @@ import {ChangePwdComponent} from './account/change-pwd.component';
 import {UserEditComponent} from './user/user-edit.component';
 import {UserPwdResetComponent} from './user/user-pwd-reset.component';
 import {MessageDialogComponent} from './common/message-dialog/message-dialog.component';
+import {CameraService} from './services/camera.service';
+import {CamerasComponent} from './camera/cameras.component';
 
 @NgModule({
   imports: [
@@ -48,13 +50,15 @@ import {MessageDialogComponent} from './common/message-dialog/message-dialog.com
     UserDetailComponent,
     UserEditComponent,
     UserPwdResetComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    CamerasComponent
   ],
   entryComponents: [LoginDialogComponent, ChangePwdComponent, UserDetailComponent, UserPwdResetComponent, MessageDialogComponent],
   providers: [
     UserService,
     SessionService,
     AccountService,
+    CameraService,
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

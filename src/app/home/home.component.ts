@@ -66,7 +66,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
   }
 
 
-  onReceiveUser(user: User) {
+  onUserChange(user: User) {
     this.beenLogin = true;
 
     // this.loadCompanies();

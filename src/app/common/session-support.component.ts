@@ -21,7 +21,7 @@ export abstract class SessionSupportComponent implements OnInit, OnDestroy {
   protected onInit() {
   }
 
-  protected onReceiveUser(user: User) {
+  protected onUserChange(user: User) {
   }
 
   protected onUserFistLogin(user: User) {
@@ -44,7 +44,7 @@ export abstract class SessionSupportComponent implements OnInit, OnDestroy {
           this.onUserFistLogin(user);
         }
 
-        this.onReceiveUser(user);
+        this.onUserChange(user);
       });
 
   }
