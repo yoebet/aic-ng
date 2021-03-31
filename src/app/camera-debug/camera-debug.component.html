@@ -1,0 +1,16 @@
+<div class="mat-elevation-z1">
+  <mat-toolbar>
+    摄像头
+    <span *ngIf="camera" class="title-tip">
+      &nbsp;&nbsp;&nbsp;&nbsp; 地址: {{camera.apiBase}}
+      &nbsp;&nbsp;&nbsp;&nbsp; 序列号：{{camera.deviceNo}}
+    </span>
+    <span class="spacer"></span>
+  </mat-toolbar>
+
+  <button mat-stroked-button color="primary" (click)="getDeviceNo()">
+    <mat-icon>add_circle_outline</mat-icon>
+    设备序列号
+  </button>
+
+</div>

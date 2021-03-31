@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
 
 import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
-import {MatDialog} from '@angular/material/dialog';
 
 
 @Injectable()

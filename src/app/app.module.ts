@@ -28,6 +28,10 @@ import {UserPwdResetComponent} from './user/user-pwd-reset.component';
 import {MessageDialogComponent} from './common/message-dialog/message-dialog.component';
 import {CameraService} from './services/camera.service';
 import {CamerasComponent} from './camera/cameras.component';
+import {CameraDebugComponent} from './camera-debug/camera-debug.component';
+import {DateStringPipe} from './common/date-string.pipe';
+import {CameraEditComponent} from './camera/camera-edit.component';
+import {CameraApiService} from './services/camera-api.service';
 
 @NgModule({
   imports: [
@@ -51,14 +55,21 @@ import {CamerasComponent} from './camera/cameras.component';
     UserEditComponent,
     UserPwdResetComponent,
     MessageDialogComponent,
-    CamerasComponent
+    CamerasComponent,
+    CameraDebugComponent,
+    DateStringPipe,
+    CameraEditComponent
   ],
-  entryComponents: [LoginDialogComponent, ChangePwdComponent, UserDetailComponent, UserPwdResetComponent, MessageDialogComponent],
+  entryComponents: [LoginDialogComponent, ChangePwdComponent,
+    UserDetailComponent, UserPwdResetComponent,
+    MessageDialogComponent,
+    CameraEditComponent],
   providers: [
     UserService,
     SessionService,
     AccountService,
     CameraService,
+    CameraApiService,
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

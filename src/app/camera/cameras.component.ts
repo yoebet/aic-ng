@@ -11,6 +11,7 @@ import {Result} from '../models/result';
 import {SessionSupportComponent} from '../common/session-support.component';
 import {SessionService} from '../services/session.service';
 import {User} from '../models/user';
+import {CameraEditComponent} from './camera-edit.component';
 
 @Component({
   selector: 'app-cameras',
@@ -25,7 +26,7 @@ export class CamerasComponent extends SessionSupportComponent implements AfterVi
 
   dataSource: TableDatasource<Camera>;
 
-  displayedColumns: string[] = ['index', 'apiBase', 'deviceNo', 'actions'];
+  displayedColumns: string[] = ['index', 'apiBase', 'deviceNo', 'createdAt', 'actions'];
 
   constructor(protected sessionService: SessionService,
               private cameraService: CameraService,
@@ -50,7 +51,7 @@ export class CamerasComponent extends SessionSupportComponent implements AfterVi
 
 
   edit(camera) {
-    /*const dialogRef: MatDialogRef<CameraEditComponent, Camera> = this.dialog.open(
+    const dialogRef: MatDialogRef<CameraEditComponent, Camera> = this.dialog.open(
       CameraEditComponent, {
         disableClose: true,
         width: '480px',
@@ -68,7 +69,7 @@ export class CamerasComponent extends SessionSupportComponent implements AfterVi
       } else {
         // this.dataSource.update(camera1);
       }
-    });*/
+    });
   }
 
   editNew() {

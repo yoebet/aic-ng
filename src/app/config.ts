@@ -38,11 +38,14 @@ const DATA_CACHE_TIME = 6 * HOUR;
 
 const DEBUG = window?.location?.href?.indexOf('_DEBUG_') > 0 || false;
 
+const HeaderNames = {CameraId: 'cid'};
+
 export {
   PaginatorIntl,
   DATE_FORMATS,
   DATE_FORMAT,
   MONTH_PICKER_FORMAT,
   DATA_CACHE_TIME,
-  DEBUG
+  DEBUG,
+  HeaderNames
 };

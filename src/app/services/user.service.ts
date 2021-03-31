@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {MatDialog} from '@angular/material/dialog';
 
 import {Observable, combineLatest, of} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
@@ -7,7 +8,6 @@ import {map, shareReplay} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {User} from '../models/user';
 import {BaseService} from './base.service';
-import {MatDialog} from '@angular/material/dialog';
 
 
 @Injectable()
