@@ -27,11 +27,6 @@ export class StringResponse extends ApiResponse<string> {
 export class ResponseTemplate {
     temp?: string;
     param?: number[];
-
-    // "data": {
-    //     "temp": "/image/a.png", // 模板图片 http://0.0.0.0:8809/image/a.png
-    //     "param": [] // float 数组，模板提取的特征点
-    // }
 }
 
 export class AddTemplatesResult {

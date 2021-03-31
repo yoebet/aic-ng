@@ -33,26 +33,15 @@ const DATE_FORMATS: MatDateFormats = {
   },
 };
 
-const MINUTE = 60 * 1000;
-const HOUR = 60 * MINUTE;
-const DATA_CACHE_TIME = 6 * HOUR;
-
 const DEBUG = window?.location?.href?.indexOf('_DEBUG_') > 0 || false;
 
 const HeaderNames = {CameraId: 'cid'};
-
-const SnackBarDefaultConfig: MatSnackBarConfig = {
-  duration: 2000,
-  verticalPosition: 'top'
-};
 
 export {
   PaginatorIntl,
   DATE_FORMATS,
   DATE_FORMAT,
   MONTH_PICKER_FORMAT,
-  DATA_CACHE_TIME,
   DEBUG,
-  HeaderNames,
-  SnackBarDefaultConfig
+  HeaderNames
 };

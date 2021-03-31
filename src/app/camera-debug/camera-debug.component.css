@@ -2,16 +2,20 @@
   margin: 1em;
 }
 
-.camera-snapshots {
+.images {
   margin-top: 10px;
   width: 1080px;
   min-height: 200px;
 }
 
-.camera-snapshots img {
+.images img {
   border: 1px solid black;
 }
 
-.positions-input {
+.positions-input, .template-param {
   width: 300px;
+}
+
+.template-param {
+  margin-top: 1em;
 }

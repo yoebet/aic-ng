@@ -7,10 +7,11 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
-import {ApiResponse, CameraImg, StringResponse} from './camera-api/api-response';
+import {AddTemplatesResult, ApiResponse, CameraImg, ResponseTemplate, StringResponse, TemplateInfo} from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
 import {HeaderNames} from '../config';
 import {filter, map} from 'rxjs/operators';
+import {RequestTemplate2} from './camera-api/api-request';
 
 
 @Injectable()
@@ -66,5 +67,20 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<StringResponse>('/init_screen_position', cameraId, {positions});
   }
 
+  getCollection(cameraId: number): Observable<ApiResponse<ResponseTemplate>> {
+    return this.aicPost<ApiResponse<ResponseTemplate>>('/get_collection', cameraId);
+  }
+
+  addTemplateH(cameraId: number, templates: RequestTemplate2[]): Observable<ApiResponse<AddTemplatesResult>> {
+    return this.aicPost<ApiResponse<AddTemplatesResult>>('/add_template_h', cameraId, templates);
+  }
+
+  getTemplate(cameraId: number): Observable<ApiResponse<TemplateInfo[]>> {
+    return this.aicPost<ApiResponse<TemplateInfo[]>>('/get_template', cameraId);
+  }
+
+  delTemplate(cameraId: number): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/del_template', cameraId);
+  }
 
 }

@@ -32,6 +32,7 @@ import {CameraDebugComponent} from './camera-debug/camera-debug.component';
 import {DateStringPipe} from './common/date-string.pipe';
 import {CameraEditComponent} from './camera/camera-edit.component';
 import {CameraApiService} from './services/camera-api.service';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -73,7 +74,8 @@ import {CameraApiService} from './services/camera-api.service';
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS},
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2000, verticalPosition: 'top'}}
   ],
   bootstrap: [AppComponent]
 })

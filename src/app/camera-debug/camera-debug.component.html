@@ -28,7 +28,7 @@
         </button>
       </div>
 
-      <div class="camera-snapshots">
+      <div class="images">
         <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
         <img [src]="camera.apiBase+imgs.img1" *ngIf="imgs&&imgs.img1" width="1080" alt="摄像头画面"/>
       </div>
@@ -46,7 +46,69 @@
       </button>
     </mat-tab>
     <mat-tab label="模板">
-      Content 3
+      <div fxLayout="row wrap">
+        <div fxLayoutAlign="start">
+          所有模板
+        </div>
+        <span class="spacer"></span>
+        <div fxLayoutAlign="end">
+          <button mat-stroked-button color="primary" (click)="getTemplate()" [disabled]="processes.getTemplate">
+            获取所有模板
+          </button>
+
+          <button mat-stroked-button color="primary" (click)="delTemplate()" [disabled]="processes.delTemplate">
+            清除所有模板
+          </button>
+        </div>
+      </div>
+
+      <mat-card *ngFor="let tem of templates" class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{tem.collectionId}}</mat-card-title>
+          <mat-card-subtitle>参数：{{tem.param|json}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="camera.apiBase+tem.img" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+          <p>
+            参数：{{tem.param|json}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+
+
+      <p>&nbsp;</p>
+
+
+      <div fxLayoutAlign="end">
+        <button mat-stroked-button color="primary" (click)="getCollection()" [disabled]="processes.getCollection">
+          获取采集模板
+        </button>
+      </div>
+
+      <div class="template" *ngIf="template">
+        <div class="images">
+          <img [src]="camera.apiBase+template.temp" *ngIf="template.temp" width="1080" alt="模板"/>
+        </div>
+        <mat-form-field class="template-param">
+          <input type="text" placeholder="模板参数" matInput [value]="template.param.join(',')">
+        </mat-form-field>
+
+      </div>
+
+      <p>&nbsp;</p>
+
+      <button mat-stroked-button color="primary" (click)="addTemplateH()"
+              [disabled]="!template||processes.addTemplateH">
+        增加此采集模板
+      </button>
+
+      <p>&nbsp;</p>
+
     </mat-tab>
   </mat-tab-group>
 
