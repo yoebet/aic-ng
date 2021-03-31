@@ -1,16 +1,54 @@
-<div class="mat-elevation-z1">
-  <mat-toolbar>
-    摄像头
-    <span *ngIf="camera" class="title-tip">
-      &nbsp;&nbsp;&nbsp;&nbsp; 地址: {{camera.apiBase}}
-      &nbsp;&nbsp;&nbsp;&nbsp; 序列号：{{camera.deviceNo}}
+<mat-toolbar>
+  摄像头调试
+  <span *ngIf="camera" class="title-tip">
+      &nbsp;&nbsp;&nbsp;&nbsp; API地址: {{camera.apiBase}}
+    &nbsp;&nbsp;&nbsp;&nbsp; 序列号: {{camera.deviceNo}}
     </span>
-    <span class="spacer"></span>
-  </mat-toolbar>
+  <span class="spacer"></span>
+  <span *ngIf="camera">
+      <button mat-button color="primary" (click)="getDeviceNo()" [disabled]="processes.getDeviceNo">
+        <mat-icon>tag</mat-icon>
+        {{camera.deviceNo ? '重新获取序列号' : '获取序列号'}}
+      </button>
+    </span>
+</mat-toolbar>
 
-  <button mat-stroked-button color="primary" (click)="getDeviceNo()">
-    <mat-icon>add_circle_outline</mat-icon>
-    设备序列号
-  </button>
 
-</div>
+<ng-template [ngIf]="camera">
+
+  <div class="alt-info" *ngIf="!camera.deviceNo">请先获取设备序列号</div>
+
+  <mat-tab-group animationDuration="0ms" *ngIf="camera.deviceNo">
+    <mat-tab label="实时画面">
+
+      <div fxLayoutAlign="end">
+        <button mat-stroked-button color="primary" (click)="getCameraImg()" [disabled]="processes.getCameraImg">
+          <mat-icon>image</mat-icon>
+          {{imgs && imgs.img1 ? '刷新' : '获取'}}
+        </button>
+      </div>
+
+      <div class="camera-snapshots">
+        <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
+        <img [src]="camera.apiBase+imgs.img1" *ngIf="imgs&&imgs.img1" width="1080" alt="摄像头画面"/>
+      </div>
+    </mat-tab>
+    <mat-tab label="初始化">
+      <mat-form-field class="positions-input">
+        <input type="text" placeholder="4个点位置（左上，右上，右下，左下）" matInput
+               [(ngModel)]="positionsStr">
+      </mat-form-field>
+      &nbsp;
+      <button mat-stroked-button color="primary" (click)="initScreenPosition()"
+              [disabled]="processes.initScreenPosition">
+        <mat-icon>fullscreen</mat-icon>
+        初始化屏幕
+      </button>
+    </mat-tab>
+    <mat-tab label="模板">
+      Content 3
+    </mat-tab>
+  </mat-tab-group>
+
+</ng-template>
+

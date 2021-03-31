@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
-import {ApiResponse, StringResponse} from './camera-api/api-response';
+import {ApiResponse, CameraImg, StringResponse} from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
 import {HeaderNames} from '../config';
 import {filter, map} from 'rxjs/operators';
@@ -56,6 +56,14 @@ export class CameraApiService extends BaseService<Camera> {
 
   getDeviceNo(cameraId: number): Observable<StringResponse> {
     return this.aicPost<StringResponse>('/get_device', cameraId);
+  }
+
+  getCameraImg(cameraId: number): Observable<ApiResponse<CameraImg>> {
+    return this.aicPost<ApiResponse<CameraImg>>('/get_camera_img', cameraId);
+  }
+
+  initScreenPosition(cameraId: number, positions: number[]): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/init_screen_position', cameraId, {positions});
   }
 
 

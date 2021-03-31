@@ -45,6 +45,10 @@ tr.mat-row, tr.mat-footer-row {
   flex: 1 1 auto;
 }
 
+.mat-tab-body {
+  padding: 1em;
+}
+
 td.th {
   /*background: #f9fafb;*/
   background: rgba(0, 0, 0, .03);

@@ -25,6 +25,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSlideToggleModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AppMaterialModule {

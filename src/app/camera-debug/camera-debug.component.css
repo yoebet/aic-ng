@@ -1,0 +1,17 @@
+.alt-info {
+  margin: 1em;
+}
+
+.camera-snapshots {
+  margin-top: 10px;
+  width: 1080px;
+  min-height: 200px;
+}
+
+.camera-snapshots img {
+  border: 1px solid black;
+}
+
+.positions-input {
+  width: 300px;
+}
