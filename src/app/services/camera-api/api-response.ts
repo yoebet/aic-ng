@@ -42,7 +42,7 @@ export class CallbacksConfig {
 
 export class TemplateInfo {
     collectionId?: string; // 模板 id
-    param?: number[];
+    params?: number[];
     img?: string;
 }
 

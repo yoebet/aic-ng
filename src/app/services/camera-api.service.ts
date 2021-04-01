@@ -3,14 +3,17 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 
 import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
-import {AddTemplatesResult, ApiResponse, CameraImg, ResponseTemplate, StringResponse, TemplateInfo} from './camera-api/api-response';
+import {
+  AddTemplatesResult, ApiResponse, CameraImg, ResponseTemplate,
+  StringResponse, TemplateInfo
+} from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
 import {HeaderNames} from '../config';
-import {filter, map} from 'rxjs/operators';
 import {RequestTemplate2} from './camera-api/api-request';
 
 

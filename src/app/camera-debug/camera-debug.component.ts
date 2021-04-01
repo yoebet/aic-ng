@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -24,15 +24,26 @@ import {RequestTemplate2} from '../services/camera-api/api-request';
   styleUrls: ['./camera-debug.component.css']
 })
 export class CameraDebugComponent implements OnInit {
+  @ViewChild('canvas') canvas: ElementRef;
 
   camera: Camera;
   imgs: CameraImg;
   template: ResponseTemplate;
   templates: TemplateInfo[];
 
+  newTemplateId: string;
+
+  canvasEnv = {
+    img: new Image(),
+    context: {} as CanvasRenderingContext2D,
+    cursor: {} as { x: number, y: number },
+    dimension: {} as { width: number, height: number }
+  };
+
   // 左上，右上，右下，左下
   // positionsStr = '0,0;3840,0;3840,2160;0,2160';
-  positionsStr = '0,0;1920,0;1920,1080;0,1080';
+  // positionsStr = '0,0;1920,0;1920,1080;0,1080';
+  positionsStr = '0,0;960,0;960,540;0,540';
 
   processes: { [name: string]: boolean } = {};
 
@@ -85,6 +96,72 @@ export class CameraDebugComponent implements OnInit {
       );
   }
 
+  initDraw() {
+    const env = this.canvasEnv;
+    // env.img.src = this.camera.apiBase + this.imgs.img1;
+    env.img.src = 'http://localhost:8080/img/126.08ad092b.jpg';
+    const canvas = this.canvas.nativeElement as HTMLCanvasElement;
+    console.log(canvas);
+    env.context = canvas.getContext('2d');
+    console.log('initDraw...');
+
+    env.img.onload = event => {
+      console.log('img onload...');
+      const scale = 2;
+      const width = env.img.width / scale;
+      const height = env.img.height / scale;
+      canvas.setAttribute('width', '' + width);
+      canvas.setAttribute('height', '' + height);
+      env.context.drawImage(env.img, 0, 0, width, height);
+      env.dimension.width = width;
+      env.dimension.height = height;
+    };
+  }
+
+  canvasDown(e) {
+    const env = this.canvasEnv;
+    const context = env.context;
+    context.fillStyle = 'red';
+
+    context.beginPath();
+    context.arc(e.offsetX, e.offsetY, 3, 0, 2 * Math.PI);
+    context.fill();
+    context.closePath();
+
+    context.font = '20px \'\'';
+    const text = '' + e.offsetX + ',' + e.offsetY;
+
+    const tm: TextMetrics = context.measureText(text);
+    const tmWidth = tm.width || 80;
+
+    let x = e.offsetX - tmWidth / 2;
+    let y = e.offsetY + 25;
+    console.log(tm.width, x);
+    if (x < 0) {
+      x = 0;
+    } else if (x > env.dimension.width - tm.width) {
+      x = env.dimension.width - tm.width;
+    }
+    if (y > env.dimension.height) {
+      y = e.offsetY - 10;
+    }
+    context.fillText(text, x, y);
+  }
+
+  canvasMove(e) {
+    const env = this.canvasEnv;
+    env.cursor.x = e.offsetX;
+    env.cursor.y = e.offsetY;
+  }
+
+  resetCanvas() { // 清空画布
+    const env = this.canvasEnv;
+    env.context.fillStyle = '#fff';
+    env.context.clearRect(0, 0, env.dimension.width, env.dimension.height);
+    // this.context.fillRect(0, 0, this.dimension.width, this.dimension.height)
+    env.context.fillStyle = '#000';
+  }
+
   initScreenPosition() {
     if (!this.camera) {
       return;
@@ -134,8 +211,16 @@ export class CameraDebugComponent implements OnInit {
       this.snackBar.open('请先获取采集模板');
       return;
     }
+    if (!this.newTemplateId) {
+      this.snackBar.open('请输入模板id');
+      return;
+    }
 
-    const ts: RequestTemplate2 = {collectionId: '1', temp: this.template.temp, params: this.template.param};
+    const ts: RequestTemplate2 = {
+      collectionId: this.newTemplateId,
+      temp: this.camera.apiBase + this.template.temp,
+      params: this.template.param
+    };
     this.processes.addTemplateH = true;
     this.cameraApiService.addTemplateH(this.camera.id, [ts])
       .subscribe((res: ApiResponse<AddTemplatesResult>) => {

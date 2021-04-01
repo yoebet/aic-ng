@@ -8,7 +8,7 @@
   <span *ngIf="camera">
       <button mat-button color="primary" (click)="getDeviceNo()" [disabled]="processes.getDeviceNo">
         <mat-icon>tag</mat-icon>
-        {{camera.deviceNo ? '重新获取序列号' : '获取序列号'}}
+        获取序列号
       </button>
     </span>
 </mat-toolbar>
@@ -34,78 +34,91 @@
       </div>
     </mat-tab>
     <mat-tab label="初始化">
+      <div fxLayoutAlign="end">
+        <button mat-stroked-button color="primary" (click)="initDraw()"
+                [disabled]="processes.initScreenPosition">
+          <mat-icon>fullscreen</mat-icon>
+          加载摄像头画面
+        </button>
+      </div>
+
+      <div>
+        {{canvasEnv.cursor.x}},{{canvasEnv.cursor.y}}
+      </div>
+      <canvas id="init-screen-canvas" (click)="canvasDown($event)" (mousemove)="canvasMove($event)" #canvas></canvas>
+
       <mat-form-field class="positions-input">
         <input type="text" placeholder="4个点位置（左上，右上，右下，左下）" matInput
                [(ngModel)]="positionsStr">
       </mat-form-field>
-      &nbsp;
       <button mat-stroked-button color="primary" (click)="initScreenPosition()"
               [disabled]="processes.initScreenPosition">
         <mat-icon>fullscreen</mat-icon>
         初始化屏幕
       </button>
+
     </mat-tab>
     <mat-tab label="模板">
       <div fxLayout="row wrap">
-        <div fxLayoutAlign="start">
+        <div class="title">
           所有模板
         </div>
         <span class="spacer"></span>
-        <div fxLayoutAlign="end">
-          <button mat-stroked-button color="primary" (click)="getTemplate()" [disabled]="processes.getTemplate">
+        <div>
+          <button class="flex-button" mat-stroked-button color="primary" (click)="getTemplate()"
+                  [disabled]="processes.getTemplate">
             获取所有模板
           </button>
-
-          <button mat-stroked-button color="primary" (click)="delTemplate()" [disabled]="processes.delTemplate">
+          <button class="flex-button" mat-stroked-button color="primary" (click)="delTemplate()"
+                  [disabled]="processes.delTemplate">
             清除所有模板
           </button>
         </div>
       </div>
 
-      <mat-card *ngFor="let tem of templates" class="example-card">
+      <div class="template-cards" fxLayout="row wrap">
+        <mat-card *ngFor="let tem of templates" class="template-card">
+          <mat-card-header>
+            <mat-card-title>{{tem.collectionId}}</mat-card-title>
+            <mat-card-subtitle>参数：{{tem.params.join(',')}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image [src]="camera.apiBase+tem.img" alt="模板图片">
+          <!--<mat-card-content>
+          </mat-card-content>-->
+        </mat-card>
+      </div>
+
+      <mat-divider class="section-divider"></mat-divider>
+
+      <div fxLayout="row wrap">
+        <div class="title">
+          新模板
+        </div>
+        <span class="spacer"></span>
+        <div>
+          <button mat-stroked-button color="primary" (click)="getCollection()" [disabled]="processes.getCollection">
+            获取采集模板
+          </button>
+        </div>
+      </div>
+
+      <mat-card class="template-card" *ngIf="template">
+        <img mat-card-image [src]="camera.apiBase+template.temp" alt="模板图片">
+        <!--<mat-card-content>
+        </mat-card-content>-->
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>{{tem.collectionId}}</mat-card-title>
-          <mat-card-subtitle>参数：{{tem.param|json}}</mat-card-subtitle>
+          <mat-card-title></mat-card-title>
+          <mat-card-subtitle>参数：{{template.param.join(',')}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="camera.apiBase+tem.img" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            参数：{{tem.param|json}}
-          </p>
-        </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <mat-form-field #templateIdField>
+            <input type="text" placeholder="模板id" matInput [(ngModel)]="newTemplateId">
+          </mat-form-field>
+          <button mat-button (click)="addTemplateH()" [disabled]="!template||processes.addTemplateH">
+            增加采集模板
+          </button>
         </mat-card-actions>
       </mat-card>
-
-
-      <p>&nbsp;</p>
-
-
-      <div fxLayoutAlign="end">
-        <button mat-stroked-button color="primary" (click)="getCollection()" [disabled]="processes.getCollection">
-          获取采集模板
-        </button>
-      </div>
-
-      <div class="template" *ngIf="template">
-        <div class="images">
-          <img [src]="camera.apiBase+template.temp" *ngIf="template.temp" width="1080" alt="模板"/>
-        </div>
-        <mat-form-field class="template-param">
-          <input type="text" placeholder="模板参数" matInput [value]="template.param.join(',')">
-        </mat-form-field>
-
-      </div>
-
-      <p>&nbsp;</p>
-
-      <button mat-stroked-button color="primary" (click)="addTemplateH()"
-              [disabled]="!template||processes.addTemplateH">
-        增加此采集模板
-      </button>
 
       <p>&nbsp;</p>
 
