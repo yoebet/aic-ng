@@ -33,6 +33,9 @@ import {DateStringPipe} from './common/date-string.pipe';
 import {CameraEditComponent} from './camera/camera-edit.component';
 import {CameraApiService} from './services/camera-api.service';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
+import {AicScreenInitComponent} from './camera-debug/aic-screen-init.component';
+import {AicTemplatesComponent} from './camera-debug/aic-templates.component';
+import {AicScreenLiveComponent} from './camera-debug/aic-screen-live.component';
 
 @NgModule({
   imports: [
@@ -59,7 +62,10 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
     CamerasComponent,
     CameraDebugComponent,
     DateStringPipe,
-    CameraEditComponent
+    CameraEditComponent,
+    AicScreenInitComponent,
+    AicTemplatesComponent,
+    AicScreenLiveComponent
   ],
   entryComponents: [LoginDialogComponent, ChangePwdComponent,
     UserDetailComponent, UserPwdResetComponent,

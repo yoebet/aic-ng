@@ -1,0 +1,22 @@
+<div fxLayoutAlign="end">
+  <button mat-stroked-button color="primary" (click)="initDraw()"
+          [disabled]="processes.initScreenPosition">
+    <mat-icon>fullscreen</mat-icon>
+    加载摄像头画面
+  </button>
+</div>
+
+<div>
+  {{cursor.x}},{{cursor.y}}
+</div>
+<canvas id="init-screen-canvas" (click)="canvasDown($event)" (mousemove)="canvasMove($event)" #canvas></canvas>
+
+<mat-form-field class="positions-input">
+  <input type="text" placeholder="4个点位置（左上，右上，右下，左下）" matInput
+         [(ngModel)]="positionsStr">
+</mat-form-field>
+<button mat-stroked-button color="primary" (click)="initScreenPosition()"
+        [disabled]="processes.initScreenPosition">
+  <mat-icon>fullscreen</mat-icon>
+  初始化屏幕
+</button>

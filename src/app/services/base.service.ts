@@ -3,21 +3,20 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
 
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 
-import {LoginDialogComponent} from '../account/login-dialog.component';
 import {MessageDialogComponent} from '../common/message-dialog/message-dialog.component';
 import {Model} from '../models/model';
 import {ListResult, Result, ValueResult} from '../models/result';
+import {LoginSupport} from './login-support';
 
-export class BaseService<M extends Model> {
-
-  private static loginModal: MatDialogRef<LoginDialogComponent> = null;
+export class BaseService<M extends Model> extends LoginSupport {
 
   protected baseUrl: string;
 
   constructor(protected http: HttpClient,
               protected dialog: MatDialog) {
+    super(dialog);
   }
 
 
@@ -122,7 +121,7 @@ export class BaseService<M extends Model> {
       return false;
     }
     if (result.code === Result.CODE_NOT_AUTHENTICATED) {
-      this.handleNotAuthenticated();
+      this.openLoginDialog();
       return false;
     }
     if (result.code === Result.CODE_NOT_AUTHORIZED) {
@@ -133,23 +132,6 @@ export class BaseService<M extends Model> {
     return true;
   }
 
-  handleNotAuthenticated(): void {
-    if (BaseService.loginModal) {
-      return;
-    }
-
-    const dialogRef: MatDialogRef<LoginDialogComponent> = this.dialog.open(
-      LoginDialogComponent, {
-        width: '350px',
-        data: {}
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      BaseService.loginModal = null;
-    });
-
-    BaseService.loginModal = dialogRef;
-  }
 
   private _handleError(error: any/*, caught*/): Observable<any> {
     /*

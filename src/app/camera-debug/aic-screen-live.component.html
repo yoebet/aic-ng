@@ -1,0 +1,11 @@
+<div fxLayoutAlign="end">
+  <button mat-stroked-button color="primary" (click)="getCameraImg()" [disabled]="processes.getCameraImg">
+    <mat-icon>image</mat-icon>
+    {{imgs && imgs.img1 ? '刷新' : '获取'}}
+  </button>
+</div>
+
+<div class="images">
+  <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
+  <img [src]="camera.apiBase+imgs.img1" *ngIf="imgs&&imgs.img1" width="1080" alt="摄像头画面"/>
+</div>

@@ -1,0 +1,69 @@
+<div fxLayout="row wrap">
+  <div class="section-title">
+    所有模板
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="getTemplate()"
+            [disabled]="processes.getTemplate">
+      获取所有模板
+    </button>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="delTemplate()"
+            [disabled]="processes.delTemplate">
+      清除所有模板
+    </button>
+  </div>
+</div>
+
+<div class="template-cards" fxLayout="row wrap">
+  <mat-card *ngFor="let tem of templates" class="template-card">
+    <mat-card-header>
+      <mat-card-title>{{tem.collectionId}}</mat-card-title>
+      <mat-card-subtitle>参数：{{tem.params.join(',')}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="camera.apiBase+tem.img" alt="模板图片">
+    <!--<mat-card-content>
+    </mat-card-content>-->
+  </mat-card>
+</div>
+
+<mat-divider class="section-divider"></mat-divider>
+
+<div fxLayout="row wrap">
+  <div class="section-title">
+    新模板
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button mat-stroked-button color="primary" (click)="getCollection()" [disabled]="processes.getCollection">
+      获取采集模板
+    </button>
+  </div>
+</div>
+
+<mat-card class="template-card" *ngIf="template">
+  <img mat-card-image [src]="camera.apiBase+template.temp" alt="模板图片">
+  <!--<mat-card-content>
+  </mat-card-content>-->
+  <mat-card-header>
+    <mat-card-title></mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions>
+    <div>
+      <mat-form-field>
+        <input type="text" readonly placeholder="模板参数" matInput [value]="template.param.join(',')">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field #templateIdField>
+        <input type="text" placeholder="模板ID" matInput [(ngModel)]="newTemplateId">
+      </mat-form-field>
+      <button mat-button (click)="addTemplateH()" [disabled]="!template||processes.addTemplateH">
+        增加采集模板
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
+
+<p>&nbsp;</p>

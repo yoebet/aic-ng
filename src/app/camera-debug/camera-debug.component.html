@@ -21,106 +21,19 @@
   <mat-tab-group animationDuration="0ms" *ngIf="camera.deviceNo">
     <mat-tab label="实时画面">
 
-      <div fxLayoutAlign="end">
-        <button mat-stroked-button color="primary" (click)="getCameraImg()" [disabled]="processes.getCameraImg">
-          <mat-icon>image</mat-icon>
-          {{imgs && imgs.img1 ? '刷新' : '获取'}}
-        </button>
-      </div>
+      <app-aic-screen-live [camera]="camera"></app-aic-screen-live>
 
-      <div class="images">
-        <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
-        <img [src]="camera.apiBase+imgs.img1" *ngIf="imgs&&imgs.img1" width="1080" alt="摄像头画面"/>
-      </div>
     </mat-tab>
+
     <mat-tab label="初始化">
-      <div fxLayoutAlign="end">
-        <button mat-stroked-button color="primary" (click)="initDraw()"
-                [disabled]="processes.initScreenPosition">
-          <mat-icon>fullscreen</mat-icon>
-          加载摄像头画面
-        </button>
-      </div>
 
-      <div>
-        {{canvasEnv.cursor.x}},{{canvasEnv.cursor.y}}
-      </div>
-      <canvas id="init-screen-canvas" (click)="canvasDown($event)" (mousemove)="canvasMove($event)" #canvas></canvas>
-
-      <mat-form-field class="positions-input">
-        <input type="text" placeholder="4个点位置（左上，右上，右下，左下）" matInput
-               [(ngModel)]="positionsStr">
-      </mat-form-field>
-      <button mat-stroked-button color="primary" (click)="initScreenPosition()"
-              [disabled]="processes.initScreenPosition">
-        <mat-icon>fullscreen</mat-icon>
-        初始化屏幕
-      </button>
+      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
 
     </mat-tab>
+
     <mat-tab label="模板">
-      <div fxLayout="row wrap">
-        <div class="title">
-          所有模板
-        </div>
-        <span class="spacer"></span>
-        <div>
-          <button class="flex-button" mat-stroked-button color="primary" (click)="getTemplate()"
-                  [disabled]="processes.getTemplate">
-            获取所有模板
-          </button>
-          <button class="flex-button" mat-stroked-button color="primary" (click)="delTemplate()"
-                  [disabled]="processes.delTemplate">
-            清除所有模板
-          </button>
-        </div>
-      </div>
 
-      <div class="template-cards" fxLayout="row wrap">
-        <mat-card *ngFor="let tem of templates" class="template-card">
-          <mat-card-header>
-            <mat-card-title>{{tem.collectionId}}</mat-card-title>
-            <mat-card-subtitle>参数：{{tem.params.join(',')}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image [src]="camera.apiBase+tem.img" alt="模板图片">
-          <!--<mat-card-content>
-          </mat-card-content>-->
-        </mat-card>
-      </div>
-
-      <mat-divider class="section-divider"></mat-divider>
-
-      <div fxLayout="row wrap">
-        <div class="title">
-          新模板
-        </div>
-        <span class="spacer"></span>
-        <div>
-          <button mat-stroked-button color="primary" (click)="getCollection()" [disabled]="processes.getCollection">
-            获取采集模板
-          </button>
-        </div>
-      </div>
-
-      <mat-card class="template-card" *ngIf="template">
-        <img mat-card-image [src]="camera.apiBase+template.temp" alt="模板图片">
-        <!--<mat-card-content>
-        </mat-card-content>-->
-        <mat-card-header>
-          <mat-card-title></mat-card-title>
-          <mat-card-subtitle>参数：{{template.param.join(',')}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions>
-          <mat-form-field #templateIdField>
-            <input type="text" placeholder="模板id" matInput [(ngModel)]="newTemplateId">
-          </mat-form-field>
-          <button mat-button (click)="addTemplateH()" [disabled]="!template||processes.addTemplateH">
-            增加采集模板
-          </button>
-        </mat-card-actions>
-      </mat-card>
-
-      <p>&nbsp;</p>
+      <app-aic-templates [camera]="camera"></app-aic-templates>
 
     </mat-tab>
   </mat-tab-group>

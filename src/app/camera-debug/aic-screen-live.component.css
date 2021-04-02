@@ -1,0 +1,10 @@
+
+.images {
+  margin-top: 10px;
+  width: 1080px;
+  min-height: 200px;
+}
+
+.images img {
+  border: 1px solid black;
+}

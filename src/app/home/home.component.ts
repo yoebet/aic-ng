@@ -48,7 +48,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
         .subscribe((result: ValueResult<User>) => {
           if (result && result.code === Result.CODE_SUCCESS && !result.value) {
             if (!this.beenLogin) {
-              this.userService.handleNotAuthenticated();
+              this.userService.openLoginDialog();
             }
           }
         });
@@ -68,9 +68,6 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
 
   onUserChange(user: User) {
     this.beenLogin = true;
-
-    // this.loadCompanies();
-
   }
 
 

@@ -1,0 +1,27 @@
+.template-card {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 540px;
+}
+
+.positions-input, .template-param {
+  width: 300px;
+}
+
+.template-param {
+  margin-top: 1em;
+}
+
+.section-divider {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.title {
+  font-weight: bold;
+  color: #404040;
+}
+
+button.flex-button:not(:first-child) {
+  margin-left: 1em;
+}

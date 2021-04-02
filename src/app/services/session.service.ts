@@ -12,7 +12,6 @@ import {Result, ValueResult} from '../models/result';
 @Injectable()
 export class SessionService {
 
-
   private baseUrl: string;
 
   currentUser: User;
