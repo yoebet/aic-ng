@@ -21,13 +21,13 @@
   <mat-tab-group animationDuration="0ms" *ngIf="camera.deviceNo">
     <mat-tab label="实时画面">
 
-      <app-aic-screen-live [camera]="camera"></app-aic-screen-live>
+      <app-aic-screen-live [camera]="camera" [cameraImg]="cameraImg"></app-aic-screen-live>
 
     </mat-tab>
 
     <mat-tab label="初始化">
 
-      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
+      <app-aic-screen-init [camera]="camera" [cameraImg]="cameraImg"></app-aic-screen-init>
 
     </mat-tab>
 

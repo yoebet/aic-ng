@@ -8,7 +8,7 @@ import {switchMap} from 'rxjs/operators';
 import {CameraService} from '../services/camera.service';
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {StringResponse} from '../services/camera-api/api-response';
+import {CameraImg, StringResponse} from '../services/camera-api/api-response';
 import {SessionSupportComponent} from '../common/session-support.component';
 import {SessionService} from '../services/session.service';
 import {User} from '../models/user';
@@ -21,6 +21,7 @@ import {User} from '../models/user';
 export class CameraDebugComponent extends SessionSupportComponent implements OnInit {
 
   camera: Camera;
+  cameraImg: CameraImg = new CameraImg();
 
   processes: { [name: string]: boolean } = {};
 
@@ -33,11 +34,8 @@ export class CameraDebugComponent extends SessionSupportComponent implements OnI
     super(sessionService);
   }
 
-  protected onInit() {
-    super.onInit();
-  }
 
-  protected onUserChange(user: User) {
+  protected withSession(user: User) {
     this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap) => this.cameraService.getById2(+params.get('id')))
     ).subscribe((camera: Camera) => {

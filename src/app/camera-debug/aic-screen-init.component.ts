@@ -2,12 +2,14 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
 import {
+  ApiResponse,
   CameraImg,
   StringResponse
 } from '../services/camera-api/api-response';
+import {Camera} from '../models/camera';
+
 
 @Component({
   selector: 'app-aic-screen-init',
@@ -17,94 +19,185 @@ import {
 export class AicScreenInitComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef;
   @Input() camera: Camera;
-
-  imgs: CameraImg;
-
-  img: HTMLImageElement;
-  context: CanvasRenderingContext2D;
-  cursor = {x: 0, y: 0};
-  dimension = {width: 0, height: 0};
-
-
-  // 左上，右上，右下，左下
-  // positionsStr = '0,0;3840,0;3840,2160;0,2160';
-  // positionsStr = '0,0;1920,0;1920,1080;0,1080';
-  positionsStr = '0,0;960,0;960,540;0,540';
+  @Input() cameraImg: CameraImg;
 
   processes: { [name: string]: boolean } = {};
 
-  constructor(private cameraApiService: CameraApiService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+  canvasSetup = false;
+  canvasImage: HTMLImageElement;
+  canvasContext: CanvasRenderingContext2D;
+  canvasDimension = {width: 0, height: 0};
+
+  imagePosition = {x: 0, y: 0};
+  imageOriginalDimension = {width: 0, height: 0};
+  imageScale = 0;
+
+  // 左上，右上，右下，左下
+  // 0,0;3840,0;3840,2160;0,2160;
+  // 0,0;1920,0;1920,1080;0,1080;
+  // 0,0;960,0;960,540;0,540
+  positionsStr = '';
+  positions: { x: number, y: number }[] = [];
+
+  constructor(protected cameraApiService: CameraApiService,
+              protected dialog: MatDialog,
+              protected snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
+    if (this.cameraImg.img1) {
+      this.initDraw();
+    }
+  }
+
+  getCameraImg() {
+    if (!this.camera || !this.cameraImg) {
+      return;
+    }
+    if (!this.canvasSetup && this.cameraImg.img1) {
+      this.initDraw();
+      return;
+    }
+    this.processes.getCameraImg = true;
+    this.cameraApiService.getCameraImg(this.camera.id)
+      .subscribe((res: ApiResponse<CameraImg>) => {
+          this.processes.getCameraImg = false;
+          Object.assign(this.cameraImg, res.data);
+
+          this.initDraw();
+        },
+        error => this.processes.getCameraImg = false,
+        () => this.processes.getCameraImg = false
+      );
   }
 
   initDraw() {
-    this.img = new Image();
-    // this.img.src = this.camera.apiBase + this.imgs.img1;
-    this.img.src = 'http://localhost:3000/images/126.jpg';
-    const canvas = this.canvas.nativeElement as HTMLCanvasElement;
-    console.log(canvas);
-    this.context = canvas.getContext('2d');
+    this.canvasImage = new Image();
+    this.canvasImage.src = this.camera.apiBase + this.cameraImg.img1;
+    // this.canvasImage.src = 'http://localhost:3000/images/126.jpg';
     console.log('initDraw...');
 
-    this.img.onload = event => {
+    this.canvasImage.onload = event => {
       console.log('img onload...');
-      const scale = 2;
-      const width = this.img.width / scale;
-      const height = this.img.height / scale;
-      canvas.setAttribute('width', '' + width);
-      canvas.setAttribute('height', '' + height);
-      this.context.drawImage(this.img, 0, 0, width, height);
-      this.dimension.width = width;
-      this.dimension.height = height;
+      this.drawCanvas();
+      this.canvasSetup = true;
     };
   }
 
   canvasDown(e) {
-    if (!this.context) {
+    if (!this.canvasContext) {
       return;
     }
-    const context = this.context;
+    if (this.positions.length >= 4) {
+      this.snackBar.open('已选择4个点');
+      return;
+    }
+
+    const x = e.offsetX;
+    const y = e.offsetY;
+    const scale = this.imageScale;
+    const position = {x: x * scale, y: y * scale};
+    if (this.positions.length > 0) {
+      const last = this.positions[this.positions.length - 1];
+      if (last.x === position.x && last.y === position.y) {
+        return;
+      }
+    }
+    this.positions.push(position);
+    this.positionsStr = this.positions.map(p => `${p.x},${p.y}`).join(',');
+
+    this.drawPosition(position);
+  }
+
+  drawPosition(position) {
+
+    let {x, y} = position;
+    const scale = this.imageScale;
+    x = Math.round(x / scale);
+    y = Math.round(y / scale);
+
+    const context = this.canvasContext;
     context.fillStyle = 'red';
 
     context.beginPath();
-    context.arc(e.offsetX, e.offsetY, 3, 0, 2 * Math.PI);
+    context.arc(x, y, 3, 0, 2 * Math.PI);
     context.fill();
     context.closePath();
 
     context.font = '20px \'\'';
-    const text = '' + e.offsetX + ',' + e.offsetY;
+    const text = '' + position.x + ',' + position.y;
 
     const tm: TextMetrics = context.measureText(text);
-    const tmWidth = tm.width || 80;
+    const tmWidth = tm.width || text.length * 10;
 
-    let x = e.offsetX - tmWidth / 2;
-    let y = e.offsetY + 25;
-    console.log(tm.width, x);
-    if (x < 0) {
-      x = 0;
-    } else if (x > this.dimension.width - tm.width) {
-      x = this.dimension.width - tm.width;
+    const dimension = this.canvasDimension;
+    let textX = x - tmWidth / 2;
+    let textY = y + 25;
+    if (textX < 0) {
+      textX = 0;
+    } else if (textX > dimension.width - tmWidth) {
+      textX = dimension.width - tmWidth;
     }
-    if (y > this.dimension.height) {
-      y = e.offsetY - 10;
+    if (textY > dimension.height) {
+      textY = y - 10;
     }
-    context.fillText(text, x, y);
+    context.fillText(text, textX, textY);
   }
 
   canvasMove(e) {
-    this.cursor.x = e.offsetX;
-    this.cursor.y = e.offsetY;
+    const scale = this.imageScale;
+    this.imagePosition.x = e.offsetX * scale;
+    this.imagePosition.y = e.offsetY * scale;
   }
 
-  resetCanvas() {
-    // this.context.fillStyle = '#fff';
-    this.context.clearRect(0, 0, this.dimension.width, this.dimension.height);
-    // this.context.fillRect(0, 0, this.dimension.width, this.dimension.height)
-    // this.context.fillStyle = '#000';
+  drawCanvas() {
+    if (!this.canvasImage) {
+      return;
+    }
+
+    let width = this.canvasImage.width;
+    let height = this.canvasImage.height;
+    this.imageOriginalDimension = {width, height};
+
+    let scale = this.imageScale;
+    if (scale === 0) {
+      if (width > 4000) {
+        scale = 4;
+      } else if (width > 2400) {
+        scale = 3;
+      } else if (width > 1400) {
+        scale = 2;
+      } else {
+        scale = 1;
+      }
+      this.imageScale = scale;
+    }
+    width = Math.round(width / scale);
+    height = Math.round(height / scale);
+
+    const canvas = this.canvas.nativeElement as HTMLCanvasElement;
+    this.canvasContext = canvas.getContext('2d');
+    canvas.setAttribute('width', '' + width);
+    canvas.setAttribute('height', '' + height);
+
+    this.canvasContext.clearRect(0, 0, width, height);
+
+    this.canvasContext.drawImage(this.canvasImage, 0, 0, width, height);
+    this.canvasDimension = {width, height};
+
+    for (const position of this.positions) {
+      this.drawPosition(position);
+    }
+    this.positionsStr = this.positions.map(p => `${p.x},${p.y}`).join(',');
+
+    // this.canvasContext.fillStyle = '#fff';
+    // this.canvasContext.fillRect(0, 0, width, height)
+    // this.canvasContext.fillStyle = '#000';
+  }
+
+  resetPositions() {
+    this.positions = [];
+    this.drawCanvas();
   }
 
   initScreenPosition() {

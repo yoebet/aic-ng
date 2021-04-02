@@ -5,3 +5,17 @@ canvas#init-screen-canvas {
   margin-bottom: 10px;
   border: 1px solid black;
 }
+
+.positions-input {
+  width: 300px;
+}
+
+.position-track {
+  display: inline-block;
+  width: 5em;
+  margin-right: 1em;
+}
+
+.init-actions button {
+  margin-left: 1em;
+}

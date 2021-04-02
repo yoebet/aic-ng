@@ -39,7 +39,7 @@ export class UsersComponent extends SessionSupportComponent implements AfterView
     this.dataSource = new TableDatasource<User>();
   }
 
-  protected onUserChange(user: User) {
+  protected withSession(user: User) {
     this.dataSource.setObservable(this.userService.list2());
   }
 

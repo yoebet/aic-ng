@@ -39,7 +39,7 @@ export class CamerasComponent extends SessionSupportComponent implements AfterVi
     this.dataSource = new TableDatasource<Camera>();
   }
 
-  protected onUserChange(user: User) {
+  protected withSession(user: User) {
     this.dataSource.setObservable(this.cameraService.list2());
   }
 

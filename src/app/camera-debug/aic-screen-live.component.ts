@@ -13,27 +13,27 @@ import {ApiResponse, CameraImg} from '../services/camera-api/api-response';
 })
 export class AicScreenLiveComponent implements OnInit {
   @Input() camera: Camera;
-  imgs: CameraImg;
+  @Input() cameraImg: CameraImg;
 
   processes: { [name: string]: boolean } = {};
 
-  constructor(private cameraApiService: CameraApiService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+  constructor(protected cameraApiService: CameraApiService,
+              protected dialog: MatDialog,
+              protected snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
   }
 
   getCameraImg() {
-    if (!this.camera) {
+    if (!this.camera || !this.cameraImg) {
       return;
     }
     this.processes.getCameraImg = true;
     this.cameraApiService.getCameraImg(this.camera.id)
       .subscribe((res: ApiResponse<CameraImg>) => {
           this.processes.getCameraImg = false;
-          this.imgs = res.data;
+          Object.assign(this.cameraImg, res.data);
           this.snackBar.open('获取实时画面成功');
         },
         error => this.processes.getCameraImg = false,

@@ -1,16 +1,10 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {
-  AddTemplatesResult,
-  ApiResponse,
-  CameraImg,
-  ResponseTemplate,
-  StringResponse,
-  TemplateInfo
-} from '../services/camera-api/api-response';
+import {AddTemplatesResult, ApiResponse, ResponseTemplate, StringResponse, TemplateInfo} from '../services/camera-api/api-response';
 import {RequestTemplate2} from '../services/camera-api/api-request';
 
 @Component({
@@ -19,10 +13,8 @@ import {RequestTemplate2} from '../services/camera-api/api-request';
   styleUrls: ['./aic-templates.component.css']
 })
 export class AicTemplatesComponent implements OnInit {
-  @ViewChild('canvas') canvas: ElementRef;
   @Input() camera: Camera;
 
-  imgs: CameraImg;
   template: ResponseTemplate;
   templates: TemplateInfo[];
 
@@ -63,7 +55,7 @@ export class AicTemplatesComponent implements OnInit {
       return;
     }
     if (!this.newTemplateId) {
-      this.snackBar.open('请输入模板id');
+      this.snackBar.open('请输入模板ID');
       return;
     }
 
