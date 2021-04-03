@@ -40,6 +40,8 @@ import {AicCheckerComponent} from './camera-debug/aic-checker.component';
 import {AicCheckRecordsComponent} from './camera-debug/aic-check-records.component';
 import {AicConfigComponent} from './camera-debug/aic-config.component';
 import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
+import {ImageViewerComponent} from './camera-debug/image-viewer.component';
+import {CheckVideosComponent} from './camera-debug/check-videos.component';
 
 @NgModule({
   imports: [
@@ -73,7 +75,9 @@ import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
     AicCheckerComponent,
     AicCheckRecordsComponent,
     AicConfigComponent,
-    AicCfgFileComponent
+    AicCfgFileComponent,
+    ImageViewerComponent,
+    CheckVideosComponent
   ],
   entryComponents: [
     LoginDialogComponent,
@@ -83,7 +87,9 @@ import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
     MessageDialogComponent,
     CameraEditComponent,
     AicConfigComponent,
-    AicCfgFileComponent
+    AicCfgFileComponent,
+    ImageViewerComponent,
+    CheckVideosComponent
   ],
   providers: [
     UserService,

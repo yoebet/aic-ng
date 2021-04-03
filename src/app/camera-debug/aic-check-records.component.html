@@ -15,17 +15,68 @@
   </div>
 </div>
 
-<div class="template-cards" fxLayout="row wrap">
-  <mat-card *ngFor="let rec of records" class="template-card">
-    <mat-card-header>
-      <mat-card-title>{{rec.collectionId}}</mat-card-title>
-      <mat-card-subtitle>{{rec.checkStatus}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <img [src]="camera.apiBase+rec.img" alt="比对图片" />
-      <!--<video controls="" autoplay="" name="media">
-        <source [src]="camera.apiBase+rec.path1" type="video/mp4">
-      </video>-->
-    </mat-card-content>
-  </mat-card>
-</div>
+<table mat-table class="full-width records" matSort>
+
+  <ng-container matColumnDef="index">
+    <th mat-header-cell *matHeaderCellDef>#</th>
+    <td mat-cell *matCellDef="let row; let index=index">
+      {{index + 1 + (paginator ? paginator.pageIndex * paginator.pageSize : 0)}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="collectionId">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>模板ID</th>
+    <td mat-cell *matCellDef="let row">{{row.collectionId}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="checkStatus">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>比对结果</th>
+    <td mat-cell *matCellDef="let row" [class.check-success]="row.checkStatus" [class.warn-color]="!row.checkStatus">
+      {{row.checkStatus ? '成功' : '失败'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="checkValue">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Check Value</th>
+    <td mat-cell *matCellDef="let row">{{row.checkValue}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="time">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>时间</th>
+    <td mat-cell *matCellDef="let row">{{row.time | date:'y-MM-dd HH:mm:ss'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="isUpdate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>结果已上传</th>
+    <td mat-cell *matCellDef="let row">{{row.isUpdate ? '是' : '否'}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="img">
+    <th mat-header-cell *matHeaderCellDef>图片</th>
+    <td mat-cell *matCellDef="let row">
+      <img [src]="camera.apiBase+row.img" alt="比对图片" *ngIf="row.img"/>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>查看</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-button (click)="viewImage(camera.apiBase+row.img)" class="secondary" *ngIf="row.img">
+        图片
+      </button>
+      <button mat-button (click)="viewVideos(row)" class="secondary" *ngIf="row.path1">
+        录像
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator #paginator
+               [length]="dataSource?.data.length"
+               [pageIndex]="0"
+               [pageSize]="10"
+               [pageSizeOptions]="[10, 20, 50]">
+</mat-paginator>

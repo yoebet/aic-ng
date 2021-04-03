@@ -5,3 +5,19 @@ button.flex-button:not(:first-child) {
 .mat-form-field.url-field {
   width: 400px;
 }
+
+table.records {
+  margin-top: 1em;
+}
+
+td img {
+  margin-top: 3px;
+  width: 100px;
+}
+
+.check-success {
+  color: green;
+}
+
+.check-fail {
+}

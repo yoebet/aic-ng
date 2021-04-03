@@ -1,0 +1,35 @@
+<h3 mat-dialog-title>
+  比对录像
+</h3>
+
+<mat-dialog-content>
+  <div fxLayout="row wrap">
+    <mat-card class="video-card">
+      <mat-card-header>
+        <mat-card-title>A</mat-card-title>
+        <!-- <mat-card-subtitle></mat-card-subtitle>-->
+      </mat-card-header>
+      <video controls="" autoplay="" width="100%">
+        <source [src]="url1" type="video/mp4">
+      </video>
+      <!--<mat-card-content>
+      </mat-card-content>-->
+    </mat-card>
+    <mat-card class="video-card">
+      <mat-card-header>
+        <mat-card-title>B</mat-card-title>
+        <!-- <mat-card-subtitle></mat-card-subtitle>-->
+      </mat-card-header>
+      <video controls="" autoplay="" width="100%">
+        <source [src]="url2" type="video/mp4">
+      </video>
+      <!--<mat-card-content>
+      </mat-card-content>-->
+    </mat-card>
+  </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>关闭</button>
+</div>

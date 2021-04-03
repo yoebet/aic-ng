@@ -1,0 +1,9 @@
+.mat-card.video-card:first-child {
+  margin-right: 20px;
+}
+
+.mat-card.video-card {
+  /*margin-bottom: 10px;*/
+  width: 360px;
+  border: 1px solid #c0c0c0;
+}

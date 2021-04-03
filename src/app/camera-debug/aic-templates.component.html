@@ -41,6 +41,8 @@
   </div>
 </div>
 
+<mat-spinner *ngIf="processes.getCollection"></mat-spinner>
+
 <mat-card class="template-card" *ngIf="template">
   <img mat-card-image [src]="camera.apiBase+template.temp" alt="模板图片">
   <!--<mat-card-content>

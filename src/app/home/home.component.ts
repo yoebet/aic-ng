@@ -24,9 +24,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
 
   private mobileQueryListener: () => void;
 
-
   beenLogin = false;
-
 
   constructor(protected sessionService: SessionService,
               private userService: UserService,
@@ -37,7 +35,7 @@ export class HomeComponent extends SessionSupportComponent implements OnDestroy 
               media: MediaMatcher) {
     super(sessionService);
 
-    this.mobileQuery = media.matchMedia('(max-width: 800px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1000px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('a', this.mobileQueryListener);
   }

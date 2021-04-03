@@ -37,9 +37,10 @@
       <th mat-header-cell align="right" *matHeaderCellDef class="compact actions">操作</th>
       <td mat-cell *matCellDef="let row" align="end" class="compact actions">
 
-        <a routerLink="/aic-d/{{row.id}}">
-          <span>调试</span>
-        </a>
+        <button mat-button routerLink="/aic-d/{{row.id}}" class="secondary">
+          <mat-icon>verified</mat-icon>
+          调试
+        </button>
 
         <button mat-button (click)="edit(row)" class="secondary">
           <mat-icon>edit</mat-icon>
