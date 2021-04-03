@@ -31,9 +31,6 @@ export class AicTemplatesComponent implements OnInit {
   }
 
   getCollection() {
-    if (!this.camera) {
-      return;
-    }
     this.processes.getCollection = true;
     this.cameraApiService.getCollection(this.camera.id)
       .subscribe((res: ApiResponse<ResponseTemplate>) => {
@@ -48,9 +45,6 @@ export class AicTemplatesComponent implements OnInit {
   }
 
   addTemplateH() {
-    if (!this.camera) {
-      return;
-    }
     if (!this.template) {
       this.snackBar.open('请先获取采集模板');
       return;
@@ -82,10 +76,6 @@ export class AicTemplatesComponent implements OnInit {
   }
 
   getTemplate() {
-    if (!this.camera) {
-      return;
-    }
-
     this.processes.getTemplate = true;
     this.cameraApiService.getTemplate(this.camera.id)
       .subscribe((res: ApiResponse<TemplateInfo[]>) => {
@@ -99,9 +89,6 @@ export class AicTemplatesComponent implements OnInit {
   }
 
   delTemplate() {
-    if (!this.camera) {
-      return;
-    }
     if (!confirm('要清除所有模板吗？')) {
       return;
     }

@@ -37,6 +37,9 @@ import {AicScreenInitComponent} from './camera-debug/aic-screen-init.component';
 import {AicTemplatesComponent} from './camera-debug/aic-templates.component';
 import {AicScreenLiveComponent} from './camera-debug/aic-screen-live.component';
 import {AicCheckerComponent} from './camera-debug/aic-checker.component';
+import {AicCheckRecordsComponent} from './camera-debug/aic-check-records.component';
+import {AicConfigComponent} from './camera-debug/aic-config.component';
+import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
 
 @NgModule({
   imports: [
@@ -67,7 +70,10 @@ import {AicCheckerComponent} from './camera-debug/aic-checker.component';
     AicScreenInitComponent,
     AicTemplatesComponent,
     AicScreenLiveComponent,
-    AicCheckerComponent
+    AicCheckerComponent,
+    AicCheckRecordsComponent,
+    AicConfigComponent,
+    AicCfgFileComponent
   ],
   entryComponents: [LoginDialogComponent, ChangePwdComponent,
     UserDetailComponent, UserPwdResetComponent,

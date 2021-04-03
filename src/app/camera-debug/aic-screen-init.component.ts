@@ -45,13 +45,13 @@ export class AicScreenInitComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.cameraImg.img1) {
+    if (this.cameraImg && this.cameraImg.img1) {
       this.initDraw();
     }
   }
 
   getCameraImg() {
-    if (!this.camera || !this.cameraImg) {
+    if (!this.cameraImg) {
       return;
     }
     if (!this.canvasSetup && this.cameraImg.img1) {
@@ -201,9 +201,6 @@ export class AicScreenInitComponent implements OnInit {
   }
 
   initScreenPosition() {
-    if (!this.camera) {
-      return;
-    }
     if (!this.positionsStr) {
       return;
     }

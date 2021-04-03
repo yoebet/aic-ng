@@ -1,0 +1,12 @@
+<div fxLayout="row wrap">
+  <div class="section-title">
+    配置信息
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="getConfig()"
+            [disabled]="processes.getConfig">
+      获取设备配置信息
+    </button>
+  </div>
+</div>

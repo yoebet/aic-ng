@@ -1,0 +1,31 @@
+<div fxLayout="row wrap">
+  <div class="section-title">
+    比对记录
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="getRemark()"
+            [disabled]="processes.getRemark">
+      获取所有比对记录
+    </button>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="delRemark()"
+            [disabled]="processes.delRemark">
+      清除所有比对记录
+    </button>
+  </div>
+</div>
+
+<div class="template-cards" fxLayout="row wrap">
+  <mat-card *ngFor="let rec of records" class="template-card">
+    <mat-card-header>
+      <mat-card-title>{{rec.collectionId}}</mat-card-title>
+      <mat-card-subtitle>{{rec.checkStatus}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <img [src]="camera.apiBase+rec.img" alt="比对图片" />
+      <!--<video controls="" autoplay="" name="media">
+        <source [src]="camera.apiBase+rec.path1" type="video/mp4">
+      </video>-->
+    </mat-card-content>
+  </mat-card>
+</div>

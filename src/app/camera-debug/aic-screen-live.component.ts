@@ -26,7 +26,7 @@ export class AicScreenLiveComponent implements OnInit {
   }
 
   getCameraImg() {
-    if (!this.camera || !this.cameraImg) {
+    if (!this.cameraImg) {
       return;
     }
     this.processes.getCameraImg = true;

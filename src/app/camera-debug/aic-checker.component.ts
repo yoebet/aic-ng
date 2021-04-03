@@ -28,10 +28,6 @@ export class AicCheckerComponent implements OnInit {
 
 
   getCallbacks() {
-    if (!this.camera) {
-      return;
-    }
-
     this.checkCallbacks = new CheckCallbacks();
 
     this.processes.getCallbacks = true;
@@ -46,10 +42,6 @@ export class AicCheckerComponent implements OnInit {
   }
 
   setSuccessCallback() {
-    if (!this.camera) {
-      return;
-    }
-
     const url = this.checkCallbacks.checkSuccessTemplate;
     if (!url) {
       return;
@@ -67,10 +59,6 @@ export class AicCheckerComponent implements OnInit {
   }
 
   setFailCallback() {
-    if (!this.camera) {
-      return;
-    }
-
     const url = this.checkCallbacks.checkFailTemplate;
     if (!url) {
       return;
@@ -88,10 +76,6 @@ export class AicCheckerComponent implements OnInit {
   }
 
   initCheckTemplate() {
-    if (!this.camera) {
-      return;
-    }
-
     this.processes.initCheckTemplate = true;
     this.cameraApiService.initCheckTemplate(this.camera.id)
       .subscribe((res: StringResponse) => {
@@ -104,10 +88,6 @@ export class AicCheckerComponent implements OnInit {
   }
 
   switchTemplate() {
-    if (!this.camera) {
-      return;
-    }
-
     this.processes.switchTemplate = true;
     this.cameraApiService.switchTemplate(this.camera.id)
       .subscribe((res: StringResponse) => {

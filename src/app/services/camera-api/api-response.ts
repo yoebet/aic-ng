@@ -52,6 +52,9 @@ export class CheckRecord {
   checkStatus?: boolean;
   isUpdate?: boolean;
 
+  img?: string;
+  checkValue?: number;
+
   // if checkStatus=false
 
   path1?: string;

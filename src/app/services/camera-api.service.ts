@@ -9,12 +9,13 @@ import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
 import {
-  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, ResponseTemplate,
+  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, CheckRecord, ResponseTemplate,
   StringResponse, TemplateInfo
 } from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
 import {HeaderNames} from '../config';
 import {RequestTemplate2} from './camera-api/api-request';
+import {DeviceConfig} from './camera-api/device-config';
 
 
 @Injectable()
@@ -146,6 +147,30 @@ export class CameraApiService extends BaseService<Camera> {
 
   setSuccessCallback(cameraId: number, url: string): Observable<StringResponse> {
     return this.aicPostForm<StringResponse>('/set_success_callback', cameraId, {url});
+  }
+
+  getRemark(cameraId: number): Observable<ApiResponse<CheckRecord[]>> {
+    return this.aicPost<ApiResponse<CheckRecord[]>>('/get_remark', cameraId);
+  }
+
+  delRemark(cameraId: number): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/del_remark', cameraId);
+  }
+
+  getConfig(cameraId: number): Observable<ApiResponse<DeviceConfig>> {
+    return this.aicPost<ApiResponse<DeviceConfig>>('/get_config', cameraId);
+  }
+
+  configUpdate(cameraId: number, config: any): Observable<StringResponse> {
+    return this.aicPostForm<StringResponse>('/config_update', cameraId, config);
+  }
+
+  getCfg(cameraId: number): Observable<ApiResponse<any>> {
+    return this.aicPost<ApiResponse<any>>('/get_cfg', cameraId);
+  }
+
+  setCfg(cameraId: number, config: any): Observable<StringResponse> {
+    return this.aicPostForm<StringResponse>('/set_cfg', cameraId, config);
   }
 
 }
