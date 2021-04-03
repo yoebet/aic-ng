@@ -28,7 +28,6 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
-  <!--  左侧导航-->
   <mat-sidenav #drawer class="sidenav" fixedInViewport
                [attr.role]="mobileQuery.matches ? 'dialog' : 'navigation'"
                [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -38,23 +37,7 @@
     <mat-accordion displayMode="flat" [multi]="true" *ngIf="beenLogin">
       <mat-expansion-panel class="mat-elevation-z1">
         <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
-          <mat-panel-title>Group A</mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-nav-list>
-          <a mat-list-item routerLink="/users" class="menu-item"
-             routerLinkActive="active-link">
-            <span>用户管理</span>
-          </a>
-          <a mat-list-item routerLink="/cameras" class="menu-item"
-             routerLinkActive="active-link">
-            <span>AI摄像头</span>
-          </a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel class="mat-elevation-z1">
-        <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
-          <mat-panel-title>Group B</mat-panel-title>
+          <mat-panel-title>产品测试</mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
           <a mat-list-item routerLink="/a" class="menu-item"
@@ -68,18 +51,28 @@
         </mat-nav-list>
       </mat-expansion-panel>
 
+      <mat-expansion-panel class="mat-elevation-z1" [expanded]="true">
+        <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
+          <mat-panel-title>系统管理</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/users" class="menu-item"
+             routerLinkActive="active-link">
+            <span>用户管理</span>
+          </a>
+          <a mat-list-item routerLink="/cameras" class="menu-item"
+             routerLinkActive="active-link">
+            <span>AI摄像头</span>
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
     </mat-accordion>
 
   </mat-sidenav>
 
-  <!--主体内容-->
   <mat-sidenav-content>
     <router-outlet>
-      <!--<app-address-form></p2-app-address-form>-->
-      <!--<app-table-demo></p2-app-table-demo>-->
-      <!--<app-dashboard-demo></p2-app-dashboard-demo>-->
-      <!--<app-tree-demo></p2-app-tree-demo>-->
-      <!--<app-drag-drop></p2-app-drag-drop>-->
     </router-outlet>
   </mat-sidenav-content>
 

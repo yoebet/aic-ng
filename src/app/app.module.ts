@@ -36,6 +36,7 @@ import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {AicScreenInitComponent} from './camera-debug/aic-screen-init.component';
 import {AicTemplatesComponent} from './camera-debug/aic-templates.component';
 import {AicScreenLiveComponent} from './camera-debug/aic-screen-live.component';
+import {AicCheckerComponent} from './camera-debug/aic-checker.component';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import {AicScreenLiveComponent} from './camera-debug/aic-screen-live.component';
     CameraEditComponent,
     AicScreenInitComponent,
     AicTemplatesComponent,
-    AicScreenLiveComponent
+    AicScreenLiveComponent,
+    AicCheckerComponent
   ],
   entryComponents: [LoginDialogComponent, ChangePwdComponent,
     UserDetailComponent, UserPwdResetComponent,

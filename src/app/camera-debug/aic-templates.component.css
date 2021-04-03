@@ -12,16 +12,10 @@
   margin-top: 1em;
 }
 
-.section-divider {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.title {
-  font-weight: bold;
-  color: #404040;
-}
-
 button.flex-button:not(:first-child) {
   margin-left: 1em;
+}
+
+.action-form-field {
+  width: 300px;
 }

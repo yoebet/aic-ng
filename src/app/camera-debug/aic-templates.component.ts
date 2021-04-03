@@ -39,6 +39,7 @@ export class AicTemplatesComponent implements OnInit {
       .subscribe((res: ApiResponse<ResponseTemplate>) => {
           this.processes.getCollection = false;
           this.template = res.data;
+          this.newTemplateId = '';
           this.snackBar.open('获取采集模板成功');
         },
         error => this.processes.getCollection = false,

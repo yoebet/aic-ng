@@ -51,12 +51,12 @@
   </mat-card-header>
   <mat-card-actions>
     <div>
-      <mat-form-field>
+      <mat-form-field class="action-form-field">
         <input type="text" readonly placeholder="模板参数" matInput [value]="template.param.join(',')">
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field #templateIdField>
+      <mat-form-field class="action-form-field" #templateIdField>
         <input type="text" placeholder="模板ID" matInput [(ngModel)]="newTemplateId">
       </mat-form-field>
       <button mat-button (click)="addTemplateH()" [disabled]="!template||processes.addTemplateH">

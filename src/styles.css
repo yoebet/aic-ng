@@ -49,6 +49,17 @@ tr.mat-row, tr.mat-footer-row {
   padding: 1em;
 }
 
+
+.mat-divider.section-divider {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.section-title {
+  font-weight: bold;
+  color: #404040;
+}
+
 td.th {
   /*background: #f9fafb;*/
   background: rgba(0, 0, 0, .03);

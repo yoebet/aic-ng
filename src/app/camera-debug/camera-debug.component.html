@@ -19,11 +19,11 @@
   <div class="alt-info" *ngIf="!camera.deviceNo">请先获取设备序列号</div>
 
   <mat-tab-group animationDuration="0ms" *ngIf="camera.deviceNo">
-    <mat-tab label="实时画面">
+    <!--<mat-tab label="实时画面">
 
       <app-aic-screen-live [camera]="camera" [cameraImg]="cameraImg"></app-aic-screen-live>
 
-    </mat-tab>
+    </mat-tab>-->
 
     <mat-tab label="初始化">
 
@@ -34,6 +34,12 @@
     <mat-tab label="模板">
 
       <app-aic-templates [camera]="camera"></app-aic-templates>
+
+    </mat-tab>
+
+    <mat-tab label="比对">
+
+      <app-aic-checker [camera]="camera"></app-aic-checker>
 
     </mat-tab>
   </mat-tab-group>

@@ -1,0 +1,56 @@
+<div fxLayout="row wrap">
+  <div class="section-title">
+    回调
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="getCallbacks()"
+            [disabled]="processes.getCallbacks">
+      获取回调设置
+    </button>
+  </div>
+</div>
+
+<div *ngIf="checkCallbacks">
+  <div>
+    <mat-form-field class="url-field">
+      <mat-label>成功回调</mat-label>
+      <input type="text" placeholder="成功回调" matInput [(ngModel)]="checkCallbacks.checkSuccessTemplate">
+    </mat-form-field>
+
+    <button class="flex-button" mat-stroked-button color="primary" (click)="setSuccessCallback()"
+            [disabled]="processes.setSuccessCallback">
+      设置成功回调
+    </button>
+  </div>
+  <div>
+    <mat-form-field class="url-field">
+      <mat-label>失败回调</mat-label>
+      <input type="text" placeholder="失败回调" matInput [(ngModel)]="checkCallbacks.checkFailTemplate">
+    </mat-form-field>
+
+    <button class="flex-button" mat-stroked-button color="primary" (click)="setFailCallback()"
+            [disabled]="processes.setFailCallback">
+      设置失败回调
+    </button>
+  </div>
+</div>
+
+<mat-divider class="section-divider"></mat-divider>
+
+<div fxLayout="row wrap">
+  <div class="section-title">
+    比对
+  </div>
+  <span class="spacer"></span>
+  <div>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="initCheckTemplate()"
+            [disabled]="processes.initCheckTemplate">
+      初始化比对模板
+    </button>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="switchTemplate()"
+            [disabled]="processes.switchTemplate">
+      切换模板
+    </button>
+  </div>
+</div>

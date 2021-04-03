@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
 import {
-  AddTemplatesResult, ApiResponse, CameraImg, ResponseTemplate,
+  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, ResponseTemplate,
   StringResponse, TemplateInfo
 } from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
@@ -30,30 +30,72 @@ export class CameraApiService extends BaseService<Camera> {
   }
 
 
+  private pipeAicPost<S extends ApiResponse<any>>(obs: Observable<ValueResult<S>>): Observable<S> {
+    return this.pipeDefault(obs)
+      .pipe(
+        filter((vr: ValueResult<S>) => {
+          if (vr.code !== Result.CODE_SUCCESS) {
+            this.showError(vr);
+            return false;
+          }
+          return true;
+        }),
+        map((vr: ValueResult<S>) => vr.value),
+        filter((res: S) => {
+          const errorCode = res.errorCode;
+          if (errorCode !== ApiResponse.OK) {
+            let msg = res.errorMsg;
+            if (!msg) {
+              msg = ApiResponse.ErrorMsgs['' + errorCode];
+              if (msg) {
+                msg = `${errorCode}: ${msg}`;
+              }
+            }
+            if (!msg) {
+              msg = JSON.stringify(res, null, 2);
+            }
+            this.showErrorMessage(msg);
+            return false;
+          }
+          return true;
+        }),
+      );
+  }
+
   private aicPost<S extends ApiResponse<any>>(path: string, cameraId: number, body: any = null): Observable<S> {
-    return this.pipeDefault(
+    return this.pipeAicPost(
       this.http.post<ValueResult<S>>(
         this.baseUrl + '/p' + path,
         body,
         {
           headers: new HttpHeaders({[HeaderNames.CameraId]: '' + cameraId})
         })
-    ).pipe(
-      filter((vr: ValueResult<S>) => {
-        if (vr.code !== Result.CODE_SUCCESS) {
-          this.showError(vr);
-          return false;
+    );
+  }
+
+  private aicPostForm<S extends ApiResponse<any>>(path: string, cameraId: number, body: any = null): Observable<S> {
+    const params = new URLSearchParams();
+    if (body) {
+      const hasOwnProperty = Object.prototype.hasOwnProperty;
+      for (const name in body) {
+        if (!hasOwnProperty.call(body, name)) {
+          continue;
         }
-        return true;
-      }),
-      map((vr: ValueResult<S>) => vr.value),
-      filter((res: S) => {
-        if (res.errorCode !== ApiResponse.OK) {
-          this.showErrorMessage(JSON.stringify(res, null, 2));
-          return false;
-        }
-        return true;
-      }),
+        params.set(name, body[name]);
+      }
+    }
+    const bodyStr = params.toString();
+
+    return this.pipeAicPost(
+      this.http.post<ValueResult<S>>(
+        this.baseUrl + '/p' + path,
+        bodyStr,
+        {
+          headers: new HttpHeaders({
+            [HeaderNames.CameraId]: '' + cameraId,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          })
+        })
     );
   }
 
@@ -84,6 +126,26 @@ export class CameraApiService extends BaseService<Camera> {
 
   delTemplate(cameraId: number): Observable<StringResponse> {
     return this.aicPost<StringResponse>('/del_template', cameraId);
+  }
+
+  initCheckTemplate(cameraId: number): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/init_check_template', cameraId);
+  }
+
+  switchTemplate(cameraId: number): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/switch_template', cameraId);
+  }
+
+  getCallbacks(cameraId: number): Observable<ApiResponse<CheckCallbacks>> {
+    return this.aicPost<ApiResponse<CheckCallbacks>>('/get_callbacks', cameraId);
+  }
+
+  setFailCallback(cameraId: number, url: string): Observable<StringResponse> {
+    return this.aicPostForm<StringResponse>('/set_fail_callback', cameraId, {url});
+  }
+
+  setSuccessCallback(cameraId: number, url: string): Observable<StringResponse> {
+    return this.aicPostForm<StringResponse>('/set_success_callback', cameraId, {url});
   }
 
 }
