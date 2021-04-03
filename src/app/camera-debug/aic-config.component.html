@@ -1,12 +1,63 @@
-<div fxLayout="row wrap">
-  <div class="section-title">
-    配置信息
-  </div>
-  <span class="spacer"></span>
-  <div>
-    <button class="flex-button" mat-stroked-button color="primary" (click)="getConfig()"
-            [disabled]="processes.getConfig">
-      获取设备配置信息
-    </button>
-  </div>
+<h3 mat-dialog-title>
+  设备配置
+</h3>
+
+<mat-dialog-content>
+
+  <mat-list role="list" *ngIf="config">
+    <mat-list-item role="listitem">
+      <div class="config-name">开机自启动</div>
+      <div class="config-value">
+        <!--<mat-slide-toggle [(ngModel)]="config.isPowerBoot"></mat-slide-toggle>-->
+        {{config.isPowerBoot ? '是' : '否'}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">守护进程</div>
+      <div class="config-value">
+        <!--<mat-slide-toggle [(ngModel)]="config.isGuard"></mat-slide-toggle>-->
+        {{config.isGuard ? '是' : '否'}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">设备每日重启</div>
+      <div class="config-value">
+        <!--<mat-slide-toggle [(ngModel)]="config.isReboot"></mat-slide-toggle>-->
+        {{config.isReboot ? '是' : '否'}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">每日重启 小时</div>
+      <div class="config-value">
+        <!--<mat-form-field>
+          <input type="number" min="0" max="23" placeholder="(0-23)" matInput [(ngModel)]="config.rebootHour">
+        </mat-form-field>-->
+        {{config.rebootHour}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">每日重启 分钟</div>
+      <div class="config-value">
+        <!--<mat-form-field>
+          <input type="number" min="0" max="59" placeholder="(0-59)" matInput [(ngModel)]="config.rebootMinute">
+        </mat-form-field>-->
+        {{config.rebootMinute}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">识别阈值(0-1)</div>
+      <div class="config-value">
+        <!--<mat-form-field>
+          <input type="number" step=".01" placeholder="(0-1)" matInput [(ngModel)]="config.checkValue">
+        </mat-form-field>-->
+        {{config.checkValue}}
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>关闭</button>
+  <!--<button mat-button color="primary" cdkFocusInitial (click)="save()">保存</button>-->
 </div>

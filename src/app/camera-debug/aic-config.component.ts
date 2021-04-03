@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CheckRecord, StringResponse} from '../services/camera-api/api-response';
+import {StringResponse} from '../services/camera-api/api-response';
 import {DeviceConfig} from '../services/camera-api/device-config';
 
 @Component({
@@ -12,8 +12,8 @@ import {DeviceConfig} from '../services/camera-api/device-config';
   templateUrl: './aic-config.component.html',
   styleUrls: ['./aic-config.component.css']
 })
-export class AicConfigComponent implements OnInit {
-  @Input() camera: Camera;
+export class AicConfigComponent {
+  camera: Camera;
 
   config: DeviceConfig;
 
@@ -21,22 +21,11 @@ export class AicConfigComponent implements OnInit {
 
   constructor(protected cameraApiService: CameraApiService,
               protected dialog: MatDialog,
-              protected snackBar: MatSnackBar) {
-  }
-
-  ngOnInit() {
-  }
-
-  getConfig() {
-    this.processes.getConfig = true;
-    this.cameraApiService.getConfig(this.camera.id)
-      .subscribe((res: ApiResponse<DeviceConfig>) => {
-          this.processes.getConfig = false;
-          this.config = res.data;
-        },
-        error => this.processes.getConfig = false,
-        () => this.processes.getConfig = false
-      );
+              protected snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<AicConfigComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.camera = data.camera;
+    this.config = data.config;
   }
 
   configUpdate() {

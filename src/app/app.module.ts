@@ -75,10 +75,16 @@ import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
     AicConfigComponent,
     AicCfgFileComponent
   ],
-  entryComponents: [LoginDialogComponent, ChangePwdComponent,
-    UserDetailComponent, UserPwdResetComponent,
+  entryComponents: [
+    LoginDialogComponent,
+    ChangePwdComponent,
+    UserDetailComponent,
+    UserPwdResetComponent,
     MessageDialogComponent,
-    CameraEditComponent],
+    CameraEditComponent,
+    AicConfigComponent,
+    AicCfgFileComponent
+  ],
   providers: [
     UserService,
     SessionService,

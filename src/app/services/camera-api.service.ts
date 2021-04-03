@@ -31,7 +31,7 @@ export class CameraApiService extends BaseService<Camera> {
   }
 
 
-  private pipeAicPost<S extends ApiResponse<any>>(obs: Observable<ValueResult<S>>): Observable<S> {
+  private pipeAicResult<S extends ApiResponse<any>>(obs: Observable<ValueResult<S>>): Observable<S> {
     return this.pipeDefault(obs)
       .pipe(
         filter((vr: ValueResult<S>) => {
@@ -64,7 +64,7 @@ export class CameraApiService extends BaseService<Camera> {
   }
 
   private aicPost<S extends ApiResponse<any>>(path: string, cameraId: number, body: any = null): Observable<S> {
-    return this.pipeAicPost(
+    return this.pipeAicResult(
       this.http.post<ValueResult<S>>(
         this.baseUrl + '/p' + path,
         body,
@@ -87,7 +87,7 @@ export class CameraApiService extends BaseService<Camera> {
     }
     const bodyStr = params.toString();
 
-    return this.pipeAicPost(
+    return this.pipeAicResult(
       this.http.post<ValueResult<S>>(
         this.baseUrl + '/p' + path,
         bodyStr,

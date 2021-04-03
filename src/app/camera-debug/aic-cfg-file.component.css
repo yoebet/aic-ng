@@ -5,3 +5,13 @@ button.flex-button:not(:first-child) {
 .mat-form-field.url-field {
   width: 400px;
 }
+
+.config-name {
+  display: inline-block;
+  min-width: 12em;
+  color: #404040;
+}
+
+.cfg-list .mat-list-item {
+  height: 36px;
+}

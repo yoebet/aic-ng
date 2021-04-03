@@ -1,12 +1,24 @@
-<div fxLayout="row wrap">
-  <div class="section-title">
-    配置文件
-  </div>
-  <span class="spacer"></span>
-  <div>
-    <button class="flex-button" mat-stroked-button color="primary" (click)="getCfg()"
-            [disabled]="processes.getCfg">
-      获取设备配置文件
-    </button>
-  </div>
+<h3 mat-dialog-title>
+  配置文件
+</h3>
+
+<mat-dialog-content>
+
+  <mat-list role="list" *ngIf="cfgItems" class="cfg-list">
+    <mat-list-item role="listitem" *ngFor="let cfgItem of cfgItems">
+      <div class="config-name">{{cfgItem.key}}</div>
+      <div class="config-value">
+        <!--<mat-form-field>
+          <input type="text" matInput [(ngModel)]="cfgItem.value">
+        </mat-form-field>-->
+        {{cfgItem.value}}
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>关闭</button>
+  <!--<button mat-button color="primary" cdkFocusInitial (click)="save()">保存</button>-->
 </div>

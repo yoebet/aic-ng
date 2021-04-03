@@ -1,42 +1,40 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CheckRecord, StringResponse} from '../services/camera-api/api-response';
-import {DeviceConfig} from '../services/camera-api/device-config';
+import {StringResponse} from '../services/camera-api/api-response';
 
 @Component({
   selector: 'app-aic-cfg-file',
   templateUrl: './aic-cfg-file.component.html',
   styleUrls: ['./aic-cfg-file.component.css']
 })
-export class AicCfgFileComponent implements OnInit {
-  @Input() camera: Camera;
+export class AicCfgFileComponent {
+  camera: Camera;
 
   cfg: any;
+  cfgItems: { key: string, value: string }[];
 
   processes: { [name: string]: boolean } = {};
 
   constructor(protected cameraApiService: CameraApiService,
               protected dialog: MatDialog,
-              protected snackBar: MatSnackBar) {
-  }
+              protected snackBar: MatSnackBar,
+              public dialogRef: MatDialogRef<AicCfgFileComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.camera = data.camera;
+    this.cfg = data.cfg;
 
-  ngOnInit() {
-  }
-
-  getCfg() {
-    this.processes.getCfg = true;
-    this.cameraApiService.getCfg(this.camera.id)
-      .subscribe((res: ApiResponse<any>) => {
-          this.processes.getCfg = false;
-          this.cfg = res.data;
-        },
-        error => this.processes.getCfg = false,
-        () => this.processes.getCfg = false
-      );
+    this.cfgItems = [];
+    const hasOwnProperty = Object.prototype.hasOwnProperty;
+    for (const key in this.cfg) {
+      if (!hasOwnProperty.call(this.cfg, key)) {
+        continue;
+      }
+      this.cfgItems.push({key, value: this.cfg[key]});
+    }
   }
 
   setCfg() {

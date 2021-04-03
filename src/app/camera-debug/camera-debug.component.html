@@ -6,11 +6,19 @@
     </span>
   <span class="spacer"></span>
   <span *ngIf="camera">
-      <button mat-button color="primary" (click)="getDeviceNo()" [disabled]="processes.getDeviceNo">
+    <button mat-button color="primary" (click)="getDeviceNo()" [disabled]="processes.getDeviceNo">
         <mat-icon>tag</mat-icon>
         获取序列号
       </button>
-    </span>
+    <button mat-button color="primary" (click)="showDeviceConfig()" [disabled]="processes.getCfg">
+      <mat-icon>app_settings_alt</mat-icon>
+        设备配置
+      </button>
+    <button mat-button color="primary" (click)="showDeviceCfgFile()" [disabled]="processes.getConfig">
+      <mat-icon>list_alt</mat-icon>
+        配置文件
+      </button>
+  </span>
 </mat-toolbar>
 
 
@@ -46,18 +54,6 @@
     <mat-tab label="比对记录">
 
       <app-aic-check-records [camera]="camera"></app-aic-check-records>
-
-    </mat-tab>
-
-    <mat-tab label="配置">
-
-      <app-aic-config [camera]="camera"></app-aic-config>
-
-    </mat-tab>
-
-    <mat-tab label="配置文件">
-
-      <app-aic-cfg-file [camera]="camera"></app-aic-cfg-file>
 
     </mat-tab>
 

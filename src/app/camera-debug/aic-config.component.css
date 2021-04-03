@@ -5,3 +5,9 @@ button.flex-button:not(:first-child) {
 .mat-form-field.url-field {
   width: 400px;
 }
+
+.config-name {
+  display: inline-block;
+  min-width: 10em;
+  color: #404040;
+}
