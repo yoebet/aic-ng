@@ -4,14 +4,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CheckRecord, StringResponse} from '../services/camera-api/api-response';
+import {ApiResponse, CheckRecordC, StringResponse} from '../services/camera-api/api-response';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
 import {TableDatasource} from '../common/table-datasource';
-import {AicCfgFileComponent} from './aic-cfg-file.component';
-import {ImageViewerComponent} from './image-viewer.component';
-import {CheckVideosComponent} from './check-videos.component';
+import {ImageViewerComponent} from '../common/viewer/image-viewer.component';
+import {CheckVideosComponent} from '../common/viewer/check-videos.component';
 
 @Component({
   selector: 'app-aic-check-records',
@@ -23,13 +22,13 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<CheckRecord>;
+  @ViewChild(MatTable) table: MatTable<CheckRecordC>;
 
-  records: CheckRecord[];
+  records: CheckRecordC[];
 
   processes: { [name: string]: boolean } = {};
 
-  dataSource: TableDatasource<CheckRecord>;
+  dataSource: TableDatasource<CheckRecordC>;
 
   // {
   //     "collectionId": "bb",
@@ -51,7 +50,7 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new TableDatasource<CheckRecord>();
+    this.dataSource = new TableDatasource<CheckRecordC>();
   }
 
   ngAfterViewInit() {
@@ -63,7 +62,7 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
   getRemark() {
     this.processes.getRemark = true;
     this.cameraApiService.getRemark(this.camera.id)
-      .subscribe((res: ApiResponse<CheckRecord[]>) => {
+      .subscribe((res: ApiResponse<CheckRecordC[]>) => {
           this.processes.getRemark = false;
           this.records = res.data;
           this.records = this.records.reverse();
@@ -103,7 +102,7 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
       });
   }
 
-  viewVideos(rec: CheckRecord) {
+  viewVideos(rec: CheckRecordC) {
     this.dialog.open(
       CheckVideosComponent, {
         disableClose: true,

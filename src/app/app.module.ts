@@ -33,16 +33,18 @@ import {DateStringPipe} from './common/date-string.pipe';
 import {CameraEditComponent} from './camera/camera-edit.component';
 import {CameraApiService} from './services/camera-api.service';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
-import {AicScreenInitComponent} from './camera-debug/aic-screen-init.component';
-import {AicTemplatesComponent} from './camera-debug/aic-templates.component';
-import {AicScreenLiveComponent} from './camera-debug/aic-screen-live.component';
+import {AicScreenInitComponent} from './aic-init/aic-screen-init.component';
+import {AicTemplatesComponent} from './aic-templates/aic-templates.component';
+import {AicStatusComponent} from './aic-status/aic-status.component';
 import {AicCheckerComponent} from './camera-debug/aic-checker.component';
-import {AicCheckRecordsComponent} from './camera-debug/aic-check-records.component';
-import {AicConfigComponent} from './camera-debug/aic-config.component';
-import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
-import {ImageViewerComponent} from './camera-debug/image-viewer.component';
-import {CheckVideosComponent} from './camera-debug/check-videos.component';
+import {AicCheckRecordsComponent} from './check-records/aic-check-records.component';
+import {AicConfigComponent} from './aic-config/aic-config.component';
+import {AicCfgFileComponent} from './aic-config/aic-cfg-file.component';
+import {ImageViewerComponent} from './common/viewer/image-viewer.component';
+import {CheckVideosComponent} from './common/viewer/check-videos.component';
 import {TimeSpanPipe} from './common/time-span.pipe';
+import {CheckRecordsComponent} from './check-records/check-records.component';
+import {CheckRecordService} from './services/check-record.service';
 
 @NgModule({
   imports: [
@@ -73,13 +75,14 @@ import {TimeSpanPipe} from './common/time-span.pipe';
     CameraEditComponent,
     AicScreenInitComponent,
     AicTemplatesComponent,
-    AicScreenLiveComponent,
+    AicStatusComponent,
     AicCheckerComponent,
     AicCheckRecordsComponent,
     AicConfigComponent,
     AicCfgFileComponent,
     ImageViewerComponent,
-    CheckVideosComponent
+    CheckVideosComponent,
+    CheckRecordsComponent
   ],
   entryComponents: [
     LoginDialogComponent,
@@ -99,6 +102,7 @@ import {TimeSpanPipe} from './common/time-span.pipe';
     AccountService,
     CameraService,
     CameraApiService,
+    CheckRecordService,
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

@@ -67,6 +67,17 @@ export class AicScreenInitComponent implements OnInit {
           this.processes.getCameraImg = false;
           Object.assign(this.cameraImg, res.data);
 
+          const positionsStr = this.camera.positions;
+          if (positionsStr && !this.positionsStr) {
+            const positions: number[] = positionsStr.split(/,/)
+              .map(parseFloat).filter(f => !isNaN(f) && f >= 0);
+            if (positions.length === 8) {
+              const [ltx, lty, rtx, rty, rbx, rby, lbx, lby] = positions;
+              this.positions = [{x: ltx, y: lty}, {x: rtx, y: rty}, {x: rbx, y: rby}, {x: lbx, y: lby}];
+              this.positionsStr = positionsStr;
+            }
+          }
+
           this.initDraw();
         },
         error => this.processes.getCameraImg = false,
@@ -96,8 +107,14 @@ export class AicScreenInitComponent implements OnInit {
       return;
     }
 
-    const x = e.offsetX;
-    const y = e.offsetY;
+    let x = e.offsetX;
+    let y = e.offsetY;
+    if (x < 0) {
+      x = 0;
+    }
+    if (y < 0) {
+      y = 0;
+    }
     const scale = this.imageScale;
     const position = {x: x * scale, y: y * scale};
     if (this.positions.length > 0) {
@@ -149,8 +166,16 @@ export class AicScreenInitComponent implements OnInit {
 
   canvasMove(e) {
     const scale = this.imageScale;
-    this.imagePosition.x = e.offsetX * scale;
-    this.imagePosition.y = e.offsetY * scale;
+    let x = e.offsetX;
+    let y = e.offsetY;
+    if (x < 0) {
+      x = 0;
+    }
+    if (y < 0) {
+      y = 0;
+    }
+    this.imagePosition.x = x * scale;
+    this.imagePosition.y = y * scale;
   }
 
   drawCanvas() {
@@ -207,10 +232,15 @@ export class AicScreenInitComponent implements OnInit {
     if (!this.positionsStr) {
       return;
     }
-    const positions: number[] = this.positionsStr.split(/[,;/]/)
+    const positions: number[] = this.positionsStr.split(/,/)
       .map(parseFloat).filter(f => !isNaN(f) && f >= 0);
     if (positions.length !== 8) {
       this.cameraApiService.showErrorMessage('需要4个坐标点(x,y)，8个数字');
+      return;
+    }
+    const [ltx, lty, rtx, rty, rbx, rby, lbx, lby] = positions;
+    if (ltx >= rtx || lbx >= rbx || lty >= lby || rty >= rby) {
+      this.cameraApiService.showErrorMessage('请按 左上-右上-右下-左下 的顺序设置4个坐标点');
       return;
     }
 

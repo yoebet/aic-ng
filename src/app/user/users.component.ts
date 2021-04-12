@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '../services/user.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
@@ -12,6 +11,7 @@ import {UserEditComponent} from './user-edit.component';
 import {UserPwdResetComponent} from './user-pwd-reset.component';
 import {SessionSupportComponent} from '../common/session-support.component';
 import {SessionService} from '../services/session.service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-users',

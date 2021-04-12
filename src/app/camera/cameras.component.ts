@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {CameraService} from '../services/camera.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
@@ -10,6 +9,7 @@ import {TableDatasource} from '../common/table-datasource';
 import {Result} from '../models/result';
 import {SessionSupportComponent} from '../common/session-support.component';
 import {SessionService} from '../services/session.service';
+import {CameraService} from '../services/camera.service';
 import {User} from '../models/user';
 import {CameraEditComponent} from './camera-edit.component';
 

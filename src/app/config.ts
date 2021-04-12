@@ -37,11 +37,14 @@ const DEBUG = window?.location?.href?.indexOf('_DEBUG_') > 0 || false;
 
 const HeaderNames = {CameraId: 'cid'};
 
+const ServerStaticBase = 'http://192.168.0.118/aic';
+
 export {
   PaginatorIntl,
   DATE_FORMATS,
   DATE_FORMAT,
   MONTH_PICKER_FORMAT,
   DEBUG,
-  HeaderNames
+  HeaderNames,
+  ServerStaticBase
 };

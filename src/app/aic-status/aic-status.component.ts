@@ -6,15 +6,15 @@ import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
 import {ApiResponse, CameraImg, CheckDetail} from '../services/camera-api/api-response';
 import {DeviceConfig} from '../services/camera-api/device-config';
-import {AicConfigComponent} from './aic-config.component';
-import {AicCfgFileComponent} from './aic-cfg-file.component';
+import {AicConfigComponent} from '../aic-config/aic-config.component';
+import {AicCfgFileComponent} from '../aic-config/aic-cfg-file.component';
 
 @Component({
-  selector: 'app-aic-screen-live',
-  templateUrl: './aic-screen-live.component.html',
-  styleUrls: ['./aic-screen-live.component.css']
+  selector: 'app-aic-status',
+  templateUrl: './aic-status.component.html',
+  styleUrls: ['./aic-status.component.css']
 })
-export class AicScreenLiveComponent implements OnInit {
+export class AicStatusComponent implements OnInit {
   @Input() camera: Camera;
   @Input() cameraImg: CameraImg;
 
@@ -47,9 +47,6 @@ export class AicScreenLiveComponent implements OnInit {
   }
 
   getCheckDetail() {
-    if (!this.cameraImg) {
-      return;
-    }
     this.processes.getCheckDetail = true;
     this.cameraApiService.getCheckDetail(this.camera.id)
       .subscribe((res: ApiResponse<CheckDetail>) => {

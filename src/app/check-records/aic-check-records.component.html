@@ -1,16 +1,16 @@
 <div fxLayout="row wrap">
   <div class="section-title">
-    比对记录
+    比对记录（设备上）
   </div>
   <span class="spacer"></span>
   <div>
     <button class="flex-button" mat-stroked-button color="primary" (click)="getRemark()"
             [disabled]="processes.getRemark">
-      获取所有比对记录
+      获取/刷新
     </button>
     <button class="flex-button" mat-stroked-button color="primary" (click)="delRemark()"
             [disabled]="processes.delRemark">
-      清除所有比对记录
+      全部清除
     </button>
   </div>
 </div>
@@ -75,7 +75,7 @@
 </table>
 
 <mat-paginator #paginator
-               [length]="dataSource?.data.length"
+               [length]="dataSource?.data?.length"
                [pageIndex]="0"
                [pageSize]="20"
                [pageSizeOptions]="[10, 20, 50, 100]">

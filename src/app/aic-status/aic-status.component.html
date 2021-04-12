@@ -37,12 +37,14 @@
     <mat-list-item role="listitem">
       <div class="config-name">比对状态</div>
       <div class="config-value">
-        {{deviceStatus.state === 0 ? '未开启' : (deviceStatus.state === 1 ? '比对中' : '等待比对')}}
+        状态：
+        <span class="primary-color">
+      {{deviceStatus.state === 0 ? '未开启' : (deviceStatus.state === 1 ? '比对中' : '等待比对')}}</span>
         &nbsp;&nbsp;
-        <ng-template [ngIf]="deviceStatus.state!=0">
-          模板：
-          <span class="primary-color">{{deviceStatus.collectionId}}</span>
-        </ng-template>
+        <!--<ng-template [ngIf]="deviceStatus.state!=0">
+        </ng-template>-->
+        模板：
+        <span class="primary-color">{{deviceStatus.collectionId}}</span>
       </div>
     </mat-list-item>
   </mat-list>

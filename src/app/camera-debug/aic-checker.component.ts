@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CameraImg, CheckCallbacks, CID, StringResponse} from '../services/camera-api/api-response';
+import {ApiResponse, CheckCallbacks, CheckDetail, CID, StringResponse} from '../services/camera-api/api-response';
 
 @Component({
   selector: 'app-aic-checker',
@@ -14,7 +14,11 @@ import {ApiResponse, CameraImg, CheckCallbacks, CID, StringResponse} from '../se
 export class AicCheckerComponent implements OnInit {
   @Input() camera: Camera;
 
+  // http://192.168.0.118:3000/api/cb/success
+  // http://192.168.0.118:3000/api/cb/fail
   checkCallbacks: CheckCallbacks;
+
+  deviceStatus: CheckDetail;
 
   processes: { [name: string]: boolean } = {};
 
@@ -109,6 +113,19 @@ export class AicCheckerComponent implements OnInit {
         },
         error => this.processes.stopCheck = false,
         () => this.processes.stopCheck = false
+      );
+  }
+
+  getCheckDetail() {
+    this.processes.getCheckDetail = true;
+    this.cameraApiService.getCheckDetail(this.camera.id)
+      .subscribe((res: ApiResponse<CheckDetail>) => {
+          this.processes.getCheckDetail = false;
+          this.deviceStatus = res.data;
+          this.snackBar.open('获取状态成功');
+        },
+        error => this.processes.getCheckDetail = false,
+        () => this.processes.getCheckDetail = false
       );
   }
 

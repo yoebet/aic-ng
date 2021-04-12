@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
 import {
-  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, CheckDetail, CheckRecord, CID, ResponseTemplate,
+  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, CheckDetail, CheckRecordC, CID, ResponseTemplate,
   StringResponse, TemplateInfo
 } from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
@@ -153,8 +153,8 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPostForm<StringResponse>('/set_success_callback', cameraId, {url});
   }
 
-  getRemark(cameraId: number): Observable<ApiResponse<CheckRecord[]>> {
-    return this.aicPost<ApiResponse<CheckRecord[]>>('/get_remark', cameraId);
+  getRemark(cameraId: number): Observable<ApiResponse<CheckRecordC[]>> {
+    return this.aicPost<ApiResponse<CheckRecordC[]>>('/get_remark', cameraId);
   }
 
   delRemark(cameraId: number): Observable<StringResponse> {

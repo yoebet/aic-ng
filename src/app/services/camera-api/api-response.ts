@@ -49,7 +49,7 @@ export class TemplateInfo extends CID {
   img?: string;
 }
 
-export class CheckRecord extends CID {
+export class CheckRecordC extends CID {
   id?: number;
   time?: number; // 162383962922
   checkStatus?: boolean;

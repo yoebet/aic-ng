@@ -1,0 +1,10 @@
+table.records {
+  margin-top: 1em;
+}
+
+.check-success {
+  color: green;
+}
+
+.check-fail {
+}
