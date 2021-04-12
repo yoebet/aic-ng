@@ -40,15 +40,17 @@ export class CheckCallbacks {
   checkFailTemplate?: string;
 }
 
-export class TemplateInfo {
+export class CID {
   collectionId?: string; // 模板 id
+}
+
+export class TemplateInfo extends CID {
   params?: number[];
   img?: string;
 }
 
-export class CheckRecord {
+export class CheckRecord extends CID {
   id?: number;
-  collectionId?: number;
   time?: number; // 162383962922
   checkStatus?: boolean;
   isUpdate?: boolean;
@@ -63,8 +65,12 @@ export class CheckRecord {
 }
 
 
+export class CheckDetail extends CID {
+  openAppTime?: number;
+  systemTime?: number;
+  state?: number;
+}
+
 export class CameraImg {
-  img1?: string;
-  img2?: string;
-  img3?: string;
+  img: string;
 }

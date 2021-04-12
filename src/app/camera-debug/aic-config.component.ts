@@ -16,6 +16,8 @@ export class AicConfigComponent {
   camera: Camera;
 
   config: DeviceConfig;
+  config2: DeviceConfig;
+  editing = false;
 
   processes: { [name: string]: boolean } = {};
 
@@ -28,15 +30,30 @@ export class AicConfigComponent {
     this.config = data.config;
   }
 
-  configUpdate() {
-    this.processes.configUpdate = true;
-    this.cameraApiService.configUpdate(this.camera.id, {})
+  startEdit() {
+    this.config2 = Object.assign({}, this.config);
+    this.editing = true;
+  }
+
+  cancelEdit() {
+    this.config2 = null;
+    this.editing = false;
+  }
+
+  setConfig() {
+
+    const updated = {};
+
+    this.processes.setConfig = true;
+    this.cameraApiService.setConfig(this.camera.id, this.config2)
       .subscribe((res: StringResponse) => {
-          this.processes.configUpdate = false;
-          this.snackBar.open('已更新配置');
+          this.processes.setConfig = false;
+          Object.assign(this.config, this.config2);
+          this.editing = false;
+          this.snackBar.open('已保存配置');
         },
-        error => this.processes.configUpdate = false,
-        () => this.processes.configUpdate = false
+        error => this.processes.setConfig = false,
+        () => this.processes.setConfig = false
       );
   }
 

@@ -10,14 +10,6 @@
         <mat-icon>tag</mat-icon>
         获取序列号
       </button>
-    <button mat-button color="primary" (click)="showDeviceConfig()" [disabled]="processes.getConfig">
-      <mat-icon>app_settings_alt</mat-icon>
-        设备配置
-      </button>
-    <button mat-button color="primary" (click)="showDeviceCfgFile()" [disabled]="processes.getCfg">
-      <mat-icon>list_alt</mat-icon>
-        配置文件
-      </button>
   </span>
 </mat-toolbar>
 
@@ -27,11 +19,11 @@
   <div class="alt-info" *ngIf="!camera.deviceNo">请先获取设备序列号</div>
 
   <mat-tab-group animationDuration="0ms" *ngIf="camera.deviceNo">
-    <!--<mat-tab label="实时画面">
+    <mat-tab label="状态">
 
       <app-aic-screen-live [camera]="camera" [cameraImg]="cameraImg"></app-aic-screen-live>
 
-    </mat-tab>-->
+    </mat-tab>
 
     <mat-tab label="初始化">
 

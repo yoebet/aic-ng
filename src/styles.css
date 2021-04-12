@@ -259,3 +259,7 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
 a.menu-item .mat-list-item-content {
   padding-right: 0 !important;
 }
+
+button.flex-button:not(:first-child) {
+  margin-left: 1em;
+}

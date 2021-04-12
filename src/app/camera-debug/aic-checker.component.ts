@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CameraImg, CheckCallbacks, StringResponse} from '../services/camera-api/api-response';
+import {ApiResponse, CameraImg, CheckCallbacks, CID, StringResponse} from '../services/camera-api/api-response';
 
 @Component({
   selector: 'app-aic-checker',
@@ -90,12 +90,25 @@ export class AicCheckerComponent implements OnInit {
   switchTemplate() {
     this.processes.switchTemplate = true;
     this.cameraApiService.switchTemplate(this.camera.id)
-      .subscribe((res: StringResponse) => {
+      .subscribe((res: ApiResponse<CID>) => {
           this.processes.switchTemplate = false;
-          this.snackBar.open('切换模板成功');
+          const cid = res.data.collectionId;
+          this.snackBar.open('已切换模板：' + cid);
         },
         error => this.processes.switchTemplate = false,
         () => this.processes.switchTemplate = false
+      );
+  }
+
+  stopCheck() {
+    this.processes.stopCheck = true;
+    this.cameraApiService.stopCheck(this.camera.id)
+      .subscribe((res: StringResponse) => {
+          this.processes.stopCheck = false;
+          this.snackBar.open('已终止比对');
+        },
+        error => this.processes.stopCheck = false,
+        () => this.processes.stopCheck = false
       );
   }
 

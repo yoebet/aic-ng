@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 import {Camera} from '../models/camera';
 import {BaseService} from './base.service';
 import {
-  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, CheckRecord, ResponseTemplate,
+  AddTemplatesResult, ApiResponse, CameraImg, CheckCallbacks, CheckDetail, CheckRecord, CID, ResponseTemplate,
   StringResponse, TemplateInfo
 } from './camera-api/api-response';
 import {Result, ValueResult} from '../models/result';
@@ -105,6 +105,10 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<StringResponse>('/get_device', cameraId);
   }
 
+  getCheckDetail(cameraId: number): Observable<ApiResponse<CheckDetail>> {
+    return this.aicPost<ApiResponse<CheckDetail>>('/get_check_detail', cameraId);
+  }
+
   getCameraImg(cameraId: number): Observable<ApiResponse<CameraImg>> {
     return this.aicPost<ApiResponse<CameraImg>>('/get_camera_img', cameraId);
   }
@@ -133,8 +137,8 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<StringResponse>('/init_check_template', cameraId);
   }
 
-  switchTemplate(cameraId: number): Observable<StringResponse> {
-    return this.aicPost<StringResponse>('/switch_template', cameraId);
+  switchTemplate(cameraId: number): Observable<ApiResponse<CID>> {
+    return this.aicPost<ApiResponse<CID>>('/switch_template', cameraId);
   }
 
   getCallbacks(cameraId: number): Observable<ApiResponse<CheckCallbacks>> {
@@ -161,8 +165,8 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<ApiResponse<DeviceConfig>>('/get_config', cameraId);
   }
 
-  configUpdate(cameraId: number, config: any): Observable<StringResponse> {
-    return this.aicPostForm<StringResponse>('/config_update', cameraId, config);
+  setConfig(cameraId: number, config: any): Observable<StringResponse> {
+    return this.aicPostForm<StringResponse>('/set_config', cameraId, config);
   }
 
   getCfg(cameraId: number): Observable<ApiResponse<any>> {
@@ -171,6 +175,10 @@ export class CameraApiService extends BaseService<Camera> {
 
   setCfg(cameraId: number, config: any): Observable<StringResponse> {
     return this.aicPostForm<StringResponse>('/set_cfg', cameraId, config);
+  }
+
+  stopCheck(cameraId: number): Observable<StringResponse> {
+    return this.aicPost<StringResponse>('/stop_check', cameraId);
   }
 
 }

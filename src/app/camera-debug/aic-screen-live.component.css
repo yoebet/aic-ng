@@ -1,4 +1,10 @@
 
+.config-name {
+  display: inline-block;
+  min-width: 10em;
+  color: #404040;
+}
+
 .images {
   margin-top: 10px;
   width: 1080px;

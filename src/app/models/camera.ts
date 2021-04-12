@@ -1,7 +1,7 @@
 import {Model} from './model';
-import {CameraImg} from '../services/camera-api/api-response';
 
 export class Camera extends Model {
   apiBase?: string;
   deviceNo?: string;
+  positions?: string; // 0,0,3840,0,3840,2160,0,2160;
 }

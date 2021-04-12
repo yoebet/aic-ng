@@ -66,6 +66,8 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
       .subscribe((res: ApiResponse<CheckRecord[]>) => {
           this.processes.getRemark = false;
           this.records = res.data;
+          this.records = this.records.reverse();
+          // this.records.sort((r1, r2) => r2.time - r1.time);
           this.dataSource.setData(this.records);
           this.snackBar.open('已获取所有比对记录');
         },

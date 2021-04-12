@@ -42,6 +42,7 @@ import {AicConfigComponent} from './camera-debug/aic-config.component';
 import {AicCfgFileComponent} from './camera-debug/aic-cfg-file.component';
 import {ImageViewerComponent} from './camera-debug/image-viewer.component';
 import {CheckVideosComponent} from './camera-debug/check-videos.component';
+import {TimeSpanPipe} from './common/time-span.pipe';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import {CheckVideosComponent} from './camera-debug/check-videos.component';
     CamerasComponent,
     CameraDebugComponent,
     DateStringPipe,
+    TimeSpanPipe,
     CameraEditComponent,
     AicScreenInitComponent,
     AicTemplatesComponent,

@@ -8,13 +8,10 @@ import {switchMap} from 'rxjs/operators';
 import {CameraService} from '../services/camera.service';
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CameraImg, StringResponse} from '../services/camera-api/api-response';
+import {CameraImg, StringResponse} from '../services/camera-api/api-response';
 import {SessionSupportComponent} from '../common/session-support.component';
 import {SessionService} from '../services/session.service';
 import {User} from '../models/user';
-import {AicConfigComponent} from './aic-config.component';
-import {AicCfgFileComponent} from './aic-cfg-file.component';
-import {DeviceConfig} from '../services/camera-api/device-config';
 
 @Component({
   selector: 'app-camera-debug',
@@ -60,46 +57,6 @@ export class CameraDebugComponent extends SessionSupportComponent implements OnI
         },
         error => this.processes.getDeviceNo = false,
         () => this.processes.getDeviceNo = false);
-  }
-
-  showDeviceConfig() {
-
-    this.processes.getConfig = true;
-    this.cameraApiService.getConfig(this.camera.id)
-      .subscribe((res: ApiResponse<DeviceConfig>) => {
-          this.processes.getConfig = false;
-
-          this.dialog.open(
-            AicConfigComponent, {
-              disableClose: true,
-              width: '480px',
-              data: {camera: this.camera, config: res.data}
-            });
-        },
-        error => this.processes.getConfig = false,
-        () => this.processes.getConfig = false
-      );
-
-  }
-
-  showDeviceCfgFile() {
-
-    this.processes.getCfg = true;
-    this.cameraApiService.getCfg(this.camera.id)
-      .subscribe((res: ApiResponse<any>) => {
-          this.processes.getCfg = false;
-
-          this.dialog.open(
-            AicCfgFileComponent, {
-              disableClose: true,
-              width: '480px',
-              data: {camera: this.camera, cfg: res.data}
-            });
-        },
-        error => this.processes.getCfg = false,
-        () => this.processes.getCfg = false
-      );
-
   }
 
 }

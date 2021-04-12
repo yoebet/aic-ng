@@ -1,7 +1,3 @@
-button.flex-button:not(:first-child) {
-  margin-left: 1em;
-}
-
 .mat-form-field.url-field {
   width: 400px;
 }

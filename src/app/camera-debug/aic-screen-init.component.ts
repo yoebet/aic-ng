@@ -9,6 +9,8 @@ import {
   StringResponse
 } from '../services/camera-api/api-response';
 import {Camera} from '../models/camera';
+import {Result} from '../models/result';
+import {CameraService} from '../services/camera.service';
 
 
 @Component({
@@ -39,13 +41,14 @@ export class AicScreenInitComponent implements OnInit {
   positionsStr = '';
   positions: { x: number, y: number }[] = [];
 
-  constructor(protected cameraApiService: CameraApiService,
+  constructor(protected cameraService: CameraService,
+              protected cameraApiService: CameraApiService,
               protected dialog: MatDialog,
               protected snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
-    if (this.cameraImg && this.cameraImg.img1) {
+    if (this.cameraImg && this.cameraImg.img) {
       this.initDraw();
     }
   }
@@ -54,7 +57,7 @@ export class AicScreenInitComponent implements OnInit {
     if (!this.cameraImg) {
       return;
     }
-    if (!this.canvasSetup && this.cameraImg.img1) {
+    if (!this.canvasSetup && this.cameraImg.img) {
       this.initDraw();
       return;
     }
@@ -73,7 +76,7 @@ export class AicScreenInitComponent implements OnInit {
 
   initDraw() {
     this.canvasImage = new Image();
-    this.canvasImage.src = this.camera.apiBase + this.cameraImg.img1;
+    this.canvasImage.src = this.camera.apiBase + this.cameraImg.img;
     // this.canvasImage.src = 'http://localhost:3000/images/126.jpg';
     console.log('initDraw...');
 
@@ -216,6 +219,18 @@ export class AicScreenInitComponent implements OnInit {
       .subscribe((res: StringResponse) => {
           this.processes.initScreenPosition = false;
           this.snackBar.open('初始化画面成功');
+
+          const positionsStr = positions.join(',');
+          this.cameraService.update({
+            id: this.camera.id,
+            positions: positionsStr
+          }).subscribe((opr: Result) => {
+            if (opr.code !== Result.CODE_SUCCESS) {
+              // this.cameraService.showError(opr);
+              return;
+            }
+            this.camera.positions = positionsStr;
+          });
         },
         error => this.processes.initScreenPosition = false,
         () => this.processes.initScreenPosition = false

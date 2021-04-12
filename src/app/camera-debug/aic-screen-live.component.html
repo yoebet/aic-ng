@@ -1,11 +1,68 @@
-<div fxLayoutAlign="end">
+<div fxLayout="row wrap">
+  <span class="spacer"></span>
+
+  <button mat-stroked-button color="primary" (click)="getCheckDetail()" [disabled]="processes.getCheckDetail">
+    <mat-icon>data_usage</mat-icon>
+    获取/刷新状态
+  </button>
+  <button mat-stroked-button color="primary" class="flex-button" (click)="showDeviceConfig()"
+          [disabled]="processes.getConfig">
+    <mat-icon>app_settings_alt</mat-icon>
+    设备配置
+  </button>
+  <button mat-stroked-button color="primary" class="flex-button" (click)="showDeviceCfgFile()"
+          [disabled]="processes.getCfg">
+    <mat-icon>list_alt</mat-icon>
+    配置文件
+  </button>
+</div>
+
+<div class="status-info" *ngIf="deviceStatus">
+  <div class="section-title">
+    状态
+  </div>
+  <mat-list role="list">
+    <mat-list-item role="listitem">
+      <div class="config-name">系统时间</div>
+      <div class="config-value">
+        {{deviceStatus.systemTime | date:'y-MM-dd HH:mm:ss'}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">应用运行</div>
+      <div class="config-value" *ngIf="deviceStatus.openAppTime&&deviceStatus.systemTime">
+        {{(deviceStatus.systemTime - deviceStatus.openAppTime) / 1000 | timeSpan}}
+      </div>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+      <div class="config-name">比对状态</div>
+      <div class="config-value">
+        {{deviceStatus.state === 0 ? '未开启' : (deviceStatus.state === 1 ? '比对中' : '等待比对')}}
+        &nbsp;&nbsp;
+        <ng-template [ngIf]="deviceStatus.state!=0">
+          模板：
+          <span class="primary-color">{{deviceStatus.collectionId}}</span>
+        </ng-template>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+
+<mat-divider class="section-divider"></mat-divider>
+
+<div fxLayout="row wrap">
+  <div class="section-title">
+    摄像头画面
+  </div>
+  <span class="spacer"></span>
+
   <button mat-stroked-button color="primary" (click)="getCameraImg()" [disabled]="processes.getCameraImg">
     <mat-icon>image</mat-icon>
-    {{cameraImg && cameraImg.img1 ? '刷新' : '获取'}}
+    {{cameraImg && cameraImg.img ? '刷新' : '获取'}}
   </button>
 </div>
 
 <div class="images">
   <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
-  <img [src]="camera.apiBase+cameraImg.img1" *ngIf="cameraImg&&cameraImg.img1" width="1080" alt="摄像头画面"/>
+  <img [src]="camera.apiBase+cameraImg.img" *ngIf="cameraImg&&cameraImg.img" width="1080" alt="摄像头画面"/>
 </div>
