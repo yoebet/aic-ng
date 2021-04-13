@@ -48,15 +48,14 @@ export class CheckRecordsComponent implements AfterViewInit, OnInit {
   }
 
   viewVideos(rec: CheckRecord) {
-    const apiBase = this.camera.apiBase;
     const serverBase = ServerStaticBase;
     this.dialog.open(
       CheckVideosComponent, {
         disableClose: true,
         width: '890px',
         data: {
-          url1: rec.serverVideo1 ? serverBase + rec.serverVideo1 : apiBase + rec.deviceVideo1,
-          url2: rec.serverVideo2 ? serverBase + rec.serverVideo2 : apiBase + rec.deviceVideo2
+          url1: serverBase + rec.video1,
+          url2: serverBase + rec.video2
         }
       });
   }
@@ -69,7 +68,7 @@ export class CheckRecordsComponent implements AfterViewInit, OnInit {
           this.processes.getRemark = false;
           this.records = records;
           // this.records = this.records.reverse();
-          // this.records.sort((r1, r2) => r2.time - r1.time);
+          // this.records.sort((r1, r2) => r2.createdAt ? r2.createdAt.localeCompare(r1.createdAt) : -1);
           this.dataSource.setData(this.records);
           this.snackBar.open('已获取所有比对回调记录');
         },

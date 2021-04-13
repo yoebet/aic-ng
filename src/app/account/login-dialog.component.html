@@ -5,12 +5,12 @@
 <div class="login-form">
   <mat-form-field appearance="standard">
     <mat-label>账号</mat-label>
-    <input matInput #name>
+    <input matInput value="wsx" #name>
   </mat-form-field>
 
   <mat-form-field appearance="standard">
     <mat-label>密码</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" (keyup)="onPassKeyup(name.value, password.value, $event)" #password>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" value="123" (keyup)="onPassKeyup(name.value, password.value, $event)" #password>
     <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
       <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>

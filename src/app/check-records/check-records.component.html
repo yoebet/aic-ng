@@ -47,10 +47,10 @@
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell align="right" *matHeaderCellDef class="compact actions">查看</th>
-    <td mat-cell *matCellDef="let row" align="end">
+    <th mat-header-cell *matHeaderCellDef>查看</th>
+    <td mat-cell *matCellDef="let row">
 
-      <button mat-button (click)="viewVideos(row)" class="secondary" *ngIf="row.deviceVideo1||row.serverVideo1">
+      <button mat-button (click)="viewVideos(row)" class="secondary" *ngIf="row.video1">
         录像
       </button>
     </td>
