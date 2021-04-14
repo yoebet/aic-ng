@@ -26,7 +26,7 @@ export class CamerasComponent extends SessionSupportComponent implements AfterVi
 
   dataSource: TableDatasource<Camera>;
 
-  displayedColumns: string[] = ['index', 'apiBase', 'deviceNo', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['index', 'apiBase', 'label', 'deviceNo', 'createdAt', 'actions'];
 
   constructor(protected sessionService: SessionService,
               private cameraService: CameraService,

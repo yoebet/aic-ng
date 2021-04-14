@@ -15,3 +15,7 @@
 .action-form-field {
   width: 300px;
 }
+
+.subtitle-params {
+  word-break: break-all;
+}

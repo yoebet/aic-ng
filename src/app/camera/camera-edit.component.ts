@@ -17,6 +17,7 @@ import {Camera} from '../models/camera';
 export class CameraEditComponent implements OnInit {
   form = this.fb.group({
     apiBase: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+    label: [null],
     deviceNo: [null]
   });
 

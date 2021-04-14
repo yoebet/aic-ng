@@ -98,6 +98,9 @@ export class AicCheckerComponent implements OnInit {
           this.processes.switchTemplate = false;
           const cid = res.data.collectionId;
           this.snackBar.open('已切换模板：' + cid);
+          if (this.deviceStatus) {
+            this.deviceStatus.collectionId = cid;
+          }
         },
         error => this.processes.switchTemplate = false,
         () => this.processes.switchTemplate = false

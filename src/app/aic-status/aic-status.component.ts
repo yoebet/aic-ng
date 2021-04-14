@@ -19,6 +19,8 @@ export class AicStatusComponent implements OnInit {
   @Input() cameraImg: CameraImg;
 
   deviceStatus: CheckDetail;
+  imageScale = 3;
+  imageWidth = 3840;
 
   processes: { [name: string]: boolean } = {};
 

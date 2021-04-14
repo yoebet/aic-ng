@@ -1,7 +1,7 @@
 
 .config-name {
   display: inline-block;
-  min-width: 10em;
+  min-width: 6em;
   color: #404040;
 }
 
@@ -13,4 +13,5 @@
 
 .images img {
   border: 1px solid black;
+  margin-top: 10px;
 }

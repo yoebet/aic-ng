@@ -1,7 +1,8 @@
 <mat-toolbar>
   摄像头调试
   <span *ngIf="camera" class="title-tip">
-      &nbsp;&nbsp;&nbsp;&nbsp; API地址: {{camera.apiBase}}
+      &nbsp;&nbsp;&nbsp;&nbsp; 地址: {{camera.apiBase}}
+    &nbsp;&nbsp;&nbsp;&nbsp; 标签: {{camera.label}}
     &nbsp;&nbsp;&nbsp;&nbsp; 序列号: {{camera.deviceNo}}
     </span>
   <span class="spacer"></span>
@@ -27,7 +28,7 @@
 
     <mat-tab label="初始化">
 
-      <app-aic-screen-init [camera]="camera" [cameraImg]="cameraImg"></app-aic-screen-init>
+      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
 
     </mat-tab>
 

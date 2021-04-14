@@ -21,7 +21,8 @@ import {CameraService} from '../services/camera.service';
 export class AicScreenInitComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef;
   @Input() camera: Camera;
-  @Input() cameraImg: CameraImg;
+
+  cameraImg: CameraImg;
 
   processes: { [name: string]: boolean } = {};
 
@@ -48,24 +49,26 @@ export class AicScreenInitComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.cameraImg && this.cameraImg.img) {
+    /*if (this.cameraImg && this.cameraImg.img) {
       this.initDraw();
-    }
+    }*/
   }
 
   getCameraImg() {
-    if (!this.cameraImg) {
+    /*if (!this.cameraImg) {
       return;
     }
     if (!this.canvasSetup && this.cameraImg.img) {
       this.initDraw();
       return;
-    }
+    }*/
     this.processes.getCameraImg = true;
     this.cameraApiService.getCameraImg(this.camera.id)
+    // this.cameraApiService.getCameraTransformImg(this.camera.id)
       .subscribe((res: ApiResponse<CameraImg>) => {
           this.processes.getCameraImg = false;
-          Object.assign(this.cameraImg, res.data);
+          // Object.assign(this.cameraImg, res.data);
+          this.cameraImg = res.data;
 
           const positionsStr = this.camera.positions;
           if (positionsStr && !this.positionsStr) {
@@ -88,7 +91,6 @@ export class AicScreenInitComponent implements OnInit {
   initDraw() {
     this.canvasImage = new Image();
     this.canvasImage.src = this.camera.apiBase + this.cameraImg.img;
-    // this.canvasImage.src = 'http://localhost:3000/images/126.jpg';
     console.log('initDraw...');
 
     this.canvasImage.onload = event => {
@@ -238,11 +240,11 @@ export class AicScreenInitComponent implements OnInit {
       this.cameraApiService.showErrorMessage('需要4个坐标点(x,y)，8个数字');
       return;
     }
-    const [ltx, lty, rtx, rty, rbx, rby, lbx, lby] = positions;
+    /*const [ltx, lty, rtx, rty, rbx, rby, lbx, lby] = positions;
     if (ltx >= rtx || lbx >= rbx || lty >= lby || rty >= rby) {
       this.cameraApiService.showErrorMessage('请按 左上-右上-右下-左下 的顺序设置4个坐标点');
       return;
-    }
+    }*/
 
     this.processes.initScreenPosition = true;
     this.cameraApiService.initScreenPosition(this.camera.id, positions)

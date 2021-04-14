@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core'
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
@@ -12,6 +12,7 @@ import {CheckRecord} from '../models/check-record';
 import {CheckRecordService} from '../services/check-record.service';
 import {ServerStaticBase} from '../config';
 import {Result} from '../models/result';
+import {ImageViewerComponent} from '../common/viewer/image-viewer.component';
 
 @Component({
   selector: 'app-check-records',
@@ -45,6 +46,15 @@ export class CheckRecordsComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+  viewImage(rec: CheckRecord) {
+    this.dialog.open(
+      ImageViewerComponent, {
+        disableClose: true,
+        width: '680px',
+        data: {url: ServerStaticBase + rec.img}
+      });
   }
 
   viewVideos(rec: CheckRecord) {

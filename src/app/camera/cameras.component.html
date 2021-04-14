@@ -19,8 +19,13 @@
 
 
     <ng-container matColumnDef="apiBase">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>api</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>地址</th>
       <td mat-cell *matCellDef="let row">{{row.apiBase}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="label">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>标签</th>
+      <td mat-cell *matCellDef="let row">{{row.label}}</td>
     </ng-container>
 
     <ng-container matColumnDef="deviceNo">

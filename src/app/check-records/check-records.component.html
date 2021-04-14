@@ -50,6 +50,10 @@
     <th mat-header-cell *matHeaderCellDef>查看</th>
     <td mat-cell *matCellDef="let row">
 
+      <button mat-button (click)="viewImage(row)" class="secondary" *ngIf="row.img">
+        图片
+      </button>
+
       <button mat-button (click)="viewVideos(row)" class="secondary" *ngIf="row.video1">
         录像
       </button>

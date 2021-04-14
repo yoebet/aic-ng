@@ -113,6 +113,10 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<ApiResponse<CameraImg>>('/get_camera_img', cameraId);
   }
 
+  getCameraTransformImg(cameraId: number): Observable<ApiResponse<CameraImg>> {
+    return this.aicPost<ApiResponse<CameraImg>>('/get_camera_transform_img', cameraId);
+  }
+
   initScreenPosition(cameraId: number, positions: number[]): Observable<StringResponse> {
     return this.aicPost<StringResponse>('/init_screen_position', cameraId, {positions});
   }
@@ -179,6 +183,10 @@ export class CameraApiService extends BaseService<Camera> {
 
   stopCheck(cameraId: number): Observable<StringResponse> {
     return this.aicPost<StringResponse>('/stop_check', cameraId);
+  }
+
+  setSystemTime(cameraId: number): Observable<StringResponse> {
+    return this.aicPostForm<ApiResponse<any>>('/set_system_time', cameraId, {date: new Date().getTime()});
   }
 
 }

@@ -3,7 +3,7 @@
 
   <button mat-stroked-button color="primary" (click)="getCheckDetail()" [disabled]="processes.getCheckDetail">
     <mat-icon>data_usage</mat-icon>
-    获取/刷新状态
+    {{deviceStatus ? '刷新' : '获取'}}状态
   </button>
   <button mat-stroked-button color="primary" class="flex-button" (click)="showDeviceConfig()"
           [disabled]="processes.getConfig">
@@ -66,5 +66,18 @@
 
 <div class="images">
   <mat-spinner *ngIf="processes.getCameraImg"></mat-spinner>
-  <img [src]="camera.apiBase+cameraImg.img" *ngIf="cameraImg&&cameraImg.img" width="1080" alt="摄像头画面"/>
+  <div *ngIf="cameraImg&&cameraImg.img">
+    <mat-label>缩放</mat-label>&nbsp;&nbsp;
+    <mat-button-toggle-group name="imageWidth" [(ngModel)]="imageScale">
+      <mat-button-toggle [value]="1">1:1</mat-button-toggle>
+      <mat-button-toggle [value]="2">1:2</mat-button-toggle>
+      <mat-button-toggle [value]="3">1:3</mat-button-toggle>
+      <mat-button-toggle [value]="4">1:4</mat-button-toggle>
+      <mat-button-toggle [value]="5">1:5</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <img [src]="camera.apiBase+cameraImg.img"
+       [width]="imageWidth/imageScale" alt="摄像头画面"
+       (load)="imageWidth=img.naturalWidth" #img
+       *ngIf="cameraImg&&cameraImg.img"/>
 </div>

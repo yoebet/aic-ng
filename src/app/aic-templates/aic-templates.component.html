@@ -19,7 +19,7 @@
   <mat-card *ngFor="let tem of templates" class="template-card">
     <mat-card-header>
       <mat-card-title>{{tem.collectionId}}</mat-card-title>
-      <mat-card-subtitle>参数：{{tem.params.join(',')}}</mat-card-subtitle>
+      <mat-card-subtitle class="subtitle-params">参数：{{tem.params.join(',')}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="camera.apiBase+tem.img" alt="模板图片">
     <!--<mat-card-content>

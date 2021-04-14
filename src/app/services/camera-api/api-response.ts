@@ -68,7 +68,7 @@ export class CheckRecordC extends CID {
 export class CheckDetail extends CID {
   openAppTime?: number;
   systemTime?: number;
-  state?: number;
+  state?: number; // 比对状态， 0：未开启； 1：比对中； 2：等待比对中
 }
 
 export class CameraImg {
