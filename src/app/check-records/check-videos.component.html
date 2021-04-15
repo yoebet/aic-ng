@@ -3,14 +3,22 @@
 </h3>
 
 <mat-dialog-content>
-  <div fxLayout="row wrap">
+  <div fxLayout="column">
+    <mat-card class="video-card" *ngIf="template">
+      <mat-card-header>
+        <mat-card-subtitle>模板图片</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="serverBase+template.img" alt="模板图片">
+      <!--<mat-card-content>
+      </mat-card-content>-->
+    </mat-card>
     <mat-card class="video-card">
       <mat-card-header>
         <!--<mat-card-title></mat-card-title>-->
-         <mat-card-subtitle>比对前</mat-card-subtitle>
+        <mat-card-subtitle>比对前录像</mat-card-subtitle>
       </mat-card-header>
       <video controls="" autoplay="" width="100%">
-        <source [src]="url1" type="video/mp4">
+        <source [src]="serverBase+checkRecord.video1" type="video/mp4">
       </video>
       <!--<mat-card-content>
       </mat-card-content>-->
@@ -18,10 +26,10 @@
     <mat-card class="video-card">
       <mat-card-header>
         <!--<mat-card-title></mat-card-title>-->
-         <mat-card-subtitle>比对后</mat-card-subtitle>
+        <mat-card-subtitle>比对后录像</mat-card-subtitle>
       </mat-card-header>
-      <video controls="" autoplay="" width="100%">
-        <source [src]="url2" type="video/mp4">
+      <video controls="" width="100%">
+        <source [src]="serverBase+checkRecord.video2" type="video/mp4">
       </video>
       <!--<mat-card-content>
       </mat-card-content>-->

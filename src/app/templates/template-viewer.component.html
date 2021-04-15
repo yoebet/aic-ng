@@ -1,0 +1,22 @@
+<h3 mat-dialog-title>
+  模板
+</h3>
+
+<mat-dialog-content>
+  <div fxLayout="column">
+    <mat-card class="video-card">
+      <mat-card-header>
+        <mat-card-title>{{template.collectionId}}</mat-card-title>
+        <!--<mat-card-subtitle>模板图片</mat-card-subtitle>-->
+      </mat-card-header>
+      <img mat-card-image [src]="serverBase+template.img" alt="模板图片">
+      <!--<mat-card-content>
+      </mat-card-content>-->
+    </mat-card>
+  </div>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>关闭</button>
+</div>

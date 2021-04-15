@@ -4,12 +4,12 @@
   </div>
   <span class="spacer"></span>
   <div>
-    <button class="flex-button" mat-stroked-button color="primary" (click)="getRemark()"
-            [disabled]="processes.getRemark">
+    <button class="flex-button" mat-stroked-button color="primary" (click)="list()"
+            [disabled]="processes.list">
       获取/刷新
     </button>
-    <button class="flex-button" mat-stroked-button color="primary" (click)="delRemark()"
-            [disabled]="processes.delRemark">
+    <button class="flex-button" mat-stroked-button color="primary" (click)="deleteAll()"
+            [disabled]="processes.deleteAll">
       全部清除
     </button>
   </div>
@@ -30,8 +30,12 @@
   </ng-container>
 
   <ng-container matColumnDef="collectionId">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>模板ID</th>
-    <td mat-cell *matCellDef="let row">{{row.collectionId}}</td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>模板</th>
+    <td mat-cell *matCellDef="let row">
+      <button class="flex-button" mat-button (click)="viewTemplate(row)">
+        {{row.collectionId}}
+      </button>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="success">
@@ -50,11 +54,11 @@
     <th mat-header-cell *matHeaderCellDef>查看</th>
     <td mat-cell *matCellDef="let row">
 
-      <button mat-button (click)="viewImage(row)" class="secondary" *ngIf="row.img">
+      <button mat-button (click)="viewImage(row)" class="image-button" *ngIf="row.img">
         图片
       </button>
 
-      <button mat-button (click)="viewVideos(row)" class="secondary" *ngIf="row.video1">
+      <button mat-button (click)="viewVideos(row)" class="video-button" *ngIf="row.video1">
         录像
       </button>
     </td>

@@ -1,6 +1,5 @@
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {MatDateFormats} from '@angular/material/core';
-import {MatSnackBarConfig} from '@angular/material/snack-bar/snack-bar-config';
 
 const PaginatorIntl = new MatPaginatorIntl();
 PaginatorIntl.itemsPerPageLabel = '每页条数';
@@ -38,7 +37,8 @@ const DEBUG = window?.location?.href?.indexOf('_DEBUG_') > 0 || false;
 const HeaderNames = {CameraId: 'cid'};
 
 // const ServerStaticBase = 'http://192.168.0.118/aic';
-const ServerStaticBase = 'http://192.168.0.118:3000';
+// const ServerStaticBase = 'http://192.168.0.118:3000';
+const ServerStaticBase = 'http://192.168.1.12:3000';
 
 export {
   PaginatorIntl,

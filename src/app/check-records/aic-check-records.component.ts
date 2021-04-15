@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTable} from '@angular/material/table';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
 import {ApiResponse, CheckRecordC, StringResponse} from '../services/camera-api/api-response';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTable} from '@angular/material/table';
 import {TableDatasource} from '../common/table-datasource';
-import {ImageViewerComponent} from '../common/viewer/image-viewer.component';
-import {CheckVideosComponent} from '../common/viewer/check-videos.component';
+import {ImageViewerComponent} from '../viewer/image-viewer.component';
+import {CheckVideosComponent} from './check-videos.component';
 
 @Component({
   selector: 'app-aic-check-records',
@@ -29,18 +29,6 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
   processes: { [name: string]: boolean } = {};
 
   dataSource: TableDatasource<CheckRecordC>;
-
-  // {
-  //     "collectionId": "bb",
-  //     "checkValue": 0.4117647,
-  //     "time": 1358794544052,
-  //     "checkStatus": false,
-  //     "id": 8,
-  //     "isUpdate": false,
-  //     "path1": "/video/face/VIDEO/2013-01-22/1358794527510.mp4",
-  //     "path2": "/video/face/VIDEO/2013-01-22/1358794532837.mp4",
-  //     "img": "/image/face/img/1358794533581-check.png"
-  // }
 
   displayedColumns: string[] = ['index', 'collectionId', 'checkStatus', 'checkValue', 'time', 'isUpdate', /*'img',*/ 'actions'];
 
@@ -106,7 +94,7 @@ export class AicCheckRecordsComponent implements AfterViewInit, OnInit {
     this.dialog.open(
       CheckVideosComponent, {
         disableClose: true,
-        width: '890px',
+        width: '540px',
         data: {
           url1: this.camera.apiBase + rec.path1,
           url2: this.camera.apiBase + rec.path2

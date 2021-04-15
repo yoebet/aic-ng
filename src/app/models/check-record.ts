@@ -2,6 +2,7 @@ import {Model} from './model';
 
 export class CheckRecord extends Model {
   cameraId?: number;
+  templateId?: number;
 
   collectionId?: string;
   deviceNo?: string;

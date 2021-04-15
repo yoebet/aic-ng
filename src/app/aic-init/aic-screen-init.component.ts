@@ -9,8 +9,6 @@ import {
   StringResponse
 } from '../services/camera-api/api-response';
 import {Camera} from '../models/camera';
-import {Result} from '../models/result';
-import {CameraService} from '../services/camera.service';
 
 
 @Component({
@@ -42,8 +40,7 @@ export class AicScreenInitComponent implements OnInit {
   positionsStr = '';
   positions: { x: number, y: number }[] = [];
 
-  constructor(protected cameraService: CameraService,
-              protected cameraApiService: CameraApiService,
+  constructor(protected cameraApiService: CameraApiService,
               protected dialog: MatDialog,
               protected snackBar: MatSnackBar) {
   }
@@ -55,16 +52,9 @@ export class AicScreenInitComponent implements OnInit {
   }
 
   getCameraImg() {
-    /*if (!this.cameraImg) {
-      return;
-    }
-    if (!this.canvasSetup && this.cameraImg.img) {
-      this.initDraw();
-      return;
-    }*/
     this.processes.getCameraImg = true;
-    this.cameraApiService.getCameraImg(this.camera.id)
-    // this.cameraApiService.getCameraTransformImg(this.camera.id)
+    // this.cameraApiService.getCameraImg(this.camera.id)
+    this.cameraApiService.getCameraTransformImg(this.camera.id)
       .subscribe((res: ApiResponse<CameraImg>) => {
           this.processes.getCameraImg = false;
           // Object.assign(this.cameraImg, res.data);
@@ -240,29 +230,13 @@ export class AicScreenInitComponent implements OnInit {
       this.cameraApiService.showErrorMessage('需要4个坐标点(x,y)，8个数字');
       return;
     }
-    /*const [ltx, lty, rtx, rty, rbx, rby, lbx, lby] = positions;
-    if (ltx >= rtx || lbx >= rbx || lty >= lby || rty >= rby) {
-      this.cameraApiService.showErrorMessage('请按 左上-右上-右下-左下 的顺序设置4个坐标点');
-      return;
-    }*/
 
     this.processes.initScreenPosition = true;
     this.cameraApiService.initScreenPosition(this.camera.id, positions)
       .subscribe((res: StringResponse) => {
           this.processes.initScreenPosition = false;
           this.snackBar.open('初始化画面成功');
-
-          const positionsStr = positions.join(',');
-          this.cameraService.update({
-            id: this.camera.id,
-            positions: positionsStr
-          }).subscribe((opr: Result) => {
-            if (opr.code !== Result.CODE_SUCCESS) {
-              // this.cameraService.showError(opr);
-              return;
-            }
-            this.camera.positions = positionsStr;
-          });
+          this.camera.positions = this.positionsStr;
         },
         error => this.processes.initScreenPosition = false,
         () => this.processes.initScreenPosition = false

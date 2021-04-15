@@ -65,10 +65,10 @@
 
 <div class="status-info" *ngIf="deviceStatus">
   状态：
-  <span class="primary-color">
+  <span class="accent-color">
       {{deviceStatus.state === 0 ? '未开启' : (deviceStatus.state === 1 ? '比对中' : '等待比对')}}
     </span>
   &nbsp;&nbsp;
   模板：
-  <span class="primary-color">{{deviceStatus.collectionId}}</span>
+  <span class="accent-color">{{deviceStatus.collectionId}}</span>
 </div>

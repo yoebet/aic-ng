@@ -34,17 +34,19 @@ import {CameraEditComponent} from './camera/camera-edit.component';
 import {CameraApiService} from './services/camera-api.service';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material/snack-bar';
 import {AicScreenInitComponent} from './aic-init/aic-screen-init.component';
-import {AicTemplatesComponent} from './aic-templates/aic-templates.component';
+import {AicTemplatesComponent} from './templates/aic-templates.component';
 import {AicStatusComponent} from './aic-status/aic-status.component';
 import {AicCheckerComponent} from './camera-debug/aic-checker.component';
 import {AicCheckRecordsComponent} from './check-records/aic-check-records.component';
 import {AicConfigComponent} from './aic-config/aic-config.component';
 import {AicCfgFileComponent} from './aic-config/aic-cfg-file.component';
-import {ImageViewerComponent} from './common/viewer/image-viewer.component';
-import {CheckVideosComponent} from './common/viewer/check-videos.component';
+import {ImageViewerComponent} from './viewer/image-viewer.component';
+import {CheckVideosComponent} from './check-records/check-videos.component';
 import {TimeSpanPipe} from './common/time-span.pipe';
 import {CheckRecordsComponent} from './check-records/check-records.component';
 import {CheckRecordService} from './services/check-record.service';
+import {CheckTemplateService} from './services/check-template.service';
+import {TemplateViewerComponent} from './templates/template-viewer.component';
 
 @NgModule({
   imports: [
@@ -82,7 +84,8 @@ import {CheckRecordService} from './services/check-record.service';
     AicCfgFileComponent,
     ImageViewerComponent,
     CheckVideosComponent,
-    CheckRecordsComponent
+    CheckRecordsComponent,
+    TemplateViewerComponent
   ],
   entryComponents: [
     LoginDialogComponent,
@@ -94,7 +97,8 @@ import {CheckRecordService} from './services/check-record.service';
     AicConfigComponent,
     AicCfgFileComponent,
     ImageViewerComponent,
-    CheckVideosComponent
+    CheckVideosComponent,
+    TemplateViewerComponent
   ],
   providers: [
     UserService,
@@ -103,6 +107,7 @@ import {CheckRecordService} from './services/check-record.service';
     CameraService,
     CameraApiService,
     CheckRecordService,
+    CheckTemplateService,
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

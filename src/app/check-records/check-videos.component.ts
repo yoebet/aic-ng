@@ -1,5 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ServerStaticBase} from '../config';
+import {CheckTemplate} from '../models/check-template';
+import {CheckRecord} from '../models/check-record';
 
 @Component({
   selector: 'app-check-videos',
@@ -7,12 +10,13 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
   styleUrls: ['./check-videos.component.css']
 })
 export class CheckVideosComponent {
-  url1: string;
-  url2: string;
+  template: CheckTemplate;
+  checkRecord: CheckRecord;
+  serverBase = ServerStaticBase;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    this.url1 = data.url1;
-    this.url2 = data.url2;
+    this.template = data.template;
+    this.checkRecord = data.checkRecord;
   }
 
 }

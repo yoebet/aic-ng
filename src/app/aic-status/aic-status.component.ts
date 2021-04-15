@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CameraImg, CheckDetail} from '../services/camera-api/api-response';
+import {ApiResponse, CameraImg, CheckDetail, StringResponse} from '../services/camera-api/api-response';
 import {DeviceConfig} from '../services/camera-api/device-config';
 import {AicConfigComponent} from '../aic-config/aic-config.component';
 import {AicCfgFileComponent} from '../aic-config/aic-cfg-file.component';
@@ -19,6 +19,7 @@ export class AicStatusComponent implements OnInit {
   @Input() cameraImg: CameraImg;
 
   deviceStatus: CheckDetail;
+  canSetSystemTime = false;
   imageScale = 3;
   imageWidth = 3840;
 
@@ -55,9 +56,40 @@ export class AicStatusComponent implements OnInit {
           this.processes.getCheckDetail = false;
           this.deviceStatus = res.data;
           this.snackBar.open('获取设备状态成功');
+
+          const deviceTs = this.deviceStatus.systemTime;
+          if (deviceTs) {
+            const thisTs = new Date().getTime();
+            if (Math.abs(thisTs - deviceTs) > 2 * 60 * 1000) { // n minutes
+              this.canSetSystemTime = true;
+            }
+          }
+
         },
         error => this.processes.getCheckDetail = false,
         () => this.processes.getCheckDetail = false
+      );
+  }
+
+  setSystemTime() {
+    if (!confirm('要同步设备的系统时间吗？')) {
+      return;
+    }
+
+    this.processes.setSystemTime = true;
+    this.cameraApiService.setSystemTime(this.camera.id)
+      .subscribe((res: StringResponse) => {
+          this.processes.setSystemTime = false;
+          this.canSetSystemTime = false;
+          this.snackBar.open('已同步设备的系统时间');
+
+          this.cameraApiService.getCheckDetail(this.camera.id)
+            .subscribe((res2: ApiResponse<CheckDetail>) => {
+              this.deviceStatus = res2.data;
+            });
+        },
+        error => this.processes.setSystemTime = false,
+        () => this.processes.setSystemTime = false
       );
   }
 
