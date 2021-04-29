@@ -35,14 +35,14 @@
                [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
 
     <mat-accordion displayMode="flat" [multi]="true" *ngIf="beenLogin">
-      <mat-expansion-panel class="mat-elevation-z1">
+      <mat-expansion-panel class="mat-elevation-z1" [expanded]="true">
         <mat-expansion-panel-header expandedHeight="48px" collapsedHeight="48px">
           <mat-panel-title>产品测试</mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
-          <a mat-list-item routerLink="/a" class="menu-item"
+          <a mat-list-item routerLink="/tests" class="menu-item"
              routerLinkActive="active-link">
-            <span>Menu 21</span>
+            <span>产品测试</span>
           </a>
           <a mat-list-item routerLink="/b" class="menu-item"
              routerLinkActive="active-link">

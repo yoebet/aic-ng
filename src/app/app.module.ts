@@ -48,6 +48,9 @@ import {CheckRecordService} from './services/check-record.service';
 import {CheckTemplateService} from './services/check-template.service';
 import {TemplateViewerComponent} from './templates/template-viewer.component';
 import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector.component';
+import {ProductTestService} from './services/product-test.service';
+import {ProductTestEditComponent} from './product-test/product-test-edit.component';
+import {ProductTestsComponent} from './product-test/product-tests.component';
 
 @NgModule({
   imports: [
@@ -87,7 +90,9 @@ import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector
     CheckVideosComponent,
     CheckRecordsComponent,
     TemplateViewerComponent,
-    AicTemplateSelectorComponent
+    AicTemplateSelectorComponent,
+    ProductTestEditComponent,
+    ProductTestsComponent
   ],
   entryComponents: [
     LoginDialogComponent,
@@ -111,6 +116,7 @@ import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector
     CameraApiService,
     CheckRecordService,
     CheckTemplateService,
+    ProductTestService,
     {provide: MatPaginatorIntl, useValue: PaginatorIntl},
     {provide: MAT_DATE_LOCALE, useValue: 'zh-cn'},
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

@@ -1,0 +1,39 @@
+<h3 mat-dialog-title>
+  摄像头（{{productTest && productTest.id ? '修改' : '新增'}}）
+</h3>
+
+<mat-dialog-content>
+  <form [formGroup]="form" novalidate>
+
+    <mat-form-field class="full-width">
+      <!--<mat-label>摄像头</mat-label>-->
+      <mat-select placeholder="摄像头" formControlName="cameraId">
+        <mat-option *ngFor="let camera of cameras" [value]="camera.id">
+          标签：{{camera.label}}，地址：{{camera.apiBase}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="产品型号" formControlName="produceModel">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="产品编号" formControlName="produceNo">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput type="number" placeholder="预计测试总时间" formControlName="expectTotalTime">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput type="number" placeholder="操作间隔" formControlName="operationInterval">
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>取消</button>
+  <button mat-button color="primary" cdkFocusInitial (click)="save()">保存</button>
+</div>
