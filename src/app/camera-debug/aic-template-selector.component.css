@@ -1,0 +1,11 @@
+img.template-image {
+  width: 200px;
+}
+
+.template-id {
+  padding-left: 1em;
+}
+
+.mat-list-option.template-option {
+  height: auto;
+}

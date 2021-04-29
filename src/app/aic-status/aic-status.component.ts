@@ -42,10 +42,10 @@ export class AicStatusComponent implements OnInit {
       .subscribe((res: ApiResponse<CameraImg>) => {
           this.processes.getCameraImg = false;
           Object.assign(this.cameraImg, res.data);
-          if(this.cameraImg.img){
+          if (this.cameraImg.img) {
             this.snackBar.open('获取实时画面成功');
-          }else{
-            this.snackBar.open('获取实时画面失败');
+          } else {
+            this.cameraApiService.showErrorMessage('未能获取实时画面');
           }
         },
         error => this.processes.getCameraImg = false,

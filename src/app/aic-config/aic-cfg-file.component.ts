@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
@@ -23,7 +23,6 @@ export class AicCfgFileComponent {
   processes: { [name: string]: boolean } = {};
 
   constructor(protected cameraApiService: CameraApiService,
-              protected dialog: MatDialog,
               protected snackBar: MatSnackBar,
               public dialogRef: MatDialogRef<AicCfgFileComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {

@@ -145,6 +145,10 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<ApiResponse<CID>>('/switch_template', cameraId);
   }
 
+  setTemplate(cameraId: number, collectionId: string): Observable<ApiResponse<CID>> {
+    return this.aicPostForm<ApiResponse<CID>>('/set_template', cameraId, {collectionId});
+  }
+
   getCallbacks(cameraId: number): Observable<ApiResponse<CheckCallbacks>> {
     return this.aicPost<ApiResponse<CheckCallbacks>>('/get_callbacks', cameraId);
   }

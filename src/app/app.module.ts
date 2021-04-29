@@ -47,6 +47,7 @@ import {CheckRecordsComponent} from './check-records/check-records.component';
 import {CheckRecordService} from './services/check-record.service';
 import {CheckTemplateService} from './services/check-template.service';
 import {TemplateViewerComponent} from './templates/template-viewer.component';
+import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import {TemplateViewerComponent} from './templates/template-viewer.component';
     ImageViewerComponent,
     CheckVideosComponent,
     CheckRecordsComponent,
-    TemplateViewerComponent
+    TemplateViewerComponent,
+    AicTemplateSelectorComponent
   ],
   entryComponents: [
     LoginDialogComponent,
@@ -98,7 +100,8 @@ import {TemplateViewerComponent} from './templates/template-viewer.component';
     AicCfgFileComponent,
     ImageViewerComponent,
     CheckVideosComponent,
-    TemplateViewerComponent
+    TemplateViewerComponent,
+    AicTemplateSelectorComponent
   ],
   providers: [
     UserService,

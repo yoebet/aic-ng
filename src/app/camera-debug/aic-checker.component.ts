@@ -4,7 +4,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
-import {ApiResponse, CheckCallbacks, CheckDetail, CID, StringResponse} from '../services/camera-api/api-response';
+import {ApiResponse, CheckCallbacks, CheckDetail, CID, StringResponse, TemplateInfo} from '../services/camera-api/api-response';
+import {AicConfigComponent} from '../aic-config/aic-config.component';
+import {AicTemplateSelectorComponent} from './aic-template-selector.component';
+import {MatDialogRef} from '@angular/material/dialog/dialog-ref';
 
 @Component({
   selector: 'app-aic-checker',
@@ -107,6 +110,48 @@ export class AicCheckerComponent implements OnInit {
         },
         error => this.processes.switchTemplate = false,
         () => this.processes.switchTemplate = false
+      );
+  }
+
+  setTemplate() {
+
+    this.processes.setTemplate = true;
+    this.cameraApiService.getTemplate(this.camera.id)
+      .subscribe((res: ApiResponse<TemplateInfo[]>) => {
+          this.processes.setTemplate = false;
+          const templates = res.data;
+
+          this.dialog.open(
+            AicTemplateSelectorComponent, {
+              disableClose: false,
+              width: '560px',
+              height: '480',
+              data: {camera: this.camera, templates}
+            })
+            .afterClosed().subscribe((selected: TemplateInfo) => {
+            if (selected) {
+              this.doSetTemplate(selected.collectionId);
+            }
+          });
+        },
+        error => this.processes.setTemplate = false,
+        () => this.processes.setTemplate = false
+      );
+
+  }
+
+  doSetTemplate(collectionId: string) {
+    this.cameraApiService.setTemplate(this.camera.id, collectionId)
+      .subscribe((res: ApiResponse<CID>) => {
+          const cid = res.data.collectionId;
+          this.snackBar.open('模板已设置：' + cid);
+          if (this.deviceStatus) {
+            this.deviceStatus.collectionId = cid;
+            if (this.deviceStatus.state === 0) {
+              this.deviceStatus.state = 2;
+            }
+          }
+        }
       );
   }
 

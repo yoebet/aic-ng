@@ -48,6 +48,10 @@
             [disabled]="processes.initCheckTemplate">
       初始化比对模板
     </button>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="setTemplate()"
+            [disabled]="processes.setTemplate">
+      选择模板并比对
+    </button>
     <button class="flex-button" mat-stroked-button color="primary" (click)="switchTemplate()"
             [disabled]="processes.switchTemplate">
       切换模板
@@ -56,6 +60,18 @@
             [disabled]="processes.stopCheck">
       终止比对
     </button>
+  </div>
+</div>
+
+
+<mat-divider class="section-divider"></mat-divider>
+
+<div fxLayout="row wrap">
+  <div class="section-title">
+    状态
+  </div>
+  <span class="spacer"></span>
+  <div>
     <button class="flex-button" mat-stroked-button color="primary" (click)="getCheckDetail()"
             [disabled]="processes.getCheckDetail">
       获取/刷新状态
