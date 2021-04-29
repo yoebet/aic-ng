@@ -9,5 +9,9 @@
 }
 
 .cfg-list .mat-list-item {
-  height: 36px;
+  height: 24px;
+}
+
+.mat-form-field.cfg-text {
+  width: 100%;
 }

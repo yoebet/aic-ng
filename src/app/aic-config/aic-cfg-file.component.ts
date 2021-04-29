@@ -17,6 +17,9 @@ export class AicCfgFileComponent {
   cfg: any;
   cfgItems: { key: string, value: string }[];
 
+  cfgText: string;
+  editing = false;
+
   processes: { [name: string]: boolean } = {};
 
   constructor(protected cameraApiService: CameraApiService,
@@ -27,21 +30,51 @@ export class AicCfgFileComponent {
     this.camera = data.camera;
     this.cfg = data.cfg;
 
+    this.setupCfgItems();
+  }
+
+  private setupCfgItems() {
     this.cfgItems = [];
     const hasOwnProperty = Object.prototype.hasOwnProperty;
     for (const key in this.cfg) {
       if (!hasOwnProperty.call(this.cfg, key)) {
         continue;
       }
-      this.cfgItems.push({key, value: this.cfg[key]});
+      const value = this.cfg[key];
+      this.cfgItems.push({key, value});
     }
+  }
+
+  startEdit() {
+    this.cfgText = this.cfgItems.map(({key, value}) => `${key}=${value}`).join('\n') + '\n';
+    this.editing = true;
+  }
+
+  cancelEdit() {
+    this.editing = false;
   }
 
   setCfg() {
     this.processes.setCfg = true;
-    this.cameraApiService.setCfg(this.camera.id, {})
+    const config: any = {};
+    const items = this.cfgText.split('\n');
+    for (const item of items) {
+      if (!item) {
+        continue;
+      }
+      const [key, value] = item.split('=');
+      if (key) {
+        config[key] = value;
+      }
+    }
+    console.log(config);
+
+    this.cameraApiService.setCfg(this.camera.id, config)
       .subscribe((res: StringResponse) => {
           this.processes.setCfg = false;
+          this.cfg = config;
+          this.setupCfgItems();
+          this.editing = false;
           this.snackBar.open('已修改配置文件');
         },
         error => this.processes.setCfg = false,

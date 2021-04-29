@@ -4,21 +4,26 @@
 
 <mat-dialog-content>
 
-  <mat-list role="list" *ngIf="cfgItems" class="cfg-list">
+  <div align="end">
+    <button mat-button color="primary" (click)="startEdit()" *ngIf="!editing">修改</button>
+    <button mat-button (click)="cancelEdit()" *ngIf="editing">取消</button>
+    <button mat-button color="primary" (click)="setCfg()" [disabled]="processes.setCfg" *ngIf="editing">保存
+    </button>
+  </div>
+
+  <mat-list role="list" *ngIf="!editing&&cfgItems" class="cfg-list">
     <mat-list-item role="listitem" *ngFor="let cfgItem of cfgItems">
       <div class="config-name">{{cfgItem.key}}</div>
-      <div class="config-value">
-        <!--<mat-form-field>
-          <input type="text" matInput [(ngModel)]="cfgItem.value">
-        </mat-form-field>-->
-        {{cfgItem.value}}
-      </div>
+      <div class="config-value">{{cfgItem.value}}</div>
     </mat-list-item>
   </mat-list>
+
+  <mat-form-field class="cfg-text" appearance="outline" *ngIf="editing">
+    <textarea matInput rows="19" spellcheck="false" [(ngModel)]="cfgText"></textarea>
+  </mat-form-field>
 
 </mat-dialog-content>
 
 <div mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>关闭</button>
-  <!--<button mat-button color="primary" cdkFocusInitial (click)="save()">保存</button>-->
 </div>
