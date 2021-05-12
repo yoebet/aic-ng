@@ -30,8 +30,8 @@ export class ProductTestsComponent extends SessionSupportComponent implements Af
 
   cameras: Camera[];
 
-  displayedColumns: string[] = ['index', 'camera', 'operator', 'produceModel', 'produceNo',
-    'testResult', 'status', 'createdAt', 'actions'];
+  displayedColumns: string[] = ['index', 'camera', 'produceModel', 'produceNo',
+    'operator', 'createdAt', 'status', 'testResult', 'actions'];
 
   constructor(protected sessionService: SessionService,
               private cameraService: CameraService,

@@ -96,7 +96,8 @@ export class CheckRecordsComponent implements AfterViewInit, OnInit {
     this.dialog.open(
       CheckVideosComponent, {
         disableClose: true,
-        width: '540px',
+        // width: '540px',
+        maxWidth: '96vw',
         data: {
           template, checkRecord
         }

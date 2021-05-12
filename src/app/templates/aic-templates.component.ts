@@ -67,8 +67,15 @@ export class AicTemplatesComponent implements OnInit {
           if (tr.fail.length > 0) {
             this.cameraApiService.showErrorMessage('添加采集模板失败');
           } else {
+            this.template = null;
             this.snackBar.open('添加采集模板成功');
           }
+
+          this.cameraApiService.getTemplate(this.camera.id)
+            .subscribe((res2: ApiResponse<TemplateInfo[]>) => {
+                this.templates = res2.data;
+              }
+            );
         },
         error => this.processes.addTemplateH = false,
         () => this.processes.addTemplateH = false
@@ -98,6 +105,7 @@ export class AicTemplatesComponent implements OnInit {
       .subscribe((res: StringResponse) => {
           this.processes.delTemplate = false;
           this.templates = [];
+          this.template = null;
           this.snackBar.open('已清除所有模板');
         },
         error => this.processes.delTemplate = false,

@@ -189,6 +189,10 @@ export class CameraApiService extends BaseService<Camera> {
     return this.aicPost<StringResponse>('/stop_check', cameraId);
   }
 
+  startCheck(cameraId: number): Observable<ApiResponse<CID>> {
+    return this.aicPost<ApiResponse<CID>>('/start_check', cameraId);
+  }
+
   setSystemTime(cameraId: number): Observable<StringResponse> {
     return this.aicPostForm<ApiResponse<any>>('/set_system_time', cameraId, {date: new Date().getTime()});
   }

@@ -58,7 +58,11 @@
     </button>
     <button class="flex-button" mat-stroked-button color="primary" (click)="stopCheck()"
             [disabled]="processes.stopCheck">
-      终止比对
+      暂停比对
+    </button>
+    <button class="flex-button" mat-stroked-button color="primary" (click)="startCheck()"
+            [disabled]="processes.startCheck">
+      恢复比对
     </button>
   </div>
 </div>

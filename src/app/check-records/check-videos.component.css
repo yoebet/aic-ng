@@ -1,9 +1,11 @@
-.mat-card.video-card:not(:first-child) {
-  margin-top: 20px;
+.mat-card.video-card:not(:last-child) {
+  /*margin-top: 20px;*/
+  margin-right: 10px;
 }
 
 .mat-card.video-card {
   /*margin-bottom: 10px;*/
   /*width: 360px;*/
   border: 1px solid #c0c0c0;
+  max-width: 400px;
 }

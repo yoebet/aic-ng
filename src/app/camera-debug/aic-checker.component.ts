@@ -94,6 +94,15 @@ export class AicCheckerComponent implements OnInit {
       );
   }
 
+  private setCurrentTemp(cid: string) {
+    if (this.deviceStatus) {
+      this.deviceStatus.collectionId = cid;
+      if (this.deviceStatus.state === 0) {
+        this.deviceStatus.state = 2;
+      }
+    }
+  }
+
   switchTemplate() {
     this.processes.switchTemplate = true;
     this.cameraApiService.switchTemplate(this.camera.id)
@@ -101,12 +110,7 @@ export class AicCheckerComponent implements OnInit {
           this.processes.switchTemplate = false;
           const cid = res.data.collectionId;
           this.snackBar.open('已切换模板：' + cid);
-          if (this.deviceStatus) {
-            this.deviceStatus.collectionId = cid;
-            if (this.deviceStatus.state === 0) {
-              this.deviceStatus.state = 2;
-            }
-          }
+          this.setCurrentTemp(cid);
         },
         error => this.processes.switchTemplate = false,
         () => this.processes.switchTemplate = false
@@ -141,17 +145,30 @@ export class AicCheckerComponent implements OnInit {
   }
 
   doSetTemplate(collectionId: string) {
+    this.processes.setTemplate = true;
     this.cameraApiService.setTemplate(this.camera.id, collectionId)
       .subscribe((res: ApiResponse<CID>) => {
+          this.processes.setTemplate = false;
           const cid = res.data.collectionId;
           this.snackBar.open('模板已设置：' + cid);
-          if (this.deviceStatus) {
-            this.deviceStatus.collectionId = cid;
-            if (this.deviceStatus.state === 0) {
-              this.deviceStatus.state = 2;
-            }
-          }
-        }
+          this.setCurrentTemp(cid);
+        },
+        error => this.processes.setTemplate = false,
+        () => this.processes.setTemplate = false
+      );
+  }
+
+  startCheck() {
+    this.processes.startCheck = true;
+    this.cameraApiService.startCheck(this.camera.id)
+      .subscribe((res: ApiResponse<CID>) => {
+          this.processes.startCheck = false;
+          const cid = res.data.collectionId;
+          this.snackBar.open('已恢复比对：' + cid);
+          this.setCurrentTemp(cid);
+        },
+        error => this.processes.startCheck = false,
+        () => this.processes.startCheck = false
       );
   }
 
@@ -160,7 +177,7 @@ export class AicCheckerComponent implements OnInit {
     this.cameraApiService.stopCheck(this.camera.id)
       .subscribe((res: StringResponse) => {
           this.processes.stopCheck = false;
-          this.snackBar.open('已终止比对');
+          this.snackBar.open('已暂停比对');
         },
         error => this.processes.stopCheck = false,
         () => this.processes.stopCheck = false
