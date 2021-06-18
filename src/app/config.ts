@@ -1,5 +1,6 @@
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {MatDateFormats} from '@angular/material/core';
+import {environment} from '../environments/environment';
 
 const PaginatorIntl = new MatPaginatorIntl();
 PaginatorIntl.itemsPerPageLabel = '每页条数';
@@ -36,9 +37,8 @@ const DEBUG = window?.location?.href?.indexOf('_DEBUG_') > 0 || false;
 
 const HeaderNames = {CameraId: 'cid'};
 
-// const ServerStaticBase = 'http://192.168.0.118/aic';
-// const ServerStaticBase = 'http://192.168.0.118:3000';
-const ServerStaticBase = 'http://192.168.1.12:3000';
+const ServerStaticBase = environment.serverStaticBase;
+const ServerApiBase = environment.serverApiBase;
 
 export {
   PaginatorIntl,
@@ -47,5 +47,6 @@ export {
   MONTH_PICKER_FORMAT,
   DEBUG,
   HeaderNames,
-  ServerStaticBase
+  ServerStaticBase,
+  ServerApiBase
 };

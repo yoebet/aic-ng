@@ -1,0 +1,86 @@
+<mat-toolbar>
+  产品测试
+  <span *ngIf="productTest" class="title-tip">
+      &nbsp;&nbsp;&nbsp;&nbsp; 产品编号: {{productTest.produceNo}}
+  </span>
+  <span class="spacer"></span>
+  <div *ngIf="camera" class="camera-info">
+    <span>
+    摄像头: {{camera.label}}
+    </span>
+    <button mat-button color="primary" (click)="debugCamera()" *ngIf="camera.deviceNo">
+      摄像头调试
+    </button>
+  </div>
+</mat-toolbar>
+
+
+<div *ngIf="productTest">
+
+  <!--  {{productTest.status}}-->
+
+
+
+  <!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button>-->
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>测试设置</ng-template>
+        <div>
+
+          <dl class="test-setting">
+            <dt>产品编号</dt>
+            <dd>{{productTest.produceNo}}</dd>
+          </dl>
+
+        </div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>摄像头初始化</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>自动化测试</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>测试结果</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</div>

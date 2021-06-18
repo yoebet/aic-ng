@@ -1,0 +1,51 @@
+<h3 mat-dialog-title>
+  摄像头调试
+  <span class="title-tip">&nbsp;&nbsp;&nbsp;&nbsp; 地址: {{camera.apiBase}}&nbsp;&nbsp;&nbsp;&nbsp; 标签: {{camera.label}}</span>
+</h3>
+
+<mat-dialog-content>
+
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="状态">
+
+      <app-aic-status [camera]="camera" [cameraImg]="cameraImg"></app-aic-status>
+
+    </mat-tab>
+
+    <mat-tab label="初始化">
+
+      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
+
+    </mat-tab>
+
+    <mat-tab label="模板">
+
+      <app-aic-templates [camera]="camera"></app-aic-templates>
+
+    </mat-tab>
+
+    <mat-tab label="比对">
+
+      <app-aic-checker [camera]="camera"></app-aic-checker>
+
+    </mat-tab>
+
+    <mat-tab label="比对记录">
+
+      <app-aic-check-records [camera]="camera"></app-aic-check-records>
+
+    </mat-tab>
+
+    <mat-tab label="比对记录（回调）">
+
+      <app-check-records [camera]="camera"></app-check-records>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>关闭</button>
+</div>

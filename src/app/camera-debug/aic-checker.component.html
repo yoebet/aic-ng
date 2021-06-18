@@ -4,6 +4,10 @@
   </div>
   <span class="spacer"></span>
   <div>
+    <button class="flex-button" mat-stroked-button color="primary"
+            (click)="fillCallbacks()" *ngIf="checkCallbacks">
+      自动填入
+    </button>
     <button class="flex-button" mat-stroked-button color="primary" (click)="getCallbacks()"
             [disabled]="processes.getCallbacks">
       获取回调设置
@@ -52,10 +56,10 @@
             [disabled]="processes.setTemplate">
       选择模板并比对
     </button>
-    <button class="flex-button" mat-stroked-button color="primary" (click)="switchTemplate()"
+    <!--<button class="flex-button" mat-stroked-button color="primary" (click)="switchTemplate()"
             [disabled]="processes.switchTemplate">
       切换模板
-    </button>
+    </button>-->
     <button class="flex-button" mat-stroked-button color="primary" (click)="stopCheck()"
             [disabled]="processes.stopCheck">
       暂停比对

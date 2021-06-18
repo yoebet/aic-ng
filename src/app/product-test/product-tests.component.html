@@ -69,7 +69,11 @@
 
         <button mat-button (click)="edit(row)" class="secondary">
           <mat-icon>edit</mat-icon>
-          编辑
+          设置
+        </button>
+        <button mat-button routerLink="/tests/{{row.id}}" class="secondary">
+          <mat-icon>play_arrow</mat-icon>
+          进入测试
         </button>
 
         <button mat-button [matMenuTriggerFor]="userActions">

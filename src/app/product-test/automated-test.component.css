@@ -1,0 +1,16 @@
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.camera-info {
+  font-size: 0.9rem;
+}
+
+dl dt, dl dd {
+  display: inline-block;
+}
+
+dl dt {
+  min-width: 5em;
+  color: rgba(0, 0, 0, .7);
+}

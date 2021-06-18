@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiBase: '/api' // 'http://localhost:8080'
+  serverStaticBase: 'http://localhost:3000',
+  serverApiBase: 'http://localhost:3000/api',
+  apiBase: '/api'
 };
 
 /*

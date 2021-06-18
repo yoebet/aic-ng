@@ -51,6 +51,8 @@ import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector
 import {ProductTestService} from './services/product-test.service';
 import {ProductTestEditComponent} from './product-test/product-test-edit.component';
 import {ProductTestsComponent} from './product-test/product-tests.component';
+import {AutomatedTestComponent} from './product-test/automated-test.component';
+import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.component';
 
 @NgModule({
   imports: [
@@ -92,21 +94,23 @@ import {ProductTestsComponent} from './product-test/product-tests.component';
     TemplateViewerComponent,
     AicTemplateSelectorComponent,
     ProductTestEditComponent,
-    ProductTestsComponent
+    ProductTestsComponent,
+    AutomatedTestComponent,
+    CameraDebugDialogComponent
   ],
   entryComponents: [
-    LoginDialogComponent,
-    ChangePwdComponent,
-    UserDetailComponent,
-    UserPwdResetComponent,
-    MessageDialogComponent,
-    CameraEditComponent,
-    AicConfigComponent,
-    AicCfgFileComponent,
-    ImageViewerComponent,
-    CheckVideosComponent,
-    TemplateViewerComponent,
-    AicTemplateSelectorComponent
+    // LoginDialogComponent,
+    // ChangePwdComponent,
+    // UserDetailComponent,
+    // UserPwdResetComponent,
+    // MessageDialogComponent,
+    // CameraEditComponent,
+    // AicConfigComponent,
+    // AicCfgFileComponent,
+    // ImageViewerComponent,
+    // CheckVideosComponent,
+    // TemplateViewerComponent,
+    // AicTemplateSelectorComponent
   ],
   providers: [
     UserService,

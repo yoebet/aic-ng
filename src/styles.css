@@ -236,9 +236,9 @@ table tbody tr:nth-child(2n-1), table > tr:nth-child(2n-1) {
   background-color: #fafafa;
 }
 
-.mat-toolbar .title-tip {
+.mat-toolbar .title-tip, .mat-dialog-title .title-tip {
   font-size: 0.8rem;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   font-weight: normal;
 }
 

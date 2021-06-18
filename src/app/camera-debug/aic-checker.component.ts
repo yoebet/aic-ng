@@ -5,9 +5,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Camera} from '../models/camera';
 import {CameraApiService} from '../services/camera-api.service';
 import {ApiResponse, CheckCallbacks, CheckDetail, CID, StringResponse, TemplateInfo} from '../services/camera-api/api-response';
-import {AicConfigComponent} from '../aic-config/aic-config.component';
 import {AicTemplateSelectorComponent} from './aic-template-selector.component';
-import {MatDialogRef} from '@angular/material/dialog/dialog-ref';
+import {ServerApiBase} from '../config';
 
 @Component({
   selector: 'app-aic-checker',
@@ -17,8 +16,6 @@ import {MatDialogRef} from '@angular/material/dialog/dialog-ref';
 export class AicCheckerComponent implements OnInit {
   @Input() camera: Camera;
 
-  // http://192.168.0.118:3000/api/cb/success
-  // http://192.168.0.118:3000/api/cb/fail
   checkCallbacks: CheckCallbacks;
 
   deviceStatus: CheckDetail;
@@ -33,6 +30,13 @@ export class AicCheckerComponent implements OnInit {
   ngOnInit() {
   }
 
+  fillCallbacks() {
+    if (!this.checkCallbacks) {
+      this.checkCallbacks = new CheckCallbacks();
+    }
+    this.checkCallbacks.checkSuccessTemplate = `${ServerApiBase}/cb/success`;
+    this.checkCallbacks.checkFailTemplate = `${ServerApiBase}/cb/fail`;
+  }
 
   getCallbacks() {
     this.checkCallbacks = new CheckCallbacks();
@@ -103,7 +107,7 @@ export class AicCheckerComponent implements OnInit {
     }
   }
 
-  switchTemplate() {
+  /*switchTemplate() {
     this.processes.switchTemplate = true;
     this.cameraApiService.switchTemplate(this.camera.id)
       .subscribe((res: ApiResponse<CID>) => {
@@ -115,7 +119,7 @@ export class AicCheckerComponent implements OnInit {
         error => this.processes.switchTemplate = false,
         () => this.processes.switchTemplate = false
       );
-  }
+  }*/
 
   setTemplate() {
 
