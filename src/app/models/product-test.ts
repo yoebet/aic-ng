@@ -7,8 +7,8 @@ export class ProductTest extends Model {
   produceModel?: string;
   produceNo?: string;
 
-  expectTotalTime: number; // seconds
-  operationInterval: number; // seconds
+  expectTotalTime: number; // minutes
+  operationInterval: number; // minutes
 
   testStartedAt: Date;
   testCompletedAt: Date;

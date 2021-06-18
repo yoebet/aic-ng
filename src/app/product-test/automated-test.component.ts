@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatStepper} from '@angular/material/stepper';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
@@ -22,11 +23,22 @@ import {CameraDebugDialogComponent} from '../camera-debug/camera-debug-dialog.co
   styleUrls: ['./automated-test.component.css']
 })
 export class AutomatedTestComponent extends SessionSupportComponent implements OnInit {
+  @ViewChild(MatStepper) stepper: MatStepper;
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  productTest: ProductTest;
+  settingForm = this._formBuilder.group({
+    // cameraId: new FormControl(null, [Validators.required]),
+    produceModel: new FormControl(null, [Validators.required]),
+    produceNo: new FormControl(null, [Validators.required]),
+    expectTotalTime: new FormControl(null, [Validators.required]),
+    operationInterval: new FormControl(null, [Validators.required])
+  });
+
+  editing = false;
+
+  productTest: ProductTest = new ProductTest();
 
   camera: Camera;
   cameraImg: CameraImg = new CameraImg();
@@ -91,7 +103,6 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
         () => this.processes.getDeviceNo = false);
   }
 
-
   debugCamera() {
 
     const dialogRef: MatDialogRef<CameraDebugDialogComponent, any> = this.dialog.open(
@@ -106,4 +117,19 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
       });
   }
 
+  editSetting() {
+    const {produceModel, produceNo, expectTotalTime, operationInterval} = this.productTest;
+    this.settingForm.patchValue({produceModel, produceNo, expectTotalTime, operationInterval});
+    this.editing = true;
+    // this.stepper.selectedIndex = 2;
+  }
+
+  cancelSetting() {
+    this.editing = false;
+  }
+
+  saveSetting() {
+    Object.assign(this.productTest, this.settingForm.value);
+    this.editing = false;
+  }
 }

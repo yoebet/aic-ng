@@ -1,3 +1,21 @@
+.test-accordion {
+  margin: 1em;
+}
+
+.test-accordion .mat-expansion-panel-header-title,
+.test-accordion .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.test-accordion .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.test-accordion .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
 .mat-stepper-vertical {
   margin-top: 8px;
 }
@@ -6,11 +24,12 @@
   font-size: 0.9rem;
 }
 
-dl dt, dl dd {
+span.dt {
   display: inline-block;
+  min-width: 8em;
+  color: rgba(0, 0, 0, .7);
 }
 
-dl dt {
-  min-width: 5em;
-  color: rgba(0, 0, 0, .7);
+span.dd {
+  display: inline-block;
 }

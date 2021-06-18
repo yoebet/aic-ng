@@ -15,72 +15,143 @@
 </mat-toolbar>
 
 
-<div *ngIf="productTest">
+<div class="test-accordion">
+  <mat-accordion multi>
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          测试设置
+        </mat-panel-title>
+        <mat-panel-description>
+          信息录入
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <!--  {{productTest.status}}-->
 
+      <form [formGroup]="settingForm" fxLayout="column">
 
-
-  <!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>-->
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>测试设置</ng-template>
-        <div>
-
-          <dl class="test-setting">
-            <dt>产品编号</dt>
-            <dd>{{productTest.produceNo}}</dd>
-          </dl>
-
+        <div fxLayout fxFlexAlign="end">
+          <button mat-button *ngIf="!editing" (click)="editSetting()">修改</button>
+          <button mat-button *ngIf="editing" (click)="cancelSetting()">取消</button>
+          <button mat-button color="primary" *ngIf="editing" (click)="saveSetting()">保存</button>
         </div>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
+
+        <mat-list class="test-setting">
+          <mat-list-item>
+            <span class="dt">摄像头</span>
+            <span class="dd">标签：{{camera?.label}}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <div *ngIf="!editing">
+              <span class="dt">产品型号</span>
+              <span class="dd">{{productTest.produceModel}}</span>
+            </div>
+            <mat-form-field *ngIf="editing">
+              <input matInput placeholder="产品型号" formControlName="produceModel">
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item>
+            <div *ngIf="!editing">
+              <span class="dt">产品编号</span>
+              <span class="dd">{{productTest.produceNo}}</span>
+            </div>
+            <mat-form-field *ngIf="editing">
+              <input matInput placeholder="产品型号" formControlName="produceNo">
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item>
+            <div *ngIf="!editing">
+              <span class="dt">总时间</span>
+              <span class="dd">{{productTest.expectTotalTime}} 分钟</span>
+            </div>
+            <mat-form-field *ngIf="editing">
+              <input matInput type="number" placeholder="测试总时间" formControlName="expectTotalTime">
+              <span matSuffix>分钟</span>
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item>
+            <div *ngIf="!editing">
+              <span class="dt">操作间隔</span>
+              <span class="dd">{{productTest.operationInterval}} 分钟</span>
+            </div>
+            <mat-form-field *ngIf="editing">
+              <input matInput type="number" placeholder="操作间隔" formControlName="operationInterval">
+              <span matSuffix>分钟</span>
+            </mat-form-field>
+          </mat-list-item>
+
+        </mat-list>
+
       </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>摄像头初始化</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>自动化测试</ng-template>
-        <mat-form-field>
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>测试结果</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
 
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          摄像头初始化
+        </mat-panel-title>
+        <mat-panel-description>
+          Type the country name
+          <mat-icon>map</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          自动测试
+        </mat-panel-title>
+        <mat-panel-description>
+          Inform the date you wish to travel
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      <!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button>-->
+      <mat-vertical-stepper #stepper>
+
+        <ng-template matStepperIcon="edit">
+          <mat-icon>done</mat-icon>
+        </ng-template>
+
+        <mat-step label="设置模板">
+          <!--            <ng-template matStepLabel>设置模板</ng-template>-->
+
+          设置模板
+        </mat-step>
+        <mat-step label="模板1比对">
+          <!--            <ng-template matStepLabel>模板1比对</ng-template>-->
+
+          模板1
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>切换模板</ng-template>
+
+          切换
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>模板2比对</ng-template>
+
+          模板2
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>测试结果</ng-template>
+          <p>测试结果</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
+

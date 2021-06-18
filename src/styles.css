@@ -91,6 +91,10 @@ td.th {
   color: #ff4081 !important;
 }
 
+.mat-step-icon.mat-step-icon-selected {
+   background-color: #ff4081;
+ }
+
 .mat-button.secondary, .mat-icon.secondary {
   color: rgba(0, 0, 0, .58)
 }
@@ -124,17 +128,17 @@ button .mat-icon, .mat-icon.mat-icon-20 {
 }
 
 
-.sidenav-container .mat-expansion-panel-body {
+.sidenav .mat-expansion-panel-body {
   padding-left: 0;
   padding-right: 0;
   padding-bottom: 0;
 }
 
-.sidenav-container .mat-expansion-panel-body .mat-nav-list {
+.sidenav .mat-expansion-panel-body .mat-nav-list {
   padding-top: 0;
 }
 
-.sidenav-container .mat-expansion-panel-body .mat-nav-list .mat-list-item span {
+.sidenav .mat-expansion-panel-body .mat-nav-list .mat-list-item span {
   padding-left: 24px;
 }
 
