@@ -33,11 +33,7 @@ export class ProductTestEditComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.productTest = data.productTest;
-    this.cameras = data.cameras.sort((c1, c2) => {
-      const label1Num = +c1.label || 0;
-      const label2Num = +c2.label || 0;
-      return label1Num - label2Num;
-    });
+    this.cameras = data.cameras;
   }
 
   ngOnInit() {

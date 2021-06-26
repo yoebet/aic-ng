@@ -4,6 +4,58 @@
     <span class="spacer"></span>
   </mat-toolbar>
 
+  <div class="table-filter-form">
+
+    <mat-form-field>
+      <mat-select placeholder="摄像头" [(ngModel)]="filterForm['cameraId']">
+        <mat-option [value]="null">
+          （不限）
+        </mat-option>
+        <mat-option *ngFor="let camera of cameras" [value]="camera.id">
+          标签：{{camera.label}}，地址：{{camera.apiBase}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="操作员" [(ngModel)]="filterForm['operatorId']">
+        <mat-option [value]="null">
+          （不限）
+        </mat-option>
+        <mat-option *ngFor="let operator of operators" [value]="operator.id">
+          {{operator.realName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="产品型号 %" [(ngModel)]="filterForm['produceModelLike']">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="产品编号 %" [(ngModel)]="filterForm['produceNoLike']">
+    </mat-form-field>
+
+    <app-date-search [filter]="filterForm" dateFieldName="completeDate" dateName="测试日期"></app-date-search>
+
+    <mat-form-field>
+      <mat-select placeholder="测试结果" [(ngModel)]="filterForm['testResult']">
+        <mat-option [value]="null">（不限）</mat-option>
+        <mat-option value="P">合格</mat-option>
+        <mat-option value="R">不合格</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-button color="primary" (click)="filter()">
+      <mat-icon>search</mat-icon>
+      筛选
+    </button>
+    <button mat-button (click)="resetFilter()">
+      <mat-icon>block</mat-icon>
+      全部
+    </button>
+  </div>
+
   <table mat-table class="full-width" matSort>
 
     <ng-container matColumnDef="index">

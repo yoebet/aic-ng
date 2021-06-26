@@ -26,9 +26,9 @@ export class ProductTestService extends BaseService<ProductTest> {
     return this.list2(url);
   }
 
-  listCompleted(): Observable<ProductTest[]> {
+  listCompleted(params?: any): Observable<ProductTest[]> {
     const url = `${this.baseUrl}/completed`;
-    return this.list2(url);
+    return this.list2(url, params);
   }
 
   startTest(id: number): Observable<Result> {

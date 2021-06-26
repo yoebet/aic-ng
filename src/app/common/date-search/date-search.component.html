@@ -1,0 +1,15 @@
+<mat-form-field>
+  <input matInput [matDatepicker]="dateFromPicker" [placeholder]="dateName"
+         [max]="filter[dateFieldName+'To']||nowDate"
+         [(ngModel)]="filter[dateFieldName+'From']"
+         (dblclick)="filter[dateFieldName+'From']=null">
+  <mat-datepicker-toggle matPrefix="" [for]="dateFromPicker"></mat-datepicker-toggle>
+  <mat-datepicker #dateFromPicker></mat-datepicker>
+</mat-form-field>
+<mat-icon class="mat-icon-20 range-icon secondary">more_horiz</mat-icon>
+<mat-form-field>
+  <input matInput [matDatepicker]="dateToPicker" [placeholder]="dateName" [min]="filter[dateFieldName+'From']"
+         [max]="nowDate" [(ngModel)]="filter[dateFieldName+'To']" (dblclick)="filter[dateFieldName+'To']=null">
+  <mat-datepicker-toggle matSuffix [for]="dateToPicker"></mat-datepicker-toggle>
+  <mat-datepicker #dateToPicker></mat-datepicker>
+</mat-form-field>

@@ -60,6 +60,7 @@ export class ProductTestsComponent extends SessionSupportComponent implements Af
 
     if (!this.cameras) {
       this.cameras = await this.cameraService.list2().toPromise();
+      this.cameras.sort(Camera.Comparator);
     }
 
     const dialogRef: MatDialogRef<ProductTestEditComponent, ProductTest> = this.dialog.open(

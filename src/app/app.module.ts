@@ -54,6 +54,7 @@ import {ProductTestsComponent} from './product-test/product-tests.component';
 import {AutomatedTestComponent} from './product-test/automated-test.component';
 import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.component';
 import {ProductTestsCompletedComponent} from './product-test/product-tests-completed.component';
+import {DateSearchComponent} from './common/date-search/date-search.component';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import {ProductTestsCompletedComponent} from './product-test/product-tests-compl
     ProductTestsComponent,
     AutomatedTestComponent,
     CameraDebugDialogComponent,
-    ProductTestsCompletedComponent
+    ProductTestsCompletedComponent,
+    DateSearchComponent
   ],
   entryComponents: [
   ],
