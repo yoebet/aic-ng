@@ -31,7 +31,7 @@ export class ProductTestsComponent extends SessionSupportComponent implements Af
   cameras: Camera[];
 
   displayedColumns: string[] = ['index', 'camera', 'produceModel', 'produceNo',
-    'operator', 'createdAt', 'status', 'testResult', 'actions'];
+    'operator', 'createdAt', 'status', 'actions'];
 
   constructor(protected sessionService: SessionService,
               private cameraService: CameraService,
@@ -46,7 +46,7 @@ export class ProductTestsComponent extends SessionSupportComponent implements Af
   }
 
   protected withSession(user: User) {
-    this.dataSource.setObservable(this.productTestService.list2());
+    this.dataSource.setObservable(this.productTestService.listCurrent());
   }
 
   ngAfterViewInit() {

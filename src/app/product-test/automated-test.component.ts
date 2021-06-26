@@ -4,7 +4,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatStepper} from '@angular/material/stepper';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
 
 import {User} from '../models/user';
 import {Camera} from '../models/camera';
@@ -16,6 +16,8 @@ import {CameraApiService} from '../services/camera-api.service';
 import {ProductTestService} from '../services/product-test.service';
 import {ProductTest} from '../models/product-test';
 import {CameraDebugDialogComponent} from '../camera-debug/camera-debug-dialog.component';
+import {validateForm} from '../common/utils';
+import {Result} from '../models/result';
 
 @Component({
   selector: 'app-automated-test',
@@ -59,25 +61,21 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
 
   protected withSession(user: User) {
 
-    this.activatedRoute.paramMap.pipe(
-      switchMap((params: ParamMap) => this.productTestService.getById2(+params.get('id')))
-    ).subscribe((productTest: ProductTest) => {
-      this.productTest = productTest;
-      if (!productTest.cameraId) {
-        this.cameraService.showErrorMessage('摄像头未设置');
-        return;
+    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('tid')) {
+        this.productTestService.getById2(+params.get('tid'))
+          .subscribe((productTest: ProductTest) => {
+            this.productTest = productTest;
+            if (!productTest.cameraId) {
+              this.cameraService.showErrorMessage('摄像头未设置');
+              return;
+            }
+            this.loadCamera(productTest.cameraId);
+          });
       }
-      this.cameraService.getById2(productTest.cameraId)
-        .subscribe((camera: Camera) => {
-          if (!camera.apiBase) {
-            this.cameraService.showErrorMessage('摄像头API地址未设置');
-            return;
-          }
-          this.camera = camera;
-          if (!camera.deviceNo) {
-            this.getDeviceNo();
-          }
-        });
+      if (params.get('cid')) {
+        this.loadCamera(+params.get('cid'));
+      }
     });
 
     this.firstFormGroup = this._formBuilder.group({
@@ -86,6 +84,21 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  loadCamera(cameraId) {
+    this.cameraService.getById2(cameraId)
+      .subscribe((camera: Camera) => {
+        if (!camera.apiBase) {
+          this.cameraService.showErrorMessage('摄像头API地址未设置');
+          return;
+        }
+        this.productTest.cameraId = cameraId;
+        this.camera = camera;
+        if (!camera.deviceNo) {
+          this.getDeviceNo();
+        }
+      });
   }
 
   getDeviceNo() {
@@ -104,7 +117,6 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
   }
 
   debugCamera() {
-
     const dialogRef: MatDialogRef<CameraDebugDialogComponent, any> = this.dialog.open(
       CameraDebugDialogComponent, {
         disableClose: true,
@@ -129,7 +141,33 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
   }
 
   saveSetting() {
-    Object.assign(this.productTest, this.settingForm.value);
-    this.editing = false;
+    if (!validateForm(this.settingForm)) {
+      return;
+    }
+    // Save
+    const toSave = Object.assign({}, this.productTest, this.settingForm.value);
+
+    if (this.productTest.id) {
+      delete toSave.createdAt;
+      delete toSave.cameraLabel;
+      this.productTestService.update(toSave)
+        .subscribe((opr: Result) => {
+          if (opr.code !== Result.CODE_SUCCESS) {
+            this.productTestService.showError(opr);
+            return;
+          }
+          Object.assign(this.productTest, toSave);
+          this.editing = false;
+          this.snackBar.open('设置已保存');
+        });
+    } else {
+      this.productTestService.create2(toSave)
+        .subscribe((productTest: ProductTest) => {
+          Object.assign(this.productTest, productTest);
+          this.editing = false;
+          this.snackBar.open('（新产品测试）设置已保存');
+        });
+    }
+
   }
 }

@@ -53,6 +53,7 @@ import {ProductTestEditComponent} from './product-test/product-test-edit.compone
 import {ProductTestsComponent} from './product-test/product-tests.component';
 import {AutomatedTestComponent} from './product-test/automated-test.component';
 import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.component';
+import {ProductTestsCompletedComponent} from './product-test/product-tests-completed.component';
 
 @NgModule({
   imports: [
@@ -96,21 +97,10 @@ import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.com
     ProductTestEditComponent,
     ProductTestsComponent,
     AutomatedTestComponent,
-    CameraDebugDialogComponent
+    CameraDebugDialogComponent,
+    ProductTestsCompletedComponent
   ],
   entryComponents: [
-    // LoginDialogComponent,
-    // ChangePwdComponent,
-    // UserDetailComponent,
-    // UserPwdResetComponent,
-    // MessageDialogComponent,
-    // CameraEditComponent,
-    // AicConfigComponent,
-    // AicCfgFileComponent,
-    // ImageViewerComponent,
-    // CheckVideosComponent,
-    // TemplateViewerComponent,
-    // AicTemplateSelectorComponent
   ],
   providers: [
     UserService,

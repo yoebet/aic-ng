@@ -24,12 +24,32 @@
 
     <mat-form-field class="full-width">
       <input matInput type="number" placeholder="预计测试总时间" formControlName="expectTotalTime">
-      <span matSuffix>分钟</span>
+      <span matSuffix>秒
+        <button color="primary" mat-button (click)="form.patchValue({expectTotalTime:10*60})">
+          10分钟
+        </button>
+        <button color="primary" mat-button (click)="form.patchValue({expectTotalTime:20*60})">
+          20分钟
+        </button>
+        <button color="primary" mat-button (click)="form.patchValue({expectTotalTime:30*60})">
+          30分钟
+        </button>
+      </span>
     </mat-form-field>
 
     <mat-form-field class="full-width">
       <input matInput type="number" placeholder="操作间隔" formControlName="operationInterval">
-      <span matSuffix>分钟</span>
+      <span matSuffix>秒
+        <button color="primary" mat-button (click)="form.patchValue({operationInterval:5*60})">
+          5分钟
+        </button>
+        <button color="primary" mat-button (click)="form.patchValue({operationInterval:10*60})">
+          10分钟
+        </button>
+        <button color="primary" mat-button (click)="form.patchValue({operationInterval:20*60})">
+          20分钟
+        </button>
+      </span>
     </mat-form-field>
 
   </form>

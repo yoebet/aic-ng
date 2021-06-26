@@ -21,6 +21,16 @@ export class ProductTestService extends BaseService<ProductTest> {
     this.baseUrl = `${environment.apiBase}/product_tests`;
   }
 
+  listCurrent(): Observable<ProductTest[]> {
+    const url = `${this.baseUrl}/current`;
+    return this.list2(url);
+  }
+
+  listCompleted(): Observable<ProductTest[]> {
+    const url = `${this.baseUrl}/completed`;
+    return this.list2(url);
+  }
+
   startTest(id: number): Observable<Result> {
     const url = `${this.baseUrl}/${id}/start`;
     return this.pipeDefault(this.http.post<Result>(url, null));
