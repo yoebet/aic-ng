@@ -1,0 +1,19 @@
+table.records {
+  margin-top: 1em;
+}
+
+.check-success {
+  color: green;
+}
+
+.check-fail {
+}
+
+
+.mat-button.video-button {
+  /*color: cadetblue;*/
+}
+
+.mat-button.image-button {
+  color: dodgerblue;
+}

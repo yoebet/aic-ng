@@ -43,7 +43,6 @@ import {AicCfgFileComponent} from './aic-config/aic-cfg-file.component';
 import {ImageViewerComponent} from './viewer/image-viewer.component';
 import {CheckVideosComponent} from './check-records/check-videos.component';
 import {TimeSpanPipe} from './common/time-span.pipe';
-import {CheckRecordsComponent} from './check-records/check-records.component';
 import {CheckRecordService} from './services/check-record.service';
 import {CheckTemplateService} from './services/check-template.service';
 import {TemplateViewerComponent} from './templates/template-viewer.component';
@@ -55,6 +54,8 @@ import {AutomatedTestComponent} from './product-test/automated-test.component';
 import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.component';
 import {ProductTestsCompletedComponent} from './product-test/product-tests-completed.component';
 import {DateSearchComponent} from './common/date-search/date-search.component';
+import {ProductCheckRecordsComponent} from './check-records/product-check-records.component';
+import {CameraCheckRecordsComponent} from './check-records/camera-check-records.component';
 
 @NgModule({
   imports: [
@@ -92,7 +93,6 @@ import {DateSearchComponent} from './common/date-search/date-search.component';
     AicCfgFileComponent,
     ImageViewerComponent,
     CheckVideosComponent,
-    CheckRecordsComponent,
     TemplateViewerComponent,
     AicTemplateSelectorComponent,
     ProductTestEditComponent,
@@ -100,7 +100,9 @@ import {DateSearchComponent} from './common/date-search/date-search.component';
     AutomatedTestComponent,
     CameraDebugDialogComponent,
     ProductTestsCompletedComponent,
-    DateSearchComponent
+    DateSearchComponent,
+    CameraCheckRecordsComponent,
+    ProductCheckRecordsComponent
   ],
   entryComponents: [
   ],

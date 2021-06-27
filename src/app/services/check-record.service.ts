@@ -25,6 +25,10 @@ export class CheckRecordService extends BaseService<CheckRecord> {
     return this.list2(`${this.baseUrl}/c/${cameraId}`);
   }
 
+  listByProductTest(testId: number): Observable<CheckRecord[]> {
+    return this.list2(`${this.baseUrl}/t/${testId}`);
+  }
+
   deleteAllByCamera(cameraId: number): Observable<Result> {
     const url = `${this.baseUrl}/c/${cameraId}`;
     return this.pipeDefault(this.http.delete<Result>(url));
