@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatStepper} from '@angular/material/stepper';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -16,7 +16,6 @@ import {CameraApiService} from '../services/camera-api.service';
 import {ProductTestService} from '../services/product-test.service';
 import {ProductTest} from '../models/product-test';
 import {CameraDebugDialogComponent} from '../camera-debug/camera-debug-dialog.component';
-import {validateForm} from '../common/utils';
 import {Result} from '../models/result';
 
 @Component({
@@ -29,16 +28,6 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-
-  settingForm = this._formBuilder.group({
-    // cameraId: new FormControl(null, [Validators.required]),
-    produceModel: new FormControl(null, [Validators.required]),
-    produceNo: new FormControl(null, [Validators.required]),
-    expectTotalTime: new FormControl(null, [Validators.required]),
-    operationInterval: new FormControl(null, [Validators.required])
-  });
-
-  editing = false;
 
   productTest: ProductTest = new ProductTest();
 
@@ -53,11 +42,10 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
               private cameraApiService: CameraApiService,
               private dialog: MatDialog,
               private snackBar: MatSnackBar,
-              private _formBuilder: FormBuilder,
+              private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute) {
     super(sessionService);
   }
-
 
   protected withSession(user: User) {
 
@@ -78,10 +66,10 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
       }
     });
 
-    this.firstFormGroup = this._formBuilder.group({
+    this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
   }
@@ -129,45 +117,25 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
       });
   }
 
-  editSetting() {
-    const {produceModel, produceNo, expectTotalTime, operationInterval} = this.productTest;
-    this.settingForm.patchValue({produceModel, produceNo, expectTotalTime, operationInterval});
-    this.editing = true;
-    // this.stepper.selectedIndex = 2;
+
+  startTest() {
+    this.productTestService.startTest(this.productTest.id)
+      .subscribe((result: Result) => {
+        // ...
+
+        this.snackBar.open('测试已开始');
+        this.processes.startTest = false;
+      });
   }
 
-  cancelSetting() {
-    this.editing = false;
-  }
 
-  saveSetting() {
-    if (!validateForm(this.settingForm)) {
-      return;
-    }
-    // Save
-    const toSave = Object.assign({}, this.productTest, this.settingForm.value);
+  completeTest(testResult: string) {
+    this.productTestService.completeTest(this.productTest.id, testResult)
+      .subscribe((result: Result) => {
+        // ...
 
-    if (this.productTest.id) {
-      delete toSave.createdAt;
-      delete toSave.cameraLabel;
-      this.productTestService.update(toSave)
-        .subscribe((opr: Result) => {
-          if (opr.code !== Result.CODE_SUCCESS) {
-            this.productTestService.showError(opr);
-            return;
-          }
-          Object.assign(this.productTest, toSave);
-          this.editing = false;
-          this.snackBar.open('设置已保存');
-        });
-    } else {
-      this.productTestService.create2(toSave)
-        .subscribe((productTest: ProductTest) => {
-          Object.assign(this.productTest, productTest);
-          this.editing = false;
-          this.snackBar.open('（新产品测试）设置已保存');
-        });
-    }
-
+        this.snackBar.open('测试完成，。。');
+        this.processes.completeTest = false;
+      });
   }
 }

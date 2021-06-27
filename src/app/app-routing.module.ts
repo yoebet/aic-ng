@@ -6,7 +6,7 @@ import {UsersComponent} from './user/users.component';
 import {CamerasComponent} from './camera/cameras.component';
 import {CameraDebugComponent} from './camera-debug/camera-debug.component';
 import {ProductTestsComponent} from './product-test/product-tests.component';
-import {AutomatedTestComponent} from './product-test/automated-test.component';
+import {AutomatedTestComponent} from './product-test-flow/automated-test.component';
 import {ProductTestsCompletedComponent} from './product-test/product-tests-completed.component';
 import {ProductCheckRecordsComponent} from './check-records/product-check-records.component';
 

@@ -1,0 +1,81 @@
+<form [formGroup]="settingForm" fxLayout="column">
+
+  <div fxLayout fxFlexAlign="end">
+    <button mat-button *ngIf="!editing" (click)="editSetting()">修改</button>
+    <button mat-button *ngIf="editing" (click)="cancelSetting()">取消</button>
+    <button mat-button color="primary" *ngIf="editing" (click)="saveSetting()">保存</button>
+  </div>
+
+  <mat-list class="test-setting">
+    <mat-list-item>
+      <span class="dt">摄像头</span>
+      <span class="dd">标签：{{camera?.label}}</span>
+    </mat-list-item>
+    <mat-list-item>
+      <div *ngIf="!editing">
+        <span class="dt">产品型号</span>
+        <span class="dd">{{productTest.produceModel}}</span>
+      </div>
+      <mat-form-field *ngIf="editing">
+        <input matInput placeholder="产品型号" formControlName="produceModel">
+      </mat-form-field>
+    </mat-list-item>
+    <mat-list-item>
+      <div *ngIf="!editing">
+        <span class="dt">产品编号</span>
+        <span class="dd">{{productTest.produceNo}}</span>
+      </div>
+      <mat-form-field *ngIf="editing">
+        <input matInput placeholder="产品编号" formControlName="produceNo">
+      </mat-form-field>
+    </mat-list-item>
+    <mat-list-item>
+      <div *ngIf="!editing">
+        <span class="dt">总时间</span>
+        <span class="dd">{{productTest.expectTotalTime}} 秒</span>
+      </div>
+      <ng-template [ngIf]="editing">
+        <mat-form-field>
+          <input matInput type="number" placeholder="测试总时间" formControlName="expectTotalTime">
+          <span matSuffix>秒</span>
+        </mat-form-field>
+        <span>
+                <button color="primary" mat-button (click)="settingForm.patchValue({expectTotalTime:10*60})">
+                  10分钟
+                </button>
+                <button color="primary" mat-button (click)="settingForm.patchValue({expectTotalTime:20*60})">
+                  20分钟
+                </button>
+                <button color="primary" mat-button (click)="settingForm.patchValue({expectTotalTime:30*60})">
+                  30分钟
+                </button>
+              </span>
+      </ng-template>
+    </mat-list-item>
+    <mat-list-item>
+      <div *ngIf="!editing">
+        <span class="dt">操作间隔</span>
+        <span class="dd">{{productTest.operationInterval}} 秒</span>
+      </div>
+      <ng-template [ngIf]="editing">
+        <mat-form-field>
+          <input matInput type="number" placeholder="操作间隔" formControlName="operationInterval">
+          <span matSuffix>秒</span>
+        </mat-form-field>
+        <span>
+                <button color="primary" mat-button (click)="settingForm.patchValue({operationInterval:5*60})">
+                  5分钟
+                </button>
+                <button color="primary" mat-button (click)="settingForm.patchValue({operationInterval:10*60})">
+                  10分钟
+                </button>
+                <button color="primary" mat-button (click)="settingForm.patchValue({operationInterval:20*60})">
+                  20分钟
+                </button>
+              </span>
+      </ng-template>
+    </mat-list-item>
+
+  </mat-list>
+
+</form>

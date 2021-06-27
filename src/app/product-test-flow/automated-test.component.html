@@ -1,0 +1,125 @@
+<mat-toolbar>
+  产品测试
+  <span *ngIf="productTest" class="title-tip">
+      &nbsp;&nbsp;&nbsp;&nbsp; 产品编号: {{productTest.produceNo}}
+  </span>
+  <span class="spacer"></span>
+  <div *ngIf="camera" class="camera-info">
+    <span>
+    摄像头: {{camera.label}}
+    </span>
+    <button mat-button color="primary" (click)="debugCamera()" *ngIf="camera.deviceNo">
+      摄像头调试
+    </button>
+  </div>
+</mat-toolbar>
+
+
+<div class="test-accordion">
+  <mat-accordion>
+    <mat-expansion-panel expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          测试设置
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon>list</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-product-test-setting [productTest]="productTest" [camera]="camera"></app-product-test-setting>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          摄像头初始化
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon>fullscreen</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          自动化测试
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon>play_arrow</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div fxLayoutAlign="end">
+        <button mat-stroked-button color="primary" (click)="startTest()" [disabled]="processes.startTest">
+          <mat-icon>image</mat-icon>
+          开始测试
+        </button>
+        <!--<button mat-stroked-button color="primary" (click)="initDraw()" [disabled]="processes.initScreenPosition">
+          <mat-icon>fullscreen</mat-icon>
+          开始设置
+        </button>-->
+      </div>
+
+      <!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+        {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+      </button>-->
+      <mat-vertical-stepper #stepper>
+
+        <ng-template matStepperIcon="edit">
+          <mat-icon>done</mat-icon>
+        </ng-template>
+
+        <mat-step label="设置模板">
+          <!--            <ng-template matStepLabel>设置模板</ng-template>-->
+
+          设置模板
+        </mat-step>
+        <mat-step label="模板1比对">
+          <!--            <ng-template matStepLabel>模板1比对</ng-template>-->
+
+          模板1
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>切换模板</ng-template>
+
+          切换
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>模板2比对</ng-template>
+
+          模板2
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>测试结果</ng-template>
+          <p>完成</p>
+        </mat-step>
+      </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          测试结果 &amp; 开始新测试
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+          <mat-icon>flaky</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

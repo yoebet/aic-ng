@@ -56,6 +56,8 @@ export class ProductTestEditComponent implements OnInit {
     if (this.productTest.id) {
       delete toSave.createdAt;
       delete toSave.cameraLabel;
+      delete toSave.cameraApiBase;
+      delete toSave.operatorName;
       this.productTestService.update(toSave)
         .subscribe((opr: Result) => {
           if (opr.code !== Result.CODE_SUCCESS) {

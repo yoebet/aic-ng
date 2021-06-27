@@ -50,12 +50,13 @@ import {AicTemplateSelectorComponent} from './camera-debug/aic-template-selector
 import {ProductTestService} from './services/product-test.service';
 import {ProductTestEditComponent} from './product-test/product-test-edit.component';
 import {ProductTestsComponent} from './product-test/product-tests.component';
-import {AutomatedTestComponent} from './product-test/automated-test.component';
+import {AutomatedTestComponent} from './product-test-flow/automated-test.component';
 import {CameraDebugDialogComponent} from './camera-debug/camera-debug-dialog.component';
 import {ProductTestsCompletedComponent} from './product-test/product-tests-completed.component';
 import {DateSearchComponent} from './common/date-search/date-search.component';
 import {ProductCheckRecordsComponent} from './check-records/product-check-records.component';
 import {CameraCheckRecordsComponent} from './check-records/camera-check-records.component';
+import {ProductTestSettingComponent} from './product-test-flow/product-test-setting.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import {CameraCheckRecordsComponent} from './check-records/camera-check-records.
     ProductTestsCompletedComponent,
     DateSearchComponent,
     CameraCheckRecordsComponent,
-    ProductCheckRecordsComponent
+    ProductCheckRecordsComponent,
+    ProductTestSettingComponent
   ],
   entryComponents: [
   ],

@@ -23,13 +23,3 @@
 .camera-info {
   font-size: 0.9rem;
 }
-
-span.dt {
-  display: inline-block;
-  min-width: 8em;
-  color: rgba(0, 0, 0, .7);
-}
-
-span.dd {
-  display: inline-block;
-}
