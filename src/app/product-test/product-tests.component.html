@@ -47,8 +47,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>测试状态</th>
       <td mat-cell *matCellDef="let row">
         <span *ngIf="row.status === 'I'">未开始</span>
-        <span *ngIf="row.status === 'R'">进行中</span>
-        <span *ngIf="row.status === 'D'">已完成</span>
+        <span *ngIf="row.status === 'R'" class="accent-color">已开始</span>
+        <span *ngIf="row.status === 'D'" class="primary-color">已完成</span>
       </td>
     </ng-container>
 

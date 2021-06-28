@@ -17,7 +17,7 @@
 
 <div class="test-accordion">
   <mat-accordion>
-    <mat-expansion-panel expanded="true">
+    <mat-expansion-panel expanded="true" #settingPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           测试设置
@@ -28,10 +28,12 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <app-product-test-setting [productTest]="productTest" [camera]="camera"></app-product-test-setting>
+      <app-product-test-setting [productTest]="productTest"
+                                [camera]="camera"
+                                (saved)="onSettingSaved($event)"></app-product-test-setting>
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel #cameraInitPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           摄像头初始化
@@ -42,11 +44,13 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <app-aic-screen-init [camera]="camera"></app-aic-screen-init>
+      <app-aic-screen-init [camera]="camera"
+                           [autoLoad]="true"
+                           (saved)="onCameraInitialized($event)"></app-aic-screen-init>
 
     </mat-expansion-panel>
 
-    <mat-expansion-panel>
+    <mat-expansion-panel #automatedPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           自动化测试
@@ -59,7 +63,7 @@
 
       <div fxLayoutAlign="end">
         <button mat-stroked-button color="primary" (click)="startTest()" [disabled]="processes.startTest">
-          <mat-icon>image</mat-icon>
+          <mat-icon>play_arrow</mat-icon>
           开始测试
         </button>
         <!--<button mat-stroked-button color="primary" (click)="initDraw()" [disabled]="processes.initScreenPosition">
@@ -107,7 +111,7 @@
       </mat-vertical-stepper>
 
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel #resultPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           测试结果 &amp; 开始新测试

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 
 import {ProductTestService} from '../services/product-test.service';
@@ -17,6 +17,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class ProductTestSettingComponent implements OnInit {
   @Input() productTest: ProductTest;
   @Input() camera: Camera;
+
+  @Output() saved: EventEmitter<string> = new EventEmitter<string>();
 
   settingForm = this.formBuilder.group({
     // cameraId: new FormControl(null, [Validators.required]),
@@ -72,6 +74,8 @@ export class ProductTestSettingComponent implements OnInit {
           Object.assign(this.productTest, toSave);
           this.editing = false;
           this.snackBar.open('设置已保存');
+
+          this.saved.emit('update');
         });
     } else {
       this.productTestService.create2(toSave)
@@ -79,6 +83,8 @@ export class ProductTestSettingComponent implements OnInit {
           Object.assign(this.productTest, productTest);
           this.editing = false;
           this.snackBar.open('（新产品测试）设置已保存');
+
+          this.saved.emit('create');
         });
     }
 

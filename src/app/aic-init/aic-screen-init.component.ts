@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -16,9 +16,12 @@ import {Camera} from '../models/camera';
   templateUrl: './aic-screen-init.component.html',
   styleUrls: ['./aic-screen-init.component.css']
 })
-export class AicScreenInitComponent implements OnInit {
+export class AicScreenInitComponent implements OnInit, OnChanges {
   @ViewChild('canvas') canvas: ElementRef;
   @Input() camera: Camera;
+  @Input() autoLoad = false;
+
+  @Output() saved: EventEmitter<string> = new EventEmitter<string>();
 
   cameraImg: CameraImg;
 
@@ -49,6 +52,14 @@ export class AicScreenInitComponent implements OnInit {
     /*if (this.cameraImg && this.cameraImg.img) {
       this.initDraw();
     }*/
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.camera) {
+      if (this.autoLoad && this.camera) {
+        this.getCameraImg();
+      }
+    }
   }
 
   getCameraImg() {
@@ -237,6 +248,8 @@ export class AicScreenInitComponent implements OnInit {
           this.processes.initScreenPosition = false;
           this.snackBar.open('初始化画面成功');
           this.camera.positions = this.positionsStr;
+
+          this.saved.emit('');
         },
         error => this.processes.initScreenPosition = false,
         () => this.processes.initScreenPosition = false

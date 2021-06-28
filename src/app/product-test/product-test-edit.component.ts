@@ -14,7 +14,6 @@ import {Camera} from '../models/camera';
   templateUrl: './product-test-edit.component.html',
   styleUrls: ['./product-test-edit.component.css']
 })
-
 export class ProductTestEditComponent implements OnInit {
   form = this.fb.group({
     cameraId: new FormControl(null, [Validators.required]),

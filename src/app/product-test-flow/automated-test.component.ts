@@ -17,6 +17,7 @@ import {ProductTestService} from '../services/product-test.service';
 import {ProductTest} from '../models/product-test';
 import {CameraDebugDialogComponent} from '../camera-debug/camera-debug-dialog.component';
 import {Result} from '../models/result';
+import {MatExpansionPanel} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-automated-test',
@@ -24,6 +25,11 @@ import {Result} from '../models/result';
   styleUrls: ['./automated-test.component.css']
 })
 export class AutomatedTestComponent extends SessionSupportComponent implements OnInit {
+  @ViewChild('settingPanel') settingPanel: MatExpansionPanel;
+  @ViewChild('cameraInitPanel') cameraInitPanel: MatExpansionPanel;
+  @ViewChild('automatedPanel') automatedPanel: MatExpansionPanel;
+  @ViewChild('resultPanel') resultPanel: MatExpansionPanel;
+
   @ViewChild(MatStepper) stepper: MatStepper;
   isLinear = false;
   firstFormGroup: FormGroup;
@@ -117,6 +123,15 @@ export class AutomatedTestComponent extends SessionSupportComponent implements O
       });
   }
 
+  onSettingSaved($event){
+    this.cameraInitPanel.open();
+  }
+
+  onCameraInitialized($event){
+    this.automatedPanel.open();
+
+
+  }
 
   startTest() {
     this.productTestService.startTest(this.productTest.id)
